@@ -64,16 +64,16 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
   letter-spacing:0;
 }
 
-/* صف الـ PIN له خطه الخاص من كل input */
+/* صف الـ PIN بدون خط سفلي */
 #row-pin{
-  border-bottom: 2px solid #ccc;
+  border-bottom: none;
   padding-bottom: 8px;
 }
-#row-pin.bad{
+#row-pin.bad .pins input{
   border-bottom-color: #e74c3c;
 }
 #row-pin:focus-within{
-  border-bottom-color: #000;
+  border-color: transparent;
 }
 
 .lnk-sm{font-size:13px;color:#777;text-decoration:underline;cursor:pointer;background:none;border:none;font-family:'Cairo',sans-serif}
