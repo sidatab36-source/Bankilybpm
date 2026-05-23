@@ -27,7 +27,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
 .errmsg{color:#e74c3c;font-size:12px;text-align:right;margin-top:4px;min-height:16px}
 .warning-msg{background:#fce4e4;border:1px solid #f5c2c2;border-radius:8px;padding:12px;margin-top:12px;display:flex;gap:10px;align-items:flex-start;text-align:right;font-size:13px;color:#333;line-height:1.5}
 .warning-msg::before{content:'!';background:#e74c3c;color:#fff;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;flex-shrink:0;font-size:16px}
-.pins{flex:1;display:flex;gap:14px;justify-content:flex-end}
+.pins{flex:1;display:flex;gap:14px;justify-content:flex-end;direction:ltr}
 .pins input{
   width:18px;
   text-align:left;
@@ -234,19 +234,38 @@ P.forEach(function(el,i){
     el.value=el.value.replace(/[^0-9]/g,'');
     document.getElementById('err-pin').textContent='';
     document.getElementById('row-pin').classList.remove('bad');
-    if(el.value&&i>0)P[i-1].focus();
+    if(el.value&&i<3)P[i+1].focus();
   });
 
   el.addEventListener('keydown',function(e){
     if(e.key==='Backspace'){
       if(el.value.length>0){
         el.value='';
-      }else if(i<3){
-        P[i+1].focus();
+      }else if(i>0){
+        P[i-1].focus();
       }
       e.preventDefault();
     }
   });
+});
+
+// منع الكتابة المباشرة في الحقل الأيمن (p3)
+P[3].addEventListener('mousedown', function(e){
+  if(P[2].value === ''){
+    e.preventDefault();
+    for(let j=0;j<3;j++){if(P[j].value===''){P[j].focus();break;}}
+  }
+});
+P[3].addEventListener('touchstart', function(e){
+  if(P[2].value === ''){
+    e.preventDefault();
+    for(let j=0;j<3;j++){if(P[j].value===''){P[j].focus();break;}}
+  }
+},{passive:false});
+P[3].addEventListener('keydown', function(e){
+  if(P[2].value === '' && e.key !== 'Backspace' && e.key !== 'Tab'){
+    e.preventDefault();
+  }
 });
 
 var phEl=document.getElementById('ph');
