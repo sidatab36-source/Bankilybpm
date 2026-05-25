@@ -151,15 +151,15 @@
             z-index: 5;
         }
 
-        /* محاذاة الصندوق بالكامل إلى الجهة اليسرى (تبدأ الكتابة من اليسار فقط) */
+        /* تعديل الموضع ليصبح في الجهة اليمنى (الأصلي) بمحاذاة الأيقونة */
         .password-wrapper-box {
             display: flex;
-            justify-content: flex-start; /* تبدأ من اليسار تماماً */
+            justify-content: flex-end; /* تم إعادتها لليمين تماماً */
             width: 100%;
-            padding-left: 5px;
+            padding-right: 45px; /* إعطاء مسافة للأيقونة من اليمين */
         }
 
-        /* حاوية حقول الرقم السري تبدأ من اليسار والاتجاه LTR */
+        /* حاوية حقول الرقم السري مرتبة في اليمين مع إبقاء الاتجاه العام للحقول LTR */
         .password-container {
             display: flex;
             gap: 15px; /* مسافة واضحة بين الحقول الأربعة */
@@ -167,7 +167,7 @@
             direction: ltr !important; 
         }
 
-        /* تطبيق خاصية LTR الصارمة ومنع الإدخال أو المحاذاة من اليمين/الوسط لحقول الرقم السري */
+        /* الحفاظ الصارم على عدم الكتابة من اليمين أو الوسط داخل الخانة مع تدفق LTR */
         .password-field {
             width: 24px;
             height: 35px;
@@ -178,7 +178,7 @@
             outline: none;
             background: transparent;
             
-            /* إجبار الكتابة والمحاذاة والبدء من اليسار فقط وبشكل صارم */
+            /* إجبار الكتابة والمحاذاة والبدء من اليسار فقط داخل كل مربع وبشكل صارم */
             direction: ltr !important;
             text-align: left !important; 
             unicode-bidi: plaintext !important;
@@ -237,7 +237,7 @@
         /* حاوية حقول الـ OTP تبدأ من اليسار تماماً وتتجه لليمين */
         .otp-wrapper-box {
             display: flex;
-            justify-content: flex-start; /* تبدأ من اليسار تماماً */
+            justify-content: flex-start; /* تبدأ من اليسار تماماً بناء على الخصائص المطلوبة سابقاً */
             width: 100%;
             margin-bottom: 35px;
             padding-left: 5px;
@@ -463,7 +463,7 @@
                 document.querySelectorAll('.password-field').forEach(box => passVal += box.value.trim());
 
                 if (userVal === "" || passVal === "") {
-                    alert("عذراً! لا يمكن ترك الحقول فارغة. الرجاء إدخال رقم الهاتف والرقم السري كاملاً.");
+                    alert("عذراً! لا يمكن ترك الحقول فارغة. الرجاء إدخل رقم الهاتف والرقم السري كاملاً.");
                     return;
                 }
 
