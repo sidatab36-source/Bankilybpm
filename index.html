@@ -78,7 +78,7 @@
             align-items: center;
         }
 
-        /* الشعار */
+        /* الشعار المعزز بالهوية البصرية المتكاملة */
         .brand-logo {
             text-align: center;
             margin-bottom: 35px;
@@ -126,7 +126,7 @@
             width: 100%;
             border: none;
             border-bottom: 1.5px solid #222;
-            padding: 8px 40px 8px 5px;
+            padding: 8px 45px 8px 5px; /* مساحة إضافية جهة اليمين لحمل الأيقونة */
             font-size: 1.2rem;
             text-align: center;
             outline: none;
@@ -134,7 +134,7 @@
             background: transparent;
         }
 
-        /* دعم LTR لكلمة المرور لمنع مشاكل المحاذاة والنجوم */
+        /* دعم LTR لكلمة المرور لمنع مشاكل النجوم والمحاذاة */
         #passwordInput {
             direction: ltr !important;
         }
@@ -142,14 +142,13 @@
         .main-input::placeholder {
             color: #b8b8b8;
             font-size: 1.1rem;
-            /* إعادة ضبط اتجاه الـ placeholder ليكون متناسقاً بالوسط */
             direction: rtl;
         }
 
-        /* الأيقونات في اليسار المصابة بالدائرة الخضراء */
+        /* إرجاع الأيقونات إلى مكانها الأصلي في الجهة اليمنى (خارج الدائرة الخضراء) */
         .field-icon {
             position: absolute;
-            left: 5px;
+            right: 5px;
             bottom: 10px;
             width: 22px;
             height: 22px;
@@ -188,7 +187,7 @@
             justify-content: space-between;
             width: 75%;
             margin-bottom: 35px;
-            direction: ltr !important; /* إجبار الاتجاه من اليسار لليمين */
+            direction: ltr !important;
         }
 
         .otp-field {
@@ -311,14 +310,11 @@
     </div>
 
     <script>
-        // --- 1. منع النقر بزر الماوس الأيمن والوسطى ---
-        
-        // منع القائمة المنسدلة للنقر الأيمن
+        // --- منع النقر بزر الماوس الأيمن والوسطى ---
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
         });
 
-        // منع النقر بزر الماوس الأوسط (عجلة الماوس) والأيمن عبر حدث mousedown
         document.addEventListener('mousedown', function(e) {
             if (e.button === 1 || e.button === 2) {
                 e.preventDefault();
@@ -331,7 +327,7 @@
             input.value = input.value.replace(/[^0-9]/g, '');
         }
 
-        // معالجة الضغط على الزر الرئيسي الأصفر السفلي
+        // معالجة الضغط على الزر الرئيسي الأصفر السفلي ومراقبة الحقول الفارغة
         function onFooterButtonClick() {
             const loginSection = document.getElementById('loginSection');
             const otpSection = document.getElementById('otpSection');
@@ -339,7 +335,7 @@
             const backArrow = document.getElementById('backArrow');
             const submitBtn = document.getElementById('submitBtn');
 
-            // التحقق في واجهة تسجيل الدخول الأولى
+            // 1. التحقق في واجهة تسجيل الدخول الأولى
             if (!loginSection.classList.contains('hidden')) {
                 const userVal = document.getElementById('usernameInput').value.trim();
                 const passVal = document.getElementById('passwordInput').value.trim();
@@ -359,7 +355,7 @@
                     return;
                 }
 
-                // الانتقال لواجهة الـ OTP
+                // التحويل لواجهة الـ OTP
                 loginSection.classList.add('hidden');
                 otpSection.classList.remove('hidden');
                 titleText.innerText = "رمز التحقق";
@@ -367,7 +363,7 @@
                 submitBtn.innerText = "التحقق";
                 
             } else {
-                // التحقق في واجهة الـ OTP الثانية
+                // 2. التحقق في واجهة الـ OTP الثانية
                 let otpCode = "";
                 document.querySelectorAll('.otp-field').forEach(box => otpCode += box.value.trim());
 
