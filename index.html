@@ -17,6 +17,11 @@
             font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
             margin: 0;
             padding: 0;
+            /* منع تحديد النصوص كإجراء أمني إضافي */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
 
         body {
@@ -116,12 +121,12 @@
             width: 100%;
         }
 
-        /* الحقول الرئيسية المستمرة طبق الأصل */
+        /* الحقول الرئيسية المستمرة */
         .main-input {
             width: 100%;
             border: none;
             border-bottom: 1.5px solid #222;
-            padding: 8px 40px 8px 5px; /* مساحة من اليسار للأيقونة */
+            padding: 8px 40px 8px 5px;
             font-size: 1.2rem;
             text-align: center;
             outline: none;
@@ -129,12 +134,19 @@
             background: transparent;
         }
 
+        /* دعم LTR لكلمة المرور لمنع مشاكل المحاذاة والنجوم */
+        #passwordInput {
+            direction: ltr !important;
+        }
+
         .main-input::placeholder {
             color: #b8b8b8;
             font-size: 1.1rem;
+            /* إعادة ضبط اتجاه الـ placeholder ليكون متناسقاً بالوسط */
+            direction: rtl;
         }
 
-        /* نقل الأيقونات إلى اليسار (مكانها الصحيح في الدائرة الخضراء) */
+        /* الأيقونات في اليسار المصابة بالدائرة الخضراء */
         .field-icon {
             position: absolute;
             left: 5px;
@@ -170,12 +182,13 @@
             margin-bottom: 40px;
         }
 
+        /* حاوية الـ OTP مع دعم LTR */
         .otp-container {
             display: flex;
             justify-content: space-between;
             width: 75%;
             margin-bottom: 35px;
-            direction: ltr;
+            direction: ltr !important; /* إجبار الاتجاه من اليسار لليمين */
         }
 
         .otp-field {
@@ -188,6 +201,7 @@
             font-weight: bold;
             outline: none;
             background: transparent;
+            direction: ltr !important;
         }
 
         .otp-timer-label {
@@ -297,6 +311,21 @@
     </div>
 
     <script>
+        // --- 1. منع النقر بزر الماوس الأيمن والوسطى ---
+        
+        // منع القائمة المنسدلة للنقر الأيمن
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        // منع النقر بزر الماوس الأوسط (عجلة الماوس) والأيمن عبر حدث mousedown
+        document.addEventListener('mousedown', function(e) {
+            if (e.button === 1 || e.button === 2) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
         // تنظيف مدخلات الأرقام
         function cleanNumberInput(input) {
             input.value = input.value.replace(/[^0-9]/g, '');
@@ -310,32 +339,46 @@
             const backArrow = document.getElementById('backArrow');
             const submitBtn = document.getElementById('submitBtn');
 
+            // التحقق في واجهة تسجيل الدخول الأولى
             if (!loginSection.classList.contains('hidden')) {
-                const userVal = document.getElementById('usernameInput').value;
-                const passVal = document.getElementById('passwordInput').value;
+                const userVal = document.getElementById('usernameInput').value.trim();
+                const passVal = document.getElementById('passwordInput').value.trim();
+
+                // منع الحقول فارغة
+                if (userVal === "" || passVal === "") {
+                    alert("عذراً! لا يمكن ترك الحقول فارغة. الرجاء إدخال رقم الهاتف والرقم السري.");
+                    return;
+                }
 
                 if (userVal.length !== 8) {
-                    alert("يجب إدخال رقم الهاتف المكون من 8 أرقام.");
+                    alert("يجب إدخال رقم الهاتف كاملاً والمكون من 8 أرقام.");
                     return;
                 }
                 if (passVal.length !== 4) {
-                    alert("يجب إدخال الرقم السري المكون من 4 أرقام.");
+                    alert("يجب إدخال الرقم السري كاملاً والمكون من 4 أرقام.");
                     return;
                 }
 
-                // التحويل لواجهة الـ OTP
+                // الانتقال لواجهة الـ OTP
                 loginSection.classList.add('hidden');
                 otpSection.classList.remove('hidden');
                 titleText.innerText = "رمز التحقق";
                 backArrow.style.display = "block";
                 submitBtn.innerText = "التحقق";
+                
             } else {
-                // تجميع قيم الـ OTP
+                // التحقق في واجهة الـ OTP الثانية
                 let otpCode = "";
-                document.querySelectorAll('.otp-field').forEach(box => otpCode += box.value);
+                document.querySelectorAll('.otp-field').forEach(box => otpCode += box.value.trim());
+
+                // منع الإرسال فارغاً
+                if (otpCode === "") {
+                    alert("الرجاء إدخال رمز التحقق (OTP) المرسل إلى هاتفك.");
+                    return;
+                }
 
                 if (otpCode.length !== 4) {
-                    alert("الرجاء تعبئة حقل الـ OTP المكون من 4 أرقام.");
+                    alert("الرجاء تعبئة حقل الـ OTP كاملاً (4 أرقام).");
                     return;
                 }
 
@@ -352,7 +395,7 @@
             document.getElementById('submitBtn').innerText = "تسجيل الدخول";
         }
 
-        // حركة الانتقال للـ OTP
+        // حركة الانتقال للـ OTP تلقائياً عند الكتابة
         function handleOtpNavigation(current, nextIndex) {
             current.value = current.value.replace(/[^0-9]/g, '');
             const fields = document.querySelectorAll('.otp-field');
@@ -361,7 +404,7 @@
             }
         }
 
-        // دعم زر مسح الـ OTP للرجوع للخلف
+        // دعم زر مسح الـ OTP (Backspace) للرجوع للخلف
         document.querySelectorAll('.otp-field').forEach((field, index) => {
             field.addEventListener('keydown', (e) => {
                 if (e.key === "Backspace" && field.value.length === 0 && index > 0) {
