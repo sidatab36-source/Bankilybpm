@@ -97,7 +97,7 @@
         /* مجموعات الإدخال */
         .input-group {
             width: 100%;
-            margin-bottom: 20px;
+            margin-bottom: 22px;
             position: relative;
             text-align: right;
         }
@@ -107,24 +107,24 @@
             font-size: 0.95rem;
             font-weight: bold;
             color: #111;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
         }
 
         /* حاوية الحقل مع الأيقونة */
         .input-wrapper {
             position: relative;
             width: 100%;
+            border-bottom: 1px solid #111; /* تعديل لخط نحيف واحترافي */
         }
 
         /* حقل الهاتف المستمر مع تطبيق خاصية LTR ومحاذاة النص والاتجاه بالكامل */
         .main-input {
             width: 100%;
             border: none;
-            border-bottom: 1.5px solid #222;
-            padding: 8px 45px 8px 15px;
-            font-size: 1.2rem;
+            padding: 6px 40px 6px 5px;
+            font-size: 1.25rem;
             outline: none;
-            color: #333;
+            color: #222;
             background: transparent;
             
             /* تفعيل الـ LTR بشكل صارم وسليم للحقل */
@@ -134,49 +134,51 @@
         }
 
         .main-input::placeholder {
-            color: #b8b8b8;
+            color: #ccc;
             font-size: 1.1rem;
             direction: ltr;
             text-align: left;
         }
 
-        /* الأيقونات الثابتة في مكانها الرسمي جهة اليمين */
+        /* الأيقونات الثابتة في مكانها الرسمي جهة اليمين ملاصقة تماماً ومحاذية للخط */
         .field-icon {
             position: absolute;
-            right: 5px;
-            bottom: 10px;
+            right: 2px;
+            bottom: 6px;
             width: 22px;
             height: 22px;
-            color: #333;
+            color: #111;
             z-index: 5;
         }
 
-        /* تعديل الموضع ليصبح في الجهة اليمنى (الأصلي) بمحاذاة الأيقونة */
+        /* تعديل الموضع ليصبح في الجهة اليمنى (الأصلي) بمحاذاة الأيقونة وبدون فجوات علوية */
         .password-wrapper-box {
             display: flex;
-            justify-content: flex-end; /* تم إعادتها لليمين تماماً */
+            justify-content: flex-end; /* إزاحتها لليمين تماماً */
             width: 100%;
-            padding-right: 45px; /* إعطاء مسافة للأيقونة من اليمين */
+            padding-right: 40px; /* ترك مساحة متناسقة ومطابقة لأيقونة القفل */
+            margin-top: -2px;
         }
 
         /* حاوية حقول الرقم السري مرتبة في اليمين مع إبقاء الاتجاه العام للحقول LTR */
         .password-container {
             display: flex;
-            gap: 15px; /* مسافة واضحة بين الحقول الأربعة */
+            gap: 16px; /* مسافة متناسقة بدقة بين المربعات */
             width: auto; 
             direction: ltr !important; 
         }
 
         /* الحفاظ الصارم على عدم الكتابة من اليمين أو الوسط داخل الخانة مع تدفق LTR */
         .password-field {
-            width: 24px;
-            height: 35px;
+            width: 22px;
+            height: 30px;
             border: none;
-            border-bottom: 2px solid #222;
+            border-bottom: 1.5px solid #111; /* جعل سماكة الخط متناسقة بصرياً */
             font-size: 1.4rem;
             font-weight: bold;
             outline: none;
             background: transparent;
+            padding-bottom: 2px;
             
             /* إجبار الكتابة والمحاذاة والبدء من اليسار فقط داخل كل مربع وبشكل صارم */
             direction: ltr !important;
@@ -196,13 +198,13 @@
         .forgot-password-box {
             width: 100%;
             text-align: right;
-            padding-right: 45px; 
-            margin-top: 12px; 
+            padding-right: 40px; 
+            margin-top: 15px; 
             margin-bottom: 15px;
         }
 
         .forgot-password-box a {
-            color: #222;
+            color: #111;
             text-decoration: underline;
             font-size: 0.92rem;
             font-weight: 500;
@@ -211,13 +213,13 @@
         /* الرابط السفلي المخصص للمستخدم الجديد */
         .register-link-box {
             margin-top: auto; 
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             text-align: center;
             width: 100%;
         }
 
         .register-link-box a {
-            color: #222;
+            color: #111;
             text-decoration: underline;
             font-size: 0.92rem;
             font-weight: 500;
@@ -234,17 +236,17 @@
             margin-bottom: 40px;
         }
 
-        /* تعديل الموضع ليصبح في المنتصف تماماً ومطابق للصور المرفقة */
+        /* حقل الـ OTP متمركز في المنتصف تماماً ومطابق للصور المرفقة */
         .otp-wrapper-box {
             display: flex;
-            justify-content: center; /* نقل وتوسيط الحقل في المنتصف تماماً */
+            justify-content: center; 
             width: 100%;
             margin-bottom: 35px;
         }
 
         .otp-container {
             display: flex;
-            gap: 20px; /* مسافة ثابتة ومريحة للإدخال */
+            gap: 20px; 
             direction: ltr !important;
         }
 
@@ -253,13 +255,12 @@
             width: 32px;
             height: 40px;
             border: none;
-            border-bottom: 2px solid #222;
+            border-bottom: 2px solid #111;
             font-size: 1.5rem;
             font-weight: bold;
             outline: none;
             background: transparent;
             
-            /* إجبار الكتابة والمحاذاة والبدء من اليسار فقط داخل الخانة وبشكل صارم */
             direction: ltr !important;
             text-align: left !important;
             unicode-bidi: plaintext !important;
@@ -287,12 +288,14 @@
             margin-bottom: 25px;
         }
 
-        .green-circle {
-            width: 32px;
-            height: 32px;
-            border: 4px solid #00ff00;
-            border-radius: 50%;
+        /* تعديل الدائرة وتصحيح النص المكتوب بداخلها لتطابق التطبيق الرسمي */
+        .green-circle-label {
+            font-size: 1.05rem;
+            font-weight: bold;
+            color: #222;
             margin-bottom: 30px;
+            display: inline-block;
+            text-align: center;
         }
 
         /* الزر السفلي الأصفر الثابت */
@@ -380,7 +383,7 @@
             <p class="otp-timer-label">تنتهي صلاحية رمز التأكيد خلال</p>
             <p class="otp-timer-countdown">4 دقائق 58 ثواني</p>
 
-            <div class="green-circle"></div>
+            <div class="green-circle-label">رمز التاكيد</div>
 
             <div class="register-link-box" style="margin-top: 0; margin-bottom: 10px;">
                 <a href="#" style="color: #444; font-weight: normal;">إعادة إرسال رمز التأكيد</a>
