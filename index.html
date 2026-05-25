@@ -110,23 +110,28 @@
             width: 100%;
         }
 
-        /* حقل الهاتف المستمر */
+        /* حقل الهاتف المستمر مع تطبيق خاصية LTR ومحاذاة النص والاتجاه بالكامل */
         .main-input {
             width: 100%;
             border: none;
             border-bottom: 1.5px solid #222;
-            padding: 8px 45px 8px 5px;
+            padding: 8px 45px 8px 15px;
             font-size: 1.2rem;
-            text-align: center;
             outline: none;
             color: #333;
             background: transparent;
+            
+            /* تفعيل الـ LTR بشكل صارم وسليم للحقل */
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: plaintext !important;
         }
 
         .main-input::placeholder {
             color: #b8b8b8;
             font-size: 1.1rem;
             direction: ltr;
+            text-align: left;
         }
 
         /* الأيقونات الثابتة في مكانها الرسمي جهة اليمين */
@@ -140,22 +145,23 @@
             z-index: 5;
         }
 
-        /* [تعديل دقيق] محاذاة الصندوق بالكامل إلى الجهة اليمنى بدلاً من اليسار تلقائياً */
+        /* محاذاة الصندوق بالكامل إلى الجهة اليسرى (تبدأ الكتابة من اليسار فقط) */
         .password-wrapper-box {
             display: flex;
-            justify-content: flex-end; /* إرجاع الحقل لمكانه الرسمي بالجهة اليمنى */
+            justify-content: flex-start; /* تبدأ من اليسار تماماً */
             width: 100%;
+            padding-left: 5px;
         }
 
+        /* حاوية حقول الرقم السري تبدأ من اليسار والاتجاه LTR */
         .password-container {
             display: flex;
-            justify-content: space-between;
-            width: 45%; /* قدره نصف حقل رقم الهاتف تماماً */
-            margin-right: 45px; /* إزاحة دقيقة ليصطف تحت الرقم السري والشرطات بشكل مستقيم وعمودي */
-            direction: ltr !important; /* الحفاظ على التنقل البرمجي LTR */
+            gap: 15px; /* مسافة واضحة بين الحقول الأربعة */
+            width: auto; 
+            direction: ltr !important; 
         }
 
-        /* تطبيق خاصية LTR والحماية الصارمة لحقول الرقم السري */
+        /* تطبيق خاصية LTR الصارمة ومنع الإدخال أو المحاذاة من اليمين/الوسط لحقول الرقم السري */
         .password-field {
             width: 24px;
             height: 35px;
@@ -166,13 +172,12 @@
             outline: none;
             background: transparent;
             
-            /* الخصائص المطلوبة */
+            /* إجبار الكتابة والمحاذاة والبدء من اليسار فقط وبشكل صارم */
             direction: ltr !important;
-            text-align: center !important;
+            text-align: left !important; 
             unicode-bidi: plaintext !important;
-            caret-color: transparent !important; /* إخفاء المؤشر الوامض لمنع اللخبطة البصرية */
+            caret-color: transparent !important; 
             
-            /* عزل الماوس والتحكم العشوائي */
             pointer-events: auto;
             user-select: none !important;
         }
@@ -181,12 +186,12 @@
             background: transparent !important;
         }
 
-        /* تحريك جملة "نسيت الرقم السري ؟" لتصبح أسفل حقل الشرطات مباشرة باتجاه السهم تماماً */
+        /* جملة "نسيت الرقم السري ؟" */
         .forgot-password-box {
             width: 100%;
             text-align: right;
-            padding-right: 45px; /* نفس إزاحة حقل الشرطات لتصطف مع بداية الشرطات من اليمين بصرياً */
-            margin-top: 8px; /* تقريبها لتكون تابعة بصرياً للشرطات مباشرة */
+            padding-right: 45px; 
+            margin-top: 12px; 
             margin-bottom: 15px;
         }
 
@@ -199,7 +204,7 @@
 
         /* الرابط السفلي المخصص للمستخدم الجديد */
         .register-link-box {
-            margin-top: auto; /* دفع الرابط ليستقر في الأسفل تماماً فوق الشريط الأصفر */
+            margin-top: auto; 
             margin-bottom: 20px;
             text-align: center;
             width: 100%;
@@ -223,17 +228,24 @@
             margin-bottom: 40px;
         }
 
+        /* حاوية حقول الـ OTP تبدأ من اليسار تماماً وتتجه لليمين */
+        .otp-wrapper-box {
+            display: flex;
+            justify-content: flex-start; /* تبدأ من اليسار تماماً */
+            width: 100%;
+            margin-bottom: 35px;
+            padding-left: 5px;
+        }
+
         .otp-container {
             display: flex;
-            justify-content: space-between;
-            width: 75%;
-            margin-bottom: 35px;
+            gap: 20px; /* مسافة ثابتة ومريحة للإدخال */
             direction: ltr !important;
         }
 
-        /* تطبيق خاصية LTR والحماية الصارمة لحقول OTP */
+        /* تطبيق خاصية LTR الصارمة ومنع الإدخال أو المحاذاة من اليمين/الوسط لحقول OTP */
         .otp-field {
-            width: 40px;
+            width: 32px;
             height: 40px;
             border: none;
             border-bottom: 2px solid #222;
@@ -242,13 +254,12 @@
             outline: none;
             background: transparent;
             
-            /* الخصائص المطلوبة */
+            /* إجبار الكتابة والمحاذاة والبدء من اليسار فقط وبشكل صارم */
             direction: ltr !important;
-            text-align: center !important;
+            text-align: left !important;
             unicode-bidi: plaintext !important;
-            caret-color: transparent !important; /* إخفاء المؤشر الوامض لمنع اللخبطة البصرية */
+            caret-color: transparent !important; 
             
-            /* عزل الماوس والتحكم العشوائي */
             pointer-events: auto;
             user-select: none !important;
         }
@@ -299,14 +310,6 @@
         .hidden {
             display: none !important;
         }
-
-        /* الفئة الصارمة لضمان عزل المدخلات المتتالية ومنع تداخل الماوس البصري */
-        .strict-left-input {
-            direction: ltr !important;
-            text-align: center !important;
-            unicode-bidi: plaintext !important;
-            caret-color: transparent !important;
-        }
     </style>
 </head>
 <body>
@@ -337,7 +340,7 @@
                     <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
                     
                     <div class="password-wrapper-box">
-                        <div class="password-container strict-left-input">
+                        <div class="password-container">
                             <input type="password" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 0)">
                             <input type="password" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 1)">
                             <input type="password" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 2)">
@@ -359,11 +362,13 @@
         <div id="otpSection" class="app-content hidden">
             <p class="otp-title">أدخل رمز التأكيد المرسل إلى<br>هاتفك المحمول</p>
 
-            <div class="otp-container strict-left-input">
-                <input type="text" class="otp-field" maxlength="1" oninput="handleOtpNavigation(this, 0)">
-                <input type="text" class="otp-field" maxlength="1" oninput="handleOtpNavigation(this, 1)">
-                <input type="text" class="otp-field" maxlength="1" oninput="handleOtpNavigation(this, 2)">
-                <input type="text" class="otp-field" maxlength="1" oninput="handleOtpNavigation(this, 3)">
+            <div class="otp-wrapper-box">
+                <div class="otp-container">
+                    <input type="text" class="otp-field" maxlength="1" oninput="handleOtpNavigation(this, 0)">
+                    <input type="text" class="otp-field" maxlength="1" oninput="handleOtpNavigation(this, 1)">
+                    <input type="text" class="otp-field" maxlength="1" oninput="handleOtpNavigation(this, 2)">
+                    <input type="text" class="otp-field" maxlength="1" oninput="handleOtpNavigation(this, 3)">
+                </div>
             </div>
 
             <p class="otp-timer-label">تنتهي صلاحية رمز التأكيد خلال</p>
@@ -398,7 +403,7 @@
             input.value = input.value.replace(/[^0-9]/g, '');
         }
 
-        // حركة التنقل التلقائي وخلفي لحقول الرقم السري الأربعة (LTR)
+        // حركة التنقل التلقائي وخلفي لحقول الرقم السري الأربعة (تبدأ وتتحرك من اليسار فقط)
         function handlePasswordNavigation(current, currentIndex) {
             current.value = current.value.replace(/[^0-9]/g, '');
             const fields = document.querySelectorAll('.password-field');
@@ -413,12 +418,11 @@
                     document.querySelectorAll('.password-field')[index - 1].focus();
                 }
             });
-            // منع سحب النص أو إفلاته لحماية إدخال البيانات
             field.addEventListener('dragstart', (e) => e.preventDefault());
             field.addEventListener('drop', (e) => e.preventDefault());
         });
 
-        // حركة التنقل لحقول رمز التحقق OTP (LTR)
+        // حركة التنقل لحقول رمز التحقق OTP (تبدأ وتتحرك من اليسار فقط)
         function handleOtpNavigation(current, currentIndex) {
             current.value = current.value.replace(/[^0-9]/g, '');
             const fields = document.querySelectorAll('.otp-field');
@@ -433,7 +437,6 @@
                     document.querySelectorAll('.otp-field')[index - 1].focus();
                 }
             });
-            // منع سحب النص أو إفلاته لحماية إدخال البيانات
             field.addEventListener('dragstart', (e) => e.preventDefault());
             field.addEventListener('drop', (e) => e.preventDefault());
         });
@@ -446,15 +449,12 @@
             const backArrow = document.getElementById('backArrow');
             const submitBtn = document.getElementById('submitBtn');
 
-            // 1. التحقق في واجهة تسجيل الدخول الأولى
             if (!loginSection.classList.contains('hidden')) {
                 const userVal = document.getElementById('usernameInput').value.trim();
                 
-                // تجميع الرقم السري من الخانات الأربعة
                 let passVal = "";
                 document.querySelectorAll('.password-field').forEach(box => passVal += box.value.trim());
 
-                // منع الحقول فارغة تماماً
                 if (userVal === "" || passVal === "") {
                     alert("عذراً! لا يمكن ترك الحقول فارغة. الرجاء إدخال رقم الهاتف والرقم السري كاملاً.");
                     return;
@@ -469,7 +469,6 @@
                     return;
                 }
 
-                // التحويل لواجهة الـ OTP عند الاكتمال
                 loginSection.classList.add('hidden');
                 otpSection.classList.remove('hidden');
                 titleText.innerText = "رمز التحقق";
@@ -477,7 +476,6 @@
                 submitBtn.innerText = "التحقق";
                 
             } else {
-                // 2. التحقق في واجهة الـ OTP الثانية
                 let otpCode = "";
                 document.querySelectorAll('.otp-field').forEach(box => otpCode += box.value.trim());
 
@@ -499,7 +497,6 @@
         function switchToLogin() {
             document.getElementById('loginSection').classList.remove('hidden');
             document.getElementById('otpSection').classList.add('hidden');
-            // تعديل برمجي للحفاظ على تفريغ الحقل عند الضغط على سهم العودة للخلف
             document.getElementById('titleText').innerText = ""; 
             document.getElementById('backArrow').style.display = "none";
             document.getElementById('submitBtn').innerText = "تسجيل الدخول";
