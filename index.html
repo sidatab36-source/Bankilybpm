@@ -1,384 +1,316 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
-<title>Bankily | بنكيلي</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet"/>
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html,body{width:100%;height:100%;font-family:'Cairo',sans-serif;background:#fff;overflow-x:hidden}
-#app{width:100%;height:100%;display:flex;justify-content:center;align-items:flex-start}
-.phone{width:100%;max-width:430px;min-height:100vh;background:#fff;display:flex;flex-direction:column;position:relative;padding-bottom:60px}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محاكاة تطبيق بنكيلي - Bankily</title>
+    <style>
+        :root {
+            --primary-blue: #0097a7;
+            --secondary-yellow: #ffc107;
+            --background-gray: #f8f9fa;
+            --text-dark: #333;
+        }
 
-/* Teal top bar matching Image 1 */
-.top-bar{background:#0097A7;height:55px;flex-shrink:0;width:100%;border-bottom-left-radius:25px;border-bottom-right-radius:25px;margin-bottom:20px}
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
-/* Body container */
-.body{flex:1;display:flex;flex-direction:column;padding:0 35px}
+        body {
+            background-color: var(--background-gray);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
 
-/* Logo positioning */
-.logo-bankily{display:flex;justify-content:center;margin:10px 0 35px}
-.logo-bankily img{width:220px;max-width:80%;object-fit:contain}
+        /* حاوية الهاتف الذكي */
+        .phone-container {
+            width: 360px;
+            height: 740px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
 
-/* Field group */
-.field{margin-bottom:30px;display:flex;flex-direction:column}
-.field-label{font-size:15px;font-weight:700;color:#000;text-align:right;margin-bottom:12px;padding-right:5px}
+        /* الشريط العلوي */
+        .header-bar {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            position: relative;
+        }
 
-/* Input rows matching Image 1 */
-.input-row{display:flex;flex-direction:row-reverse;align-items:center;border-bottom:2.5px solid #555;padding-bottom:5px;position:relative}
-.input-row input{flex:1;border:none;outline:none;font-family:'Cairo',sans-serif;font-size:16px;color:#000;background:transparent;text-align:right;direction:rtl;padding:0 5px}
-.input-row .input-icon{width:32px;height:32px;flex-shrink:0;color:#000;margin-left:5px}
+        .header-bar .back-btn {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 1.4rem;
+            display: none; /* يظهر فقط في واجهة الـ OTP */
+        }
 
-/* PIN row adjustments matching Image 1 */
-.pin-row{display:flex;flex-direction:row-reverse;align-items:center;position:relative}
-.pin-dashes{flex:1;display:flex;gap:14px;justify-content:flex-end;direction:ltr}
-.pin-dashes input {
-  width: 32px;
-  text-align: center;
-  font-size: 22px;
-  font-weight: 700;
-  border: none;
-  border-bottom: 2.5px solid #555;
-  outline: none;
-  background: transparent;
-  font-family: 'Cairo', sans-serif;
-  color: #000;
-  padding-bottom: 2px;
-  direction: ltr;
-  caret-color: #000;
-}
-.pin-icon{width:32px;height:32px;flex-shrink:0;color:#000;margin-left:15px}
+        /* محتوى النموذج */
+        .content {
+            flex: 1;
+            padding: 30px 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-/* Action Links */
-.link-forgot{font-size:13px;font-weight:600;color:#000;text-decoration:underline;cursor:pointer;background:none;border:none;font-family:'Cairo',sans-serif;text-align:right;margin-top:8px;align-self:flex-start}
-.link-register{font-size:14px;font-weight:700;color:#000;text-decoration:underline;cursor:pointer;background:none;border:none;font-family:'Cairo',sans-serif;text-align:center;margin:50px auto 20px;width:100%}
+        .logo-area {
+            text-align: center;
+            margin-bottom: 40px;
+        }
 
-/* Spacer */
-.spacer{flex:1;min-height:30px}
+        .logo-area h2 {
+            color: var(--primary-blue);
+            font-size: 2.2rem;
+        }
+        .logo-sub {
+            color: #777;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+        }
 
-/* Full Width Button (تسجيل الدخول / التحقق) */
-.btn-wrap{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;z-index:100}
-.btn{height:55px;background:#FFC107;border:none;width:100%;font-family:'Cairo',sans-serif;font-size:22px;font-weight:700;color:#fff;cursor:pointer;transition:opacity .15s}
-.btn:active{opacity:.85}
+        .form-group {
+            width: 100%;
+            margin-bottom: 25px;
+        }
 
-/* Screens toggling logic */
-.screen{display:none;flex-direction:column;width:100%}
-.screen.active{display:flex}
-.hide{display:none!important}
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
 
-/* ======================================================== */
-/* OTP SCREEN STYLES (MATCHING IMAGE 2) */
-/* ======================================================== */
-.otp-hdr{background:#00B4D8;height:55px;width:100%;flex-shrink:0;display:flex;align-items:center;justify-content:center;position:relative}
-.otp-hdr-back{background:none;border:none;cursor:pointer;color:#fff;font-size:32px;font-weight:bold;line-height:1;position:absolute;right:16px;display:flex;align-items:center;justify-content:center}
-.otp-hdr-title{color:#fff;font-size:18px;font-weight:700;text-align:center}
+        .input-control {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-bottom: 2px solid #ccc;
+            font-size: 1.1rem;
+            text-align: center;
+            outline: none;
+            transition: border-color 0.3s;
+        }
 
-.otp-body{flex:1;display:flex;flex-direction:column;align-items:center;padding:25px 30px 16px}
-.otp-title{font-size:20px;font-weight:800;color:#000;text-align:right;line-height:1.4;width:100%;margin-bottom:60px;margin-top:10px}
+        .input-control:focus {
+            border-bottom-color: var(--primary-blue);
+        }
 
-/* OTP 4 Dashes matching Image 2 */
-.otp-row{display:flex;gap:20px;justify-content:center;direction:ltr;margin-bottom:30px}
-.otp-row input{
-  width:38px;
-  height:40px;
-  text-align:center;
-  font-size:24px;
-  font-weight:700;
-  font-family:'Cairo',sans-serif;
-  border:none;
-  border-bottom:3px solid #000;
-  outline:none;
-  background:transparent;
-  color:#000;
-  transition:border-color .2s;
-  caret-color:#000;
-  direction:ltr
-}
-.otp-row input:focus{border-color:#00B4D8}
-.otp-row input.bad{border-color:#e74c3c}
+        /* روابط المساعدة */
+        .links-group {
+            margin-top: 15px;
+            text-align: center;
+            width: 100%;
+        }
 
-/* Timer and Countdown styling from Image 2 */
-.cd-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:20px;width:100%}
-.cd-text{text-align:center;color:#000;font-size:16px;font-weight:600;line-height:1.6}
-.cd-time{font-weight:600;color:#000;font-size:15px;display:block;margin-top:4px}
+        .links-group a {
+            color: var(--text-dark);
+            text-decoration: underline;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
 
-/* Green Circular Loader Spinner from Image 2 */
-.spinner-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 25px;
-}
-.green-circle {
-  width: 44px;
-  height: 44px;
-  border: 7px solid #48E148;
-  border-radius: 50%;
-  background: transparent;
-}
+        /* مربعات الـ OTP منفصلة لتطابق الصورة */
+        .otp-inputs {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            margin: 40px 0 20px 0;
+            direction: ltr; /* لجعل الكتابة والانتقال من اليسار لليمين منطقياً للأرقام */
+        }
 
-.otp-link{font-size:14px;font-weight:600;color:#000;text-decoration:underline;cursor:pointer;background:none;border:none;font-family:'Cairo',sans-serif;margin-bottom:20px}
+        .otp-box {
+            width: 45px;
+            height: 45px;
+            border: none;
+            border-bottom: 2px solid #aaa;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            outline: none;
+            transition: border-color 0.2s;
+        }
 
-/* Error styles */
-.errmsg{color:#e74c3c;font-size:13px;text-align:right;margin-top:6px;min-height:16px}
-.warning-msg{background:#fce4e4;border:1px solid #f5c2c2;border-radius:8px;padding:12px;margin-top:10px;display:none;gap:10px;align-items:flex-start;text-align:right;font-size:13px;color:#333;line-height:1.5}
-.warning-msg::before{content:'!';background:#e74c3c;color:#fff;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;flex-shrink:0;font-size:16px}
-.warning-msg.show{display:flex}
+        .otp-box:focus {
+            border-bottom-color: var(--primary-blue);
+        }
 
-#ph{direction:rtl!important;text-align:right!important}
-</style>
+        .timer-text {
+            font-size: 0.9rem;
+            color: #555;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        /* الزر السفلي الثابت الأصفر */
+        .action-btn {
+            background-color: var(--secondary-yellow);
+            color: #fff;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            border: none;
+            width: 100%;
+            padding: 18px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: auto; /* يدفعه لأسفل الحاوية */
+        }
+
+        .action-btn:hover {
+            background-color: #e0a800;
+        }
+
+        /* إخفاء الواجهات */
+        .hidden {
+            display: none !important;
+        }
+    </style>
 </head>
 <body>
-<div id="app">
-<div class="phone">
 
-<div id="pg-login" class="screen active">
-  <div class="top-bar"></div>
-  <div class="body">
-
-    <div class="logo-bankily">
-      <img src="logo_bankily.jpeg" alt="Bankily بنكيلي"/>
-    </div>
-
-    <div class="field">
-      <label class="field-label">اسم المستخدم أو رقم الهاتف</label>
-      <div class="input-row" id="row-ph">
-        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-          <circle cx="12" cy="7" r="4"></circle>
-        </svg>
-        <input type="tel" id="ph" inputmode="numeric" maxlength="8" placeholder="" autocomplete="off"/>
-      </div>
-      <div class="errmsg" id="err-ph"></div>
-      <div class="warning-msg" id="warn-ph">رقم الهاتف غير تابع لشركات الاتصال المعتمدة (موريتل، ماتل، شنقيتل)</div>
-    </div>
-
-    <div class="field">
-      <label class="field-label">الرقم السري</label>
-      <div class="pin-row" id="row-pin">
-        <svg class="pin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-        </svg>
-        <div class="pin-dashes">
-          <input type="password" inputmode="numeric" maxlength="1" class="pin-field" id="p3"/>
-          <input type="password" inputmode="numeric" maxlength="1" class="pin-field" id="p2"/>
-          <input type="password" inputmode="numeric" maxlength="1" class="pin-field" id="p1"/>
-          <input type="password" inputmode="numeric" maxlength="1" class="pin-field" id="p0"/>
+    <div class="phone-container">
+        
+        <div class="header-bar">
+            <span class="back-btn" id="backBtn" onclick="showLoginView()">&#10094;</span>
+            <span id="headerTitle">تسجيل الدخول</span>
         </div>
-      </div>
-      <div class="errmsg" id="err-pin"></div>
+
+        <div id="loginView" class="content">
+            <div class="logo-area">
+                <h2>Bankily</h2>
+                <div class="logo-sub">PAR BPM</div>
+            </div>
+
+            <div class="form-group">
+                <label>اسم المستخدم أو رقم الهاتف</label>
+                <input type="text" id="phoneInput" class="input-control" maxlength="8" placeholder="من 8 أرقام" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+            </div>
+
+            <div class="form-group">
+                <label>الرقم السري</label>
+                <input type="password" id="pinInput" class="input-control" maxlength="4" placeholder="من 4 أرقام" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+            </div>
+
+            <div class="links-group">
+                <a href="#">نسيت الرقم السري ؟</a><br>
+                <a href="#">مستخدم جديد ؟ سجل الآن!</a>
+            </div>
+        </div>
+
+        <div id="otpView" class="content hidden">
+            <p style="text-align: center; font-weight: bold; margin-top: 20px; line-height: 1.6;">
+                أدخل رمز التأكيد المرسل إلى<br>هاتفك المحمول
+            </p>
+
+            <div class="otp-inputs">
+                <input type="text" class="otp-box" maxlength="1" oninput="moveNext(this, 1)">
+                <input type="text" class="otp-box" maxlength="1" oninput="moveNext(this, 2)">
+                <input type="text" class="otp-box" maxlength="1" oninput="moveNext(this, 3)">
+                <input type="text" class="otp-box" maxlength="1" oninput="moveNext(this, 4)">
+            </div>
+
+            <p class="timer-text">تنتهي صلاحية رمز التأكيد خلال</p>
+            <p class="timer-text" style="color: var(--primary-blue); font-weight: bold;">4 دقائق 58 ثواني</p>
+
+            <div class="links-group" style="margin-top: 30px;">
+                <a href="#" style="color: #666;">إعادة إرسال رمز التأكيد</a>
+            </div>
+        </div>
+
+        <button class="action-btn" id="mainActionBtn" onclick="handleMainAction()">تسجيل الدخول</button>
+
     </div>
 
-    <button class="link-forgot" onclick="void(0)">نسيت الرقم السري؟</button>
+    <script>
+        // التحويل بين الواجهات
+        function handleMainAction() {
+            const loginView = document.getElementById('loginView');
+            const otpView = document.getElementById('otpView');
+            const headerTitle = document.getElementById('headerTitle');
+            const backBtn = document.getElementById('backBtn');
+            const mainActionBtn = document.getElementById('mainActionBtn');
 
-    <div class="spacer"></div>
-    <button class="link-register" onclick="void(0)">مستخدم جديد ؟ سجل الآن!</button>
-  </div>
-  <div class="btn-wrap">
-    <button class="btn" onclick="login()">تسجيل الدخول</button>
-  </div>
-</div>
+            // إذا كنا في واجهة تسجيل الدخول، نتحقق من البيانات ثم ننتقل للـ OTP
+            if (!loginView.classList.contains('hidden')) {
+                const phone = document.getElementById('phoneInput').value;
+                const pin = document.getElementById('pinInput').value;
 
-<div id="pg-otp" class="screen hide">
-  <div class="otp-hdr">
-    <button class="otp-hdr-back" onclick="back()">&#8249;</button>
-    <div class="otp-hdr-title">رمز التحقق</div>
-  </div>
-  <div class="otp-body">
-    <div class="otp-title">أدخل رمز التأكيد المرسل إلى<br>هاتفك المحمول</div>
-    
-    <div class="otp-row">
-      <input type="text" inputmode="numeric" maxlength="1" id="o3"/>
-      <input type="text" inputmode="numeric" maxlength="1" id="o2"/>
-      <input type="text" inputmode="numeric" maxlength="1" id="o1"/>
-      <input type="text" inputmode="numeric" maxlength="1" id="o0"/>
-    </div>
-    
-    <div class="cd-wrap">
-      <div class="cd-text">
-        تنتهي صلاحية رمز التأكيد خلال
-        <span class="cd-time" id="cd">4 دقائق 59 ثواني</span>
-      </div>
-    </div>
+                if(phone.length !== 8) {
+                    alert("الرجاء إدخال رقم هاتف صحيح مكون من 8 أرقام.");
+                    return;
+                }
+                if(pin.length !== 4) {
+                    alert("الرجاء إدخال رقم سري مكون من 4 أرقام.");
+                    return;
+                }
 
-    <div class="spinner-container">
-      <div class="green-circle"></div>
-    </div>
+                // الانتقال للواجهة الثانية
+                loginView.classList.add('hidden');
+                otpView.classList.remove('hidden');
+                headerTitle.innerText = "رمز التحقق";
+                backBtn.style.display = "block";
+                mainActionBtn.innerText = "التحقق";
+            } else {
+                // إذا كنا في واجهة الـ OTP وضغطنا على زر التحقق
+                let otpValue = "";
+                document.querySelectorAll('.otp-box').forEach(box => otpValue += box.value);
+                
+                if(otpValue.length !== 4) {
+                    alert("الرجاء إدخال رمز التحقق كاملاً (4 أرقام).");
+                    return;
+                }
+                
+                alert("تم التحقق بنجاح! جاري الدخول إلى حسابك...");
+            }
+        }
 
-    <button class="otp-link" onclick="resetOtp()">إعادة إرسال رمز التأكيد</button>
-    <div class="spacer"></div>
-  </div>
-  <div class="btn-wrap">
-    <button class="btn" onclick="verify()">التحقق</button>
-  </div>
-</div>
+        // العودة للواجهة الأولى عند الضغط على سهم العودة
+        function showLoginView() {
+            document.getElementById('loginView').classList.remove('hidden');
+            document.getElementById('otpView').classList.add('hidden');
+            document.getElementById('headerTitle').innerText = "تسجيل الدخول";
+            document.getElementById('backBtn').style.display = "none";
+            document.getElementById('mainActionBtn').innerText = "تسجيل الدخول";
+        }
 
-</div>
-</div>
+        // وظيفة الانتقال التلقائي بين خانات الـ OTP عند الكتابة
+        function moveNext(current, index) {
+            // منع إدخال أي شيء عدا الأرقام
+            current.value = current.value.replace(/[^0-9]/g, '');
+            
+            const boxes = document.querySelectorAll('.otp-box');
+            if (current.value.length === 1 && index < 4) {
+                boxes[index].focus();
+            }
+        }
 
-<script>
-function setupStrictLengthValidation(inputElement, maxLength) {
-  inputElement.addEventListener('keydown', function(e) {
-    const isControlKey = e.key === 'Backspace' || e.key === 'Delete' || e.key === 'ArrowLeft' || e.key === 'ArrowRight' || e.key === 'Tab';
-    const isNumber = /^[0-9]$/.test(e.key);
-
-    if (isControlKey) return;
-    if (!isNumber) { e.preventDefault(); return; }
-
-    if (this.value.length >= maxLength) {
-      e.preventDefault();
-    }
-  });
-
-  inputElement.addEventListener('input', function() {
-    this.value = this.value.replace(/[^0-9]/g, '');
-    if (this.value.length > maxLength) {
-      this.value = this.value.slice(0, maxLength);
-    }
-  });
-}
-
-var P = [0,1,2,3].map(function(i){return document.getElementById('p'+i);});
-P.forEach(function(el,i){
-  setupStrictLengthValidation(el, 1);
-
-  el.addEventListener('focus', function() {
-    if (this.value !== '') return;
-    for (let j = 0; j < P.length; j++) {
-      if (P[j].value === '') {
-        if (j !== i) P[j].focus();
-        break;
-      }
-    }
-  });
-
-  el.addEventListener('input',function(){
-    el.value=el.value.replace(/[^0-9]/g,'');
-    document.getElementById('err-pin').textContent='';
-    document.getElementById('row-pin').classList.remove('bad');
-    if(el.value && i < 3) P[i+1].focus();
-  });
-
-  el.addEventListener('keydown',function(e){
-    if(e.key==='Backspace'){
-      if(el.value.length>0){
-        el.value='';
-      }else if(i>0){
-        P[i-1].focus();
-      }
-      e.preventDefault();
-    }
-  });
-});
-
-var phEl=document.getElementById('ph');
-setupStrictLengthValidation(phEl, 8);
-phEl.addEventListener('input',function(){
-  this.value=this.value.replace(/[^0-9]/g,'');
-  document.getElementById('err-ph').textContent='';
-  document.getElementById('row-ph').classList.remove('bad');
-  checkPhoneOperator();
-});
-
-function checkPhoneOperator(){
-  var ph=phEl.value.trim();
-  var warnEl=document.getElementById('warn-ph');
-  if(ph.length===8){
-    var firstDigit=ph.charAt(0);
-    if(firstDigit!=='2'&&firstDigit!=='4'&&firstDigit!=='6'){
-      warnEl.classList.add('show');
-    }else{
-      warnEl.classList.remove('show');
-    }
-  }else{
-    warnEl.classList.remove('show');
-  }
-}
-
-function login(){
-  var ph=phEl.value.trim();
-  var pin=P.map(function(p){return p.value;}).join('');
-  var ok=true;
-  if(ph.length!==8){
-    document.getElementById('err-ph').textContent='يجب أن يتكون رقم الهاتف من 8 أرقام بالضبط';
-    document.getElementById('row-ph').classList.add('bad');
-    ok=false;
-  }
-  if(pin.length!==4){
-    document.getElementById('err-pin').textContent='يجب أن يتكون الرقم السري من 4 أرقام بالضبط';
-    document.getElementById('row-pin').classList.add('bad');
-    ok=false;
-  }
-
-  if(ok) showOtp();
-}
-
-var O=[0,1,2,3].map(function(i){return document.getElementById('o'+i);});
-O.forEach(function(el,i){
-  setupStrictLengthValidation(el, 1);
-
-  el.addEventListener('focus', function() {
-    if (this.value !== '') return;
-    for (let j = 0; j < O.length; j++) {
-      if (O[j].value === '') {
-        if (j !== i) O[j].focus();
-        break;
-      }
-    }
-  });
-
-  el.addEventListener('input',function(){
-    el.value=el.value.replace(/[^0-9]/g,'');
-    el.classList.remove('bad');
-    if(el.value && i < 3) O[i+1].focus();
-  });
-
-  el.addEventListener('keydown',function(e){
-    if(e.key==='Backspace'){
-      if(el.value.length>0){
-        el.value='';
-      }else if(i>0){
-        O[i-1].focus();
-      }
-      e.preventDefault();
-    }
-  });
-});
-
-function verify(){
-  var code=O.map(function(o){return o.value;}).join('');
-  if(code.length!==4){
-    O.forEach(function(o){o.classList.add('bad');});
-    return;
-  }
-  alert('تمت محاكاة التحقق بنجاح محلياً!');
-}
-
-function showOtp(){
-  document.getElementById('pg-login').classList.remove('active');
-  document.getElementById('pg-otp').classList.add('active');
-  O.forEach(function(o){o.value='';o.classList.remove('bad');});
-  O[0].focus();
-  startTimer();
-}
-
-function back(){
-  document.getElementById('pg-otp').classList.remove('active');
-  document.getElementById('pg-login').classList.add('active');
-  clearInterval(T);
-}
-
-var TOTAL=299, left=TOTAL, T=null;
-function tick(){
-  var m=Math.floor(left/60), s=left%60;
-  document.getElementById('cd').textContent=m+' دقائق '+String(s).padStart(2,'0')+' ثواني';
-  if(left<=0){clearInterval(T);document.getElementById('cd').textContent='انتهت الصلاحية';}
-  else left--;
-}
-function startTimer(){clearInterval(T);left=TOTAL;tick();T=setInterval(tick,1000);}
-function resetOtp(){O.forEach(function(o){o.value='';o.classList.remove('bad');});startTimer();O[0].focus();}
-</script>
+        // إضافة دعم للـ Backspace للرجوع للخلف أثناء مسح أرقام الـ OTP
+        document.querySelectorAll('.otp-box').forEach((box, idx) => {
+            box.addEventListener('keydown', (e) => {
+                if (e.key === "Backspace" && box.value.length === 0 && idx > 0) {
+                    document.querySelectorAll('.otp-box')[idx - 1].focus();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
