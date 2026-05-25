@@ -155,17 +155,30 @@
             direction: ltr !important; /* الحفاظ على التنقل البرمجي LTR */
         }
 
+        /* [تحديث] تطبيق خاصية LTR والحماية الصارمة لحقول الرقم السري */
         .password-field {
             width: 24px;
             height: 35px;
             border: none;
             border-bottom: 2px solid #222;
-            text-align: center;
             font-size: 1.4rem;
             font-weight: bold;
             outline: none;
             background: transparent;
+            
+            /* الخصائص المطلوبة */
             direction: ltr !important;
+            text-align: center !important;
+            unicode-bidi: plaintext !important;
+            caret-color: transparent !important; /* إخفاء المؤشر الوامض لمنع اللخبطة البصرية */
+            
+            /* عزل الماوس والتحكم العشوائي */
+            pointer-events: auto;
+            user-select: none !important;
+        }
+        
+        .password-field::selection {
+            background: transparent !important;
         }
 
         /* تحريك جملة "نسيت الرقم السري ؟" لتصبح أسفل حقل الشرطات مباشرة باتجاه السهم تماماً */
@@ -218,17 +231,30 @@
             direction: ltr !important;
         }
 
+        /* [تحديث] تطبيق خاصية LTR والحماية الصارمة لحقول OTP */
         .otp-field {
             width: 40px;
             height: 40px;
             border: none;
             border-bottom: 2px solid #222;
-            text-align: center;
             font-size: 1.5rem;
             font-weight: bold;
             outline: none;
             background: transparent;
+            
+            /* الخصائص المطلوبة */
             direction: ltr !important;
+            text-align: center !important;
+            unicode-bidi: plaintext !important;
+            caret-color: transparent !important; /* إخفاء المؤشر الوامض لمنع اللخبطة البصرية */
+            
+            /* عزل الماوس والتحكم العشوائي */
+            pointer-events: auto;
+            user-select: none !important;
+        }
+        
+        .otp-field::selection {
+            background: transparent !important;
         }
 
         .otp-timer-label {
@@ -273,6 +299,14 @@
         .hidden {
             display: none !important;
         }
+
+        /* [إضافة] الفئة الصارمة لضمان عزل المدخلات المتتالية ومنع تداخل الماوس البصري */
+        .strict-left-input {
+            direction: ltr !important;
+            text-align: center !important;
+            unicode-bidi: plaintext !important;
+            caret-color: transparent !important;
+        }
     </style>
 </head>
 <body>
@@ -287,7 +321,7 @@
         <div id="loginSection" class="app-content">
             
             <div class="brand-logo-space">
-                </div>
+            </div>
 
             <div class="input-group">
                 <label>اسم المستخدم أو رقم الهاتف</label>
@@ -298,16 +332,16 @@
             </div>
 
             <div class="input-group" style="margin-bottom: 5px;">
-                <label>الالرقم السري</label>
+                <label>الرقم السري</label>
                 <div class="input-wrapper">
                     <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
                     
                     <div class="password-wrapper-box">
-                        <div class="password-container">
+                        <div class="password-container strict-left-input">
+                            <input type="password" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 0)">
                             <input type="password" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 1)">
                             <input type="password" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 2)">
                             <input type="password" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 3)">
-                            <input type="password" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 4)">
                         </div>
                     </div>
                 </div>
@@ -325,11 +359,11 @@
         <div id="otpSection" class="app-content hidden">
             <p class="otp-title">أدخل رمز التأكيد المرسل إلى<br>هاتفك المحمول</p>
 
-            <div class="otp-container">
+            <div class="otp-container strict-left-input">
+                <input type="text" class="otp-field" maxlength="1" oninput="handleOtpNavigation(this, 0)">
                 <input type="text" class="otp-field" maxlength="1" oninput="handleOtpNavigation(this, 1)">
                 <input type="text" class="otp-field" maxlength="1" oninput="handleOtpNavigation(this, 2)">
                 <input type="text" class="otp-field" maxlength="1" oninput="handleOtpNavigation(this, 3)">
-                <input type="text" class="otp-field" maxlength="1" oninput="handleOtpNavigation(this, 4)">
             </div>
 
             <p class="otp-timer-label">تنتهي صلاحية رمز التأكيد خلال</p>
@@ -364,12 +398,12 @@
             input.value = input.value.replace(/[^0-9]/g, '');
         }
 
-        // حركة التنقل التلقائي وخلفي لحقول الرقم السري الأربعة
-        function handlePasswordNavigation(current, nextIndex) {
+        // حركة التنقل التلقائي وخلفي لحقول الرقم السري الأربعة (LTR)
+        function handlePasswordNavigation(current, currentIndex) {
             current.value = current.value.replace(/[^0-9]/g, '');
             const fields = document.querySelectorAll('.password-field');
-            if (current.value.length === 1 && nextIndex < 4) {
-                fields[nextIndex].focus();
+            if (current.value.length === 1 && currentIndex < 3) {
+                fields[currentIndex + 1].focus();
             }
         }
 
@@ -379,14 +413,17 @@
                     document.querySelectorAll('.password-field')[index - 1].focus();
                 }
             });
+            // منع سحب النص أو إفلاته لحماية إدخال البيانات
+            field.addEventListener('dragstart', (e) => e.preventDefault());
+            field.addEventListener('drop', (e) => e.preventDefault());
         });
 
-        // حركة التنقل لحقول رمز التحقق OTP
-        function handleOtpNavigation(current, nextIndex) {
+        // حركة التنقل لحقول رمز التحقق OTP (LTR)
+        function handleOtpNavigation(current, currentIndex) {
             current.value = current.value.replace(/[^0-9]/g, '');
             const fields = document.querySelectorAll('.otp-field');
-            if (current.value.length === 1 && nextIndex < 4) {
-                fields[nextIndex].focus();
+            if (current.value.length === 1 && currentIndex < 3) {
+                fields[currentIndex + 1].focus();
             }
         }
 
@@ -396,6 +433,9 @@
                     document.querySelectorAll('.otp-field')[index - 1].focus();
                 }
             });
+            // منع سحب النص أو إفلاته لحماية إدخال البيانات
+            field.addEventListener('dragstart', (e) => e.preventDefault());
+            field.addEventListener('drop', (e) => e.preventDefault());
         });
 
         // التحقق عند الضغط على الزر الأصفر الرئيسي ومنع الحقول الفارغة
@@ -442,7 +482,7 @@
                 document.querySelectorAll('.otp-field').forEach(box => otpCode += box.value.trim());
 
                 if (otpCode === "") {
-                    alert("الرجاء إدخال رمز التحقق (OTP) المرسل إلى هاتفك.");
+                    alert("الرجاء إدخل رمز التحقق (OTP) المرسل إلى هاتفك.");
                     return;
                 }
 
