@@ -81,7 +81,7 @@
         /* مساحة مخصصة وفارغة في الأعلى لصورة الشعار (اللوجو البصري) */
         .brand-logo-space {
             width: 100%;
-            height: 140px; /* مساحة كافية وممتازة للشعار */
+            height: 140px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -91,7 +91,7 @@
         /* مجموعات الإدخال */
         .input-group {
             width: 100%;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             position: relative;
             text-align: right;
         }
@@ -129,7 +129,7 @@
             direction: rtl;
         }
 
-        /* الأيقونات الثابتة في مكانها الرسمي جهة اليمين تماماً */
+        /* الأيقونات الثابتة في مكانها الرسمي جهة اليمين */
         .field-icon {
             position: absolute;
             right: 5px;
@@ -140,10 +140,10 @@
             z-index: 5;
         }
 
-        /* تعديل حقل الرقم السري ليكون محاذياً لليمين تماماً وبعرض نصف حقل الهاتف */
+        /* تعديل حقل الرقم السري ليكون محاذياً لليمين وبعرض نصف حقل الهاتف */
         .password-wrapper-box {
             display: flex;
-            justify-content: flex-start; /* البدء من اليمين مباشرة تحت النص */
+            justify-content: flex-start;
             width: 100%;
         }
 
@@ -151,7 +151,7 @@
             display: flex;
             justify-content: space-between;
             width: 45%; /* قدره نصف حقل رقم الهاتف تماماً */
-            margin-right: 45px; /* إزاحة لتفادي التداخل مع الأيقونة وبدء الاصطفاف الصحيح */
+            margin-right: 45px; /* إزاحة لتفادي التداخل مع الأيقونة والاصطفاف تحت النص المكتوب */
             direction: ltr !important; /* الحفاظ على التنقل البرمجي LTR */
         }
 
@@ -168,16 +168,30 @@
             direction: ltr !important;
         }
 
-        /* الروابط المساعدة المنظمة في الأسفل */
-        .helper-links {
-            margin-top: auto; /* دفع الروابط لتستقر في الجزء السفلي بشكل متناسق */
+        /* نقل جملة "نسيت الرقم السري ؟" لتصبح أسفل حقل الشرطات مباشرة حسب السهم */
+        .forgot-password-box {
+            width: 100%;
+            text-align: right;
+            padding-right: 45px; /* نفس إزاحة حقل الشرطات لتصطف معها بدقة من اليمين */
+            margin-top: 15px;
+        }
+
+        .forgot-password-box a {
+            color: #222;
+            text-decoration: underline;
+            font-size: 0.92rem;
+            font-weight: 500;
+        }
+
+        /* الرابط السفلي المخصص للمستخدم الجديد */
+        .register-link-box {
+            margin-top: auto; /* دفع الرابط ليستقر في الأسفل تماماً */
             margin-bottom: 20px;
             text-align: center;
             width: 100%;
-            line-height: 2.2;
         }
 
-        .helper-links a {
+        .register-link-box a {
             color: #222;
             text-decoration: underline;
             font-size: 0.92rem;
@@ -298,8 +312,11 @@
                 </div>
             </div>
 
-            <div class="helper-links">
-                <a href="#">نسيت الرقم السري ؟</a><br>
+            <div class="forgot-password-box">
+                <a href="#">نسيت الرقم السري ؟</a>
+            </div>
+
+            <div class="register-link-box">
                 <a href="#">مستخدم جديد ؟ سجل الآن!</a>
             </div>
         </div>
@@ -319,7 +336,7 @@
 
             <div class="green-circle"></div>
 
-            <div class="helper-links" style="margin-top: 0;">
+            <div class="register-link-box" style="margin-top: 0; margin-bottom: 10px;">
                 <a href="#" style="color: #444; font-weight: normal;">إعادة إرسال رمز التأكيد</a>
             </div>
         </div>
@@ -329,7 +346,7 @@
     </div>
 
     <script>
-        // --- حظر النقر بزر الماوس الأيمن والأوسط تماماً حمايةً للواجهة والهوية ---
+        // --- حظر النقر بزر الماوس الأيمن والأوسط لحماية الهوية والواجهة ---
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
         });
