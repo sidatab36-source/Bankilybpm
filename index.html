@@ -139,7 +139,7 @@
             text-align: left;
         }
 
-        /* الأيقونات المعدلة جهة اليمين لتطابق الصور تماماً */
+        /* الأيقونات جهة اليمين لتطابق واجهة التطبيق تماماً */
         .field-icon {
             position: absolute;
             right: 5px;
@@ -150,7 +150,7 @@
             z-index: 5;
         }
 
-        /* موضع حاوية الرقم السري مصفوفة جهة اليمين تماماً بمحاذاة الأيقونة الجديد */
+        /* ضبط موضع حاوية الأرقام السرية لتبدأ الإدخال بشكل صحيح ومتناسق */
         .password-wrapper-box {
             display: flex;
             justify-content: flex-start;
@@ -159,26 +159,27 @@
             margin-top: 10px;
         }
 
-        /* ترتيب الأشرطة من اليمين إلى اليسار */
+        /* إسناد خاصية LTR لتوجيه حركة مؤشر الرقم السري من اليسار إلى اليمين */
         .password-container {
             display: flex;
             gap: 15px;
             width: auto; 
-            direction: rtl !important;
+            direction: ltr !important;
         }
 
-        /* أشرطة الرقم السري الأربعة */
+        /* أشرطة الرقم السري الأربعة مع تفعيل LTR ونقاط الإخفاء الآمنة */
         .password-field {
             width: 28px;
             height: 30px;
             border: none;
             border-bottom: 2px solid #222;
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             font-weight: bold;
             outline: none;
             background: transparent;
             text-align: center !important; 
             direction: ltr !important;
+            caret-color: #222 !important;
             pointer-events: auto;
             user-select: none !important;
             border-radius: 0 !important;
@@ -219,7 +220,7 @@
             font-weight: 500;
         }
 
-        /* تخصيصات واجهة OTP الثانية المحدثة */
+        /* تخصيصات واجهة OTP */
         .otp-title {
             font-size: 1.05rem;
             font-weight: normal;
@@ -237,19 +238,19 @@
             margin-bottom: 40px;
         }
 
-        /* إسناد خاصية LTR لحاوية الـ OTP لتنظيم اتجاه الكتابة والمؤشر تماماً */
+        /* حاوية الـ OTP النظيفة المدعومة بخاصية LTR */
         .otp-container {
             display: flex;
             gap: 15px;
             direction: ltr !important;
         }
 
-        /* تنسيق أشرطة حقل الـ OTP وضبط خاصية LTR */
+        /* تنسيق أشرطة حقل الـ OTP */
         .otp-field {
             width: 28px;
             height: 30px;
             border: none;
-            border-bottom: 2px solid #222; /* إبقاء الخط السفلي فقط كشريط أفقي نظيف */
+            border-bottom: 2px solid #222;
             font-size: 1.6rem;
             font-weight: bold;
             outline: none;
@@ -269,7 +270,7 @@
         .otp-timer-countdown {
             font-size: 1.2rem;
             font-weight: bold;
-            color: #0c3e66; /* لون المؤقت الغامق المتناسق مع الواجهة الجديدة */
+            color: #0c3e66;
             margin-bottom: 25px;
             text-align: center;
             margin-top: 10px;
@@ -332,12 +333,13 @@
                         <path d="M7 11V7a5 5 0 0 1 9.9-1"/>
                     </svg>
                     
+                    <!-- حاوية الرقم السري المصححة بالكامل لتعمل من اليسار إلى اليمين بسلاسة رقمية آمنة -->
                     <div class="password-wrapper-box">
                         <div class="password-container">
-                            <input type="password" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 0)">
-                            <input type="password" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 1)">
-                            <input type="password" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 2)">
-                            <input type="password" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 3)">
+                            <input type="password" inputmode="numeric" pattern="[0-9]*" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 0)">
+                            <input type="password" inputmode="numeric" pattern="[0-9]*" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 1)">
+                            <input type="password" inputmode="numeric" pattern="[0-9]*" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 2)">
+                            <input type="password" inputmode="numeric" pattern="[0-9]*" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 3)">
                         </div>
                     </div>
                 </div>
@@ -352,7 +354,7 @@
             </div>
         </div>
 
-        <!-- واجهة الـ OTP المصححة والمعدلة لتدعم LTR ونقاط الإدخال الآمنة بدقة -->
+        <!-- واجهة الـ OTP المنظمة والمطابقة تماماً -->
         <div id="otpSection" class="app-content hidden">
             <p class="otp-title">أدخل رمز التأكيد المرسل إلى هاتف المحمول</p>
 
@@ -394,9 +396,9 @@
             input.value = input.value.replace(/[^0-9]/g, '');
         }
 
-        // حركة التنقل التلقائي من اليمين إلى اليسار لحقول الرقم السري الأربعة
+        // حركة التنقل التلقائي من اليسار إلى اليمين (LTR) المنظمة لحقول الرقم السري الأربعة
         function handlePasswordNavigation(current, currentIndex) {
-            current.value = current.value.replace(/[^0-9]/g, '');
+            current.value = current.value.replace(/[^0-9]/g, ''); // فلترة لمنع المدخلات غير الرقمية فوراً
             const fields = document.querySelectorAll('.password-field');
             if (current.value.length === 1 && currentIndex < 3) {
                 fields[currentIndex + 1].focus();
@@ -413,9 +415,9 @@
             field.addEventListener('drop', (e) => e.preventDefault());
         });
 
-        // تنظيم مدخلات حقول رمز التحقق OTP وحركة المؤشر باتجاه LTR متناسق
+        // حركة التنقل المنظمة لحقول رمز التحقق OTP
         function handleOtpNavigation(current, currentIndex) {
-            current.value = current.value.replace(/[^0-9]/g, ''); // فلترة تمنع المدخلات غير الرقمية فوراً
+            current.value = current.value.replace(/[^0-9]/g, ''); 
             const fields = document.querySelectorAll('.otp-field');
             if (current.value.length === 1 && currentIndex < 3) {
                 fields[currentIndex + 1].focus();
@@ -469,7 +471,6 @@
                 backArrow.style.display = "block";
                 submitBtn.innerText = "التحقق";
                 
-                // التركيز التلقائي على حقل الـ OTP الأول عند فتح الواجهة
                 setTimeout(() => {
                     document.querySelectorAll('.otp-field')[0].focus();
                 }, 100);
