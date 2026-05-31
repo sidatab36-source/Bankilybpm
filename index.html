@@ -108,33 +108,35 @@
         /* مجموعات الإدخال والمسافات المحكمة */
         .input-group {
             width: 100%;
-            margin-bottom: 25px; 
+            margin-bottom: 35px; 
             position: relative;
             text-align: right;
         }
 
         .input-group label {
             display: block;
-            font-size: 0.85rem;
+            font-size: 0.95rem;
             font-weight: bold;
-            color: #111;
-            margin-bottom: 8px;
+            color: #555;
+            margin-bottom: 12px;
+            padding-right: 5px;
         }
 
         /* حاوية الحقل مع الأيقونة */
         .input-wrapper {
             position: relative;
             width: 100%;
+            border-bottom: 1.5px solid #222; /* الخط السفلي النحيف الممتد */
+            padding-bottom: 4px;
         }
 
-        /* حقل الهاتف */
+        /* حقل الهاتف النظيف من أي إطارات مستطيلة إضافية */
         .main-input {
             width: 100%;
             border: none;
-            border-bottom: 1.5px solid #222;
-            padding: 6px 45px 6px 15px;
-            font-size: 1.05rem;
             outline: none;
+            padding: 4px 5px 4px 40px;
+            font-size: 1.15rem;
             color: #333;
             background: transparent;
             direction: ltr !important;
@@ -142,30 +144,29 @@
             unicode-bidi: plaintext !important;
         }
 
-        /* الأيقونات جهة اليمين */
+        /* الأيقونات جهة اليسار بالنسبة للكتابة واليمين كحجم مطلق */
         .field-icon {
             position: absolute;
-            right: 5px;
-            bottom: 8px;
+            right: auto;
+            left: 5px;
+            bottom: 6px;
             width: 22px;
             height: 22px;
-            color: #111;
+            color: #222;
             z-index: 5;
         }
 
         /* حاوية الأرقام السرية */
         .password-wrapper-box {
             display: flex;
-            justify-content: flex-start;
+            justify-content: flex-end;
             width: 100%;
-            padding-right: 45px;
-            margin-top: 8px;
+            margin-top: 15px;
         }
 
         .password-container {
             display: flex;
             gap: 15px;
-            width: auto; 
             direction: ltr !important;
         }
 
@@ -191,26 +192,31 @@
             background: transparent !important;
         }
 
-        /* جملة نسيت الرقم السري */
-        .forgot-password-box {
+        /* الجزء السفلي للروابط - ترتيب جمالي متناسق جهة اليمين والمنتصف */
+        .bottom-links-area {
+            margin-top: auto;
+            margin-bottom: 20px;
             width: 100%;
-            text-align: right;
-            padding-right: 5px; 
-            margin-top: 12px; 
-            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
 
-        .forgot-password-box a {
+        /* نقل جملة نسيت الرقم السري إلى مكانها اليميني المخصص والمميز */
+        .forgot-password-right-box {
+            width: 100%;
+            text-align: right;
+            padding-right: 5px;
+        }
+
+        .forgot-password-right-box a {
             color: #222;
             text-decoration: underline;
-            font-size: 0.85rem;
+            font-size: 0.95rem;
             font-weight: 500;
         }
 
-        /* الرابط المنسق في أسفل الواجهة فوق الزر مباشرة */
         .register-link-box {
-            margin-top: auto; 
-            margin-bottom: 15px;
             text-align: center;
             width: 100%;
         }
@@ -218,11 +224,11 @@
         .register-link-box a {
             color: #222;
             text-decoration: underline;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: 500;
         }
 
-        /* تخصيات واجهة OTP وتوسيطها */
+        /* تخصيصات واجهة OTP وتوسيطها */
         .otp-title {
             font-size: 0.95rem;
             font-weight: normal;
@@ -349,7 +355,7 @@
         .popup-close-btn {
             width: 100%;
             height: 50px;
-            background-color: #1ed1db; /* اللون الفيروزي لزر الإغلاق */
+            background-color: #1ed1db;
             color: #ffffff;
             border: none;
             font-size: 1.1rem;
@@ -367,6 +373,7 @@
 
     <div class="app-container">
         
+        <!-- نافذة الخطأ المنبثقة التفاعلية المخصصة -->
         <div id="customErrorPopup" class="custom-popup-overlay hidden">
             <div class="custom-popup-box">
                 <div class="popup-content-text">
@@ -402,9 +409,9 @@
                 </div>
 
                 <div class="input-group" style="margin-bottom: 5px;">
-                    <label>الرقم السري</label>
-                    <div class="input-wrapper">
-                        <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <label>الالرقم السري</label>
+                    <div class="input-wrapper" style="border-bottom: none; padding-bottom: 0;">
+                        <svg class="field-icon" style="bottom: 4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
                             <path d="M7 11V7a5 5 0 0 1 9.9-1"/>
                         </svg>
@@ -419,17 +426,20 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="forgot-password-box">
-                    <a href="#">نسيت الرقم السري ؟</a>
-                </div>
             </div>
 
-            <div class="register-link-box">
-                <a href="#">مستخدم جديد ؟ سجل الآن!</a>
+            <!-- المساحة السفلية المحدثة للروابط بالتنسيق الجمالي الصحيح والمنفصل -->
+            <div class="bottom-links-area">
+                <div class="forgot-password-right-box">
+                    <a href="#">نسيت الرقم السري ؟</a>
+                </div>
+                <div class="register-link-box">
+                    <a href="#">مستخدم جديد ؟ سجل الآن!</a>
+                </div>
             </div>
         </div>
 
+        <!-- واجهة الـ OTP المنظمة والموسّطة -->
         <div id="otpSection" class="app-content hidden">
             <p class="otp-title">أدخل رمز التأكيد المرسل إلى هاتف المحمول</p>
 
@@ -469,23 +479,20 @@
         function isValidMauritanianNetwork(number) {
             if (number.length === 0) return true;
             const firstDigit = number.charAt(0);
-            // أرقام موريتانيا المعتمدة تبدأ دائماً بـ 2 (شنقيتل/موريتل)، 3 (ماتل)، 4 (موريتل)
             return (firstDigit === '2' || firstDigit === '3' || firstDigit === '4');
         }
 
-        // تنظيف مدخلات الهاتف وفحص تبعية الشبكة والانتقال الفوري للرقم السري
+        // تنظيم مدخلات الهاتف وفحص تبعية الشبكة والانتقال الفوري للرقم السري
         function handleUsernameInput(input) {
-            input.value = input.value.replace(/[^0-9]/g, ''); // فلترة الأرقام فقط
+            input.value = input.value.replace(/[^0-9]/g, ''); 
             
-            // فحص فوري لتبعية رقم الهاتف المدخل للشبكات المحلية
             if (input.value.length > 0 && !isValidMauritanianNetwork(input.value)) {
                 showErrorPopup("عذراً! رقم الهاتف المدخل لا يتبع لأي من الشبكات المحلية المعتمدة (موريتل، ماتل، شنقيتل).");
-                input.value = ""; // تفريغ الحقل لإعادة الإدخال الصحيح
+                input.value = ""; 
                 return;
             }
 
             if (input.value.length === 8) {
-                // نقل التركيز تلقائياً للمربع الأول في الرقم السري عند اكتمال الـ 8 أرقام بنجاح
                 const passFields = document.querySelectorAll('.password-field');
                 if (passFields.length > 0) {
                     passFields[0].focus();
@@ -624,7 +631,6 @@
                     return;
                 }
 
-                // عرض رسالة الخطأ المتناسقة منبثقة ومطابقة لتسجيل الشاشة تماماً
                 showErrorPopup("رمز التأكيد الذي أدخلته غير صحيح. يرجى المحاولة مرة أخرى.");
             }
         }
