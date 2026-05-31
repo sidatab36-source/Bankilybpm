@@ -45,7 +45,7 @@
             position: relative;
         }
 
-        /* شريط العنوان العلوي - يظهر في واجهة OTP ويختفي في تسجيل الدخول */
+        /* شريط العنوان العلوي */
         .app-header {
             background-color: var(--primary-teal);
             height: 65px;
@@ -189,12 +189,12 @@
             background: transparent !important;
         }
 
-        /* جملة "نسيت الرقم السري ؟" جهة اليمين */
+        /* نقل الكلمة ومحاذاتها جهة اليمين تماماً وبشكل حر ومطابق لـ image_15.png */
         .forgot-password-box {
             width: 100%;
             text-align: right;
-            padding-right: 45px; 
-            margin-top: 20px; 
+            padding-right: 5px; 
+            margin-top: 15px; 
             margin-bottom: 15px;
         }
 
@@ -238,14 +238,12 @@
             margin-bottom: 40px;
         }
 
-        /* حاوية الـ OTP النظيفة المدعومة بخاصية LTR */
         .otp-container {
             display: flex;
             gap: 15px;
             direction: ltr !important;
         }
 
-        /* تنسيق أشرطة حقل الـ OTP */
         .otp-field {
             width: 28px;
             height: 30px;
@@ -333,7 +331,6 @@
                         <path d="M7 11V7a5 5 0 0 1 9.9-1"/>
                     </svg>
                     
-                    <!-- حاوية الرقم السري المصححة بالكامل لتعمل من اليسار إلى اليمين بسلاسة رقمية آمنة -->
                     <div class="password-wrapper-box">
                         <div class="password-container">
                             <input type="password" inputmode="numeric" pattern="[0-9]*" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 0)">
@@ -345,6 +342,7 @@
                 </div>
             </div>
 
+            <!-- تم نقل هذا الصندوق بالكامل ليصبح في مكانه الصحيح جهة اليمين تماماً -->
             <div class="forgot-password-box">
                 <a href="#">نسيت الرقم السري ؟</a>
             </div>
@@ -398,7 +396,7 @@
 
         // حركة التنقل التلقائي من اليسار إلى اليمين (LTR) المنظمة لحقول الرقم السري الأربعة
         function handlePasswordNavigation(current, currentIndex) {
-            current.value = current.value.replace(/[^0-9]/g, ''); // فلترة لمنع المدخلات غير الرقمية فوراً
+            current.value = current.value.replace(/[^0-9]/g, ''); 
             const fields = document.querySelectorAll('.password-field');
             if (current.value.length === 1 && currentIndex < 3) {
                 fields[currentIndex + 1].focus();
