@@ -156,23 +156,23 @@
             justify-content: flex-start;
             width: 100%;
             padding-right: 45px;
-            margin-top: 5px;
+            margin-top: 10px;
         }
 
-        /* ترتيب المربعات لتبدأ وتتدفق من اليمين إلى اليسار كما في الفيديو */
+        /* ترتيب الأشرطة لتبدأ وتتدفق من اليمين إلى اليسار كما في الصورة المرفقة الثانية */
         .password-container {
             display: flex;
             gap: 15px;
             width: auto; 
-            direction: rtl !important; /* تغيير الاتجاه لتبدأ الكتابة من اليمين */
+            direction: rtl !important;
         }
 
-        /* مربعات الرقم السري */
+        /* أشرطة الرقم السري الأربعة النظيفة (تم حذف الحدود الجانبية والعلوي تماماً لتصبح مجرد شرطة سفلية) */
         .password-field {
-            width: 24px;
-            height: 35px;
+            width: 28px;
+            height: 30px;
             border: none;
-            border-bottom: 2px solid #222;
+            border-bottom: 2px solid #222; /* إبقاء الخط السفلي فقط كشريط أفق أفقي */
             font-size: 1.4rem;
             font-weight: bold;
             outline: none;
@@ -181,25 +181,26 @@
             direction: ltr !important;
             pointer-events: auto;
             user-select: none !important;
+            border-radius: 0 !important; /* التأكد من إزالة أي انحناء سابق */
         }
         
         .password-field::selection {
             background: transparent !important;
         }
 
-        /* جملة "نسيت الرقم السري ؟" في مكانها المناسب جهة اليمين تحت الحقول تماماً */
+        /* جملة "نسيت الرقم السري ؟" في مكانها المناسب جهة اليمين متطابقة مع الصورة */
         .forgot-password-box {
             width: 100%;
             text-align: right;
             padding-right: 45px; 
-            margin-top: 15px; 
+            margin-top: 20px; 
             margin-bottom: 15px;
         }
 
         .forgot-password-box a {
             color: #222;
             text-decoration: underline;
-            font-size: 0.92rem;
+            font-size: 0.95rem;
             font-weight: 500;
         }
 
@@ -356,7 +357,7 @@
         </div>
 
         <div id="otpSection" class="app-content hidden">
-            <p class="otp-title">أدخل رمز التأكيد المرسسَل إلى<br>هاتفك المحمول</p>
+            <p class="otp-title">أدخل رمز التأكيد المرسل إلى<br>هاتفك المحمول</p>
 
             <div class="otp-wrapper-box">
                 <div class="otp-container">
@@ -399,7 +400,7 @@
             input.value = input.value.replace(/[^0-9]/g, '');
         }
 
-        // حركة التنقل التلقائي من اليمين إلى اليسار لحقول الرقم السري الأربعة تطابقاً مع الفيديو التوضيحي
+        // حركة التنقل التلقائي من اليمين إلى اليسار لحقول الرقم السري الأربعة
         function handlePasswordNavigation(current, currentIndex) {
             current.value = current.value.replace(/[^0-9]/g, '');
             const fields = document.querySelectorAll('.password-field');
@@ -492,7 +493,7 @@
             }
         }
 
-        // العودة لواجهة تسجيل الدخول وإخفاء الشريط العلوي مجدداً
+        // العودة لواجهة تسجيل الدخول
         function switchToLogin() {
             document.getElementById('loginSection').classList.remove('hidden');
             document.getElementById('otpSection').classList.add('hidden');
