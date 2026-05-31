@@ -69,36 +69,36 @@
             display: none;
         }
 
-        /* المحتوى الداخلي */
+        /* المحتوى الداخلي - تنظيم وضغط الفراغات لتطابق الفيديو تماماً */
         .app-content {
             flex: 1;
-            padding: 20px 30px 20px 30px;
+            padding: 15px 30px 15px 30px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        /* تنسيق وضبط مساحة الشعار ليظهر بشكل متناسق ومطابق للتطبيق الأصلي */
+        /* تقليص مساحة الشعار وحذف الفراغ الزائد المحيط به كما في الفيديو */
         .brand-logo-space {
             width: 100%;
-            height: 140px;
+            height: 110px;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-top: 20px;
-            margin-bottom: 25px;
+            margin-top: 10px;
+            margin-bottom: 15px;
         }
 
         .brand-logo-space img {
-            max-width: 85%;
+            max-width: 80%;
             max-height: 100%;
             object-fit: contain;
         }
 
-        /* مجموعات الإدخال */
+        /* مجموعات الإدخال والمسافات بينها */
         .input-group {
             width: 100%;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             position: relative;
             text-align: right;
         }
@@ -108,7 +108,7 @@
             font-size: 0.95rem;
             font-weight: bold;
             color: #111;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
 
         /* حاوية الحقل مع الأيقونة */
@@ -122,7 +122,7 @@
             width: 100%;
             border: none;
             border-bottom: 1.5px solid #222;
-            padding: 8px 45px 8px 15px;
+            padding: 6px 45px 6px 15px;
             font-size: 1.2rem;
             outline: none;
             color: #333;
@@ -156,7 +156,7 @@
             justify-content: flex-start;
             width: 100%;
             padding-right: 45px;
-            margin-top: 10px;
+            margin-top: 8px;
         }
 
         /* إسناد خاصية LTR لتوجيه حركة مؤشر الرقم السري من اليسار إلى اليمين */
@@ -189,13 +189,13 @@
             background: transparent !important;
         }
 
-        /* نقل الكلمة ومحاذاتها جهة اليمين تماماً وبشكل حر ومطابق لـ image_15.png */
+        /* موضع جملة "نسيت الرقم السري ؟" جهة اليمين بدقة */
         .forgot-password-box {
             width: 100%;
             text-align: right;
             padding-right: 5px; 
-            margin-top: 15px; 
-            margin-bottom: 15px;
+            margin-top: 12px; 
+            margin-bottom: 10px;
         }
 
         .forgot-password-box a {
@@ -205,10 +205,10 @@
             font-weight: 500;
         }
 
-        /* الرابط السفلي المخصص للمستخدم الجديد */
+        /* حذف الفراغات الزائدة (الـ margin-top: auto) وتنظيم واجهة الرابط السفلي ليكون ملموماً كما في الفيديو المرفق */
         .register-link-box {
-            margin-top: auto; 
-            margin-bottom: 20px;
+            margin-top: 35px; 
+            margin-bottom: 15px;
             text-align: center;
             width: 100%;
         }
@@ -220,22 +220,22 @@
             font-weight: 500;
         }
 
-        /* تخصيصات واجهة OTP */
+        /* تخصيصات واجهة OTP مع تقليص المسافات لانتظام الهيكل */
         .otp-title {
             font-size: 1.05rem;
             font-weight: normal;
             color: #666;
             text-align: center;
             line-height: 1.7;
-            margin-top: 40px;
-            margin-bottom: 40px;
+            margin-top: 25px;
+            margin-bottom: 25px;
         }
 
         .otp-wrapper-box {
             display: flex;
             justify-content: center;
             width: 100%;
-            margin-bottom: 40px;
+            margin-bottom: 25px;
         }
 
         .otp-container {
@@ -269,12 +269,12 @@
             font-size: 1.2rem;
             font-weight: bold;
             color: #0c3e66;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             text-align: center;
-            margin-top: 10px;
+            margin-top: 5px;
         }
 
-        /* الزر السفلي الأصفر الثابت */
+        /* الزر السفلي الأصفر الثابت والمحكم بقاع الشاشة */
         .footer-button {
             background-color: var(--primary-yellow);
             color: #ffffff;
@@ -285,6 +285,7 @@
             font-weight: bold;
             cursor: pointer;
             outline: none;
+            margin-top: auto; /* يضمن التصاق الزر بالكامل أسفل حاوية التطبيق المتناسقة */
         }
 
         .footer-button:active {
@@ -342,11 +343,11 @@
                 </div>
             </div>
 
-            <!-- تم نقل هذا الصندوق بالكامل ليصبح في مكانه الصحيح جهة اليمين تماماً -->
             <div class="forgot-password-box">
                 <a href="#">نسيت الرقم السري ؟</a>
             </div>
 
+            <!-- تم تنظيم مكان واجهة هذا الرابط وحذف الفراغ الكبير الزائد ليتناسب مع أبعاد الفيديو المرفق تماماً -->
             <div class="register-link-box">
                 <a href="#">مستخدم جديد ؟ سجل الآن!</a>
             </div>
@@ -367,7 +368,7 @@
 
             <p class="otp-timer-countdown">04:58 ثواني</p>
 
-            <div class="register-link-box" style="margin-top: auto; margin-bottom: 20px;">
+            <div class="register-link-box" style="margin-top: 15px; margin-bottom: 15px;">
                 <a href="#" style="color: #222; font-weight: 500;">إعادة إرسال رمز التأكيد</a>
             </div>
         </div>
