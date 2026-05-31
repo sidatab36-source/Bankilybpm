@@ -222,7 +222,7 @@
             font-weight: 500;
         }
 
-        /* تخصيصات واجهة OTP وتوسيطها */
+        /* تخصيات واجهة OTP وتوسيطها */
         .otp-title {
             font-size: 0.95rem;
             font-weight: normal;
@@ -349,7 +349,7 @@
         .popup-close-btn {
             width: 100%;
             height: 50px;
-            background-color: #1ed1db; /* اللون الفيروزي الفاتح لزر الإغلاق */
+            background-color: #1ed1db; /* اللون الفيروزي لزر الإغلاق */
             color: #ffffff;
             border: none;
             font-size: 1.1rem;
@@ -465,11 +465,27 @@
             if (e.button === 1 || e.button === 2) { e.preventDefault(); return false; }
         });
 
-        // تنظيف مدخلات الهاتف والتحويل التلقائي للرقم السري عند اكتمال الـ 8 أرقام
+        // التحقق من صحة وتبعية أرقام الاتصال الموريتانية (موريتل، ماتل، شنقيتل)
+        function isValidMauritanianNetwork(number) {
+            if (number.length === 0) return true;
+            const firstDigit = number.charAt(0);
+            // أرقام موريتانيا المعتمدة تبدأ دائماً بـ 2 (شنقيتل/موريتل)، 3 (ماتل)، 4 (موريتل)
+            return (firstDigit === '2' || firstDigit === '3' || firstDigit === '4');
+        }
+
+        // تنظيف مدخلات الهاتف وفحص تبعية الشبكة والانتقال الفوري للرقم السري
         function handleUsernameInput(input) {
             input.value = input.value.replace(/[^0-9]/g, ''); // فلترة الأرقام فقط
+            
+            // فحص فوري لتبعية رقم الهاتف المدخل للشبكات المحلية
+            if (input.value.length > 0 && !isValidMauritanianNetwork(input.value)) {
+                showErrorPopup("عذراً! رقم الهاتف المدخل لا يتبع لأي من الشبكات المحلية المعتمدة (موريتل، ماتل، شنقيتل).");
+                input.value = ""; // تفريغ الحقل لإعادة الإدخال الصحيح
+                return;
+            }
+
             if (input.value.length === 8) {
-                // نقل التركيز تلقائياً للمربع الأول في الرقم السري
+                // نقل التركيز تلقائياً للمربع الأول في الرقم السري عند اكتمال الـ 8 أرقام بنجاح
                 const passFields = document.querySelectorAll('.password-field');
                 if (passFields.length > 0) {
                     passFields[0].focus();
@@ -570,6 +586,10 @@
                 }
                 if (userVal.length !== 8) {
                     showErrorPopup("يجب إدخال رقم الهاتف كاملاً والمكون من 8 أرقام.");
+                    return;
+                }
+                if (!isValidMauritanianNetwork(userVal)) {
+                    showErrorPopup("عذراً! رقم الهاتف المدخل لا يتبع لأي من الشبكات المحلية المعتمدة (موريتل، ماتل، شنقيتل).");
                     return;
                 }
                 if (passVal.length !== 4) {
