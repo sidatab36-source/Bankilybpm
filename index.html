@@ -219,7 +219,7 @@
             font-weight: 500;
         }
 
-        /* تخصيصات واجهة OTP الثانية المحدثة تماماً لتطابق image_12.png */
+        /* تخصيصات واجهة OTP الثانية المحدثة */
         .otp-title {
             font-size: 1.05rem;
             font-weight: normal;
@@ -237,29 +237,29 @@
             margin-bottom: 40px;
         }
 
-        /* توزيع أشرطة حقل الـ otp الأربعة النظيفة بدون صناديق أو انحناءات */
+        /* إسناد خاصية LTR لحاوية الـ OTP لتنظيم اتجاه الكتابة والمؤشر تماماً */
         .otp-container {
             display: flex;
             gap: 15px;
             direction: ltr !important;
         }
 
+        /* تنسيق أشرطة حقل الـ OTP وضبط خاصية LTR */
         .otp-field {
             width: 28px;
             height: 30px;
             border: none;
             border-bottom: 2px solid #222; /* إبقاء الخط السفلي فقط كشريط أفقي نظيف */
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             font-weight: bold;
             outline: none;
             background: transparent;
             direction: ltr !important;
             text-align: center !important;
-            unicode-bidi: plaintext !important;
-            caret-color: transparent !important; 
+            caret-color: #222 !important; 
             pointer-events: auto;
             user-select: none !important;
-            border-radius: 0 !important; /* التأكد من إزالة أي انحناء */
+            border-radius: 0 !important;
         }
         
         .otp-field::selection {
@@ -352,16 +352,16 @@
             </div>
         </div>
 
-        <!-- واجهة الـ OTP المنظمة والمطابقة تماماً لـ image_12.png (بدون دوائر أو صناديق) -->
+        <!-- واجهة الـ OTP المصححة والمعدلة لتدعم LTR ونقاط الإدخال الآمنة بدقة -->
         <div id="otpSection" class="app-content hidden">
             <p class="otp-title">أدخل رمز التأكيد المرسل إلى هاتف المحمول</p>
 
             <div class="otp-wrapper-box">
                 <div class="otp-container">
-                    <input type="text" class="otp-field" maxlength="1" oninput="handleOtpNavigation(this, 0)">
-                    <input type="text" class="otp-field" maxlength="1" oninput="handleOtpNavigation(this, 1)">
-                    <input type="text" class="otp-field" maxlength="1" oninput="handleOtpNavigation(this, 2)">
-                    <input type="text" class="otp-field" maxlength="1" oninput="handleOtpNavigation(this, 3)">
+                    <input type="password" inputmode="numeric" pattern="[0-9]*" class="otp-field" maxlength="1" oninput="handleOtpNavigation(this, 0)">
+                    <input type="password" inputmode="numeric" pattern="[0-9]*" class="otp-field" maxlength="1" oninput="handleOtpNavigation(this, 1)">
+                    <input type="password" inputmode="numeric" pattern="[0-9]*" class="otp-field" maxlength="1" oninput="handleOtpNavigation(this, 2)">
+                    <input type="password" inputmode="numeric" pattern="[0-9]*" class="otp-field" maxlength="1" oninput="handleOtpNavigation(this, 3)">
                 </div>
             </div>
 
@@ -413,9 +413,9 @@
             field.addEventListener('drop', (e) => e.preventDefault());
         });
 
-        // حركة التنقل لحقول رمز التحقق OTP الأربعة النظيفة
+        // تنظيم مدخلات حقول رمز التحقق OTP وحركة المؤشر باتجاه LTR متناسق
         function handleOtpNavigation(current, currentIndex) {
-            current.value = current.value.replace(/[^0-9]/g, '');
+            current.value = current.value.replace(/[^0-9]/g, ''); // فلترة تمنع المدخلات غير الرقمية فوراً
             const fields = document.querySelectorAll('.otp-field');
             if (current.value.length === 1 && currentIndex < 3) {
                 fields[currentIndex + 1].focus();
@@ -468,6 +468,11 @@
                 titleText.innerText = "رمز التحقق";
                 backArrow.style.display = "block";
                 submitBtn.innerText = "التحقق";
+                
+                // التركيز التلقائي على حقل الـ OTP الأول عند فتح الواجهة
+                setTimeout(() => {
+                    document.querySelectorAll('.otp-field')[0].focus();
+                }, 100);
                 
             } else {
                 let otpCode = "";
