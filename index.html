@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,11 +45,11 @@
             position: relative;
         }
 
-        /* شريط العنوان العلوي */
+        /* شريط العنوان العلوي - يظهر فقط في واجهة OTP ويختفي تماماً في تسجيل الدخول */
         .app-header {
             background-color: var(--primary-teal);
             height: 65px;
-            display: flex;
+            display: none; /* تم إخفاؤه افتراضياً ليطابق واجهة تسجيل الدخول في الصورة الثانية */
             align-items: center;
             justify-content: center;
             position: relative;
@@ -85,6 +85,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            margin-top: 20px;
             margin-bottom: 25px;
         }
 
@@ -321,7 +322,8 @@
 
     <div class="app-container">
         
-        <div class="app-header">
+        <!-- شريط العنوان العلوي (يتم التحكم بظهوره عبر الـ JavaScript ليطابق التصاميم تماماً) -->
+        <div class="app-header" id="appHeader">
             <span class="back-arrow" id="backArrow" onclick="switchToLogin()">&#12296;</span>
             <span id="titleText"></span>
         </div>
@@ -451,6 +453,7 @@
         function onFooterButtonClick() {
             const loginSection = document.getElementById('loginSection');
             const otpSection = document.getElementById('otpSection');
+            const appHeader = document.getElementById('appHeader');
             const titleText = document.getElementById('titleText');
             const backArrow = document.getElementById('backArrow');
             const submitBtn = document.getElementById('submitBtn');
@@ -477,6 +480,9 @@
 
                 loginSection.classList.add('hidden');
                 otpSection.classList.remove('hidden');
+                
+                // إظهار الشريط الفيروزي فقط عند الانتقال لواجهة الـ OTP كجزء من بنية التحقق الأصلي للموقع
+                appHeader.style.display = "flex";
                 titleText.innerText = "رمز التحقق";
                 backArrow.style.display = "block";
                 submitBtn.innerText = "التحقق";
@@ -499,10 +505,11 @@
             }
         }
 
-        // العودة لواجهة تسجيل الدخول
+        // العودة لواجهة تسجيل الدخول وإخفاء الشريط الفيروزي العلوي مجدداً
         function switchToLogin() {
             document.getElementById('loginSection').classList.remove('hidden');
             document.getElementById('otpSection').classList.add('hidden');
+            document.getElementById('appHeader').style.display = "none"; /* إخفاء الشريط لتصبح الشاشة بيضاء بالكامل مثل الصورة الثانية */
             document.getElementById('titleText').innerText = ""; 
             document.getElementById('backArrow').style.display = "none";
             document.getElementById('submitBtn').innerText = "تسجيل الدخول";
