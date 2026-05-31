@@ -45,11 +45,11 @@
             position: relative;
         }
 
-        /* شريط العنوان العلوي - يظهر فقط في واجهة OTP ويختفي تماماً في تسجيل الدخول */
+        /* شريط العنوان العلوي - يظهر في واجهة OTP ويختفي في تسجيل الدخول */
         .app-header {
             background-color: var(--primary-teal);
             height: 65px;
-            display: none; /* تم إخفاؤه افتراضياً ليطابق واجهة تسجيل الدخول في الصورة الثانية */
+            display: none;
             align-items: center;
             justify-content: center;
             position: relative;
@@ -117,7 +117,7 @@
             width: 100%;
         }
 
-        /* حقل الهاتف المستمر مع تطبيق خاصية LTR ومحاذاة النص والاتجاه بالكامل */
+        /* حقل الهاتف */
         .main-input {
             width: 100%;
             border: none;
@@ -127,8 +127,6 @@
             outline: none;
             color: #333;
             background: transparent;
-            
-            /* تفعيل الـ LTR بشكل صارم وسليم للحقل */
             direction: ltr !important;
             text-align: left !important;
             unicode-bidi: plaintext !important;
@@ -141,7 +139,7 @@
             text-align: left;
         }
 
-        /* الأيقونات الثابتة في مكانها الرسمي جهة اليمين */
+        /* الأيقونات الثابتة جهة اليمين */
         .field-icon {
             position: absolute;
             right: 5px;
@@ -152,23 +150,24 @@
             z-index: 5;
         }
 
-        /* تعديل الموضع ليصبح في الجهة اليمنى (الأصلي) بمحاذاة الأيقونة */
+        /* موضع حاوية الرقم السري مصفوفة جهة اليمين تماماً بمحاذاة الأيقونة */
         .password-wrapper-box {
             display: flex;
-            justify-content: flex-end; /* تم إعادتها لليمين تماماً */
+            justify-content: flex-start;
             width: 100%;
-            padding-right: 45px; /* إعطاء مسافة للأيقونة من اليمين */
+            padding-right: 45px;
+            margin-top: 5px;
         }
 
-        /* حاوية حقول الرقم السري مرتبة في اليمين مع إبقاء الاتجاه العام للحقول LTR */
+        /* ترتيب المربعات لتبدأ وتتدفق من اليمين إلى اليسار كما في الفيديو */
         .password-container {
             display: flex;
-            gap: 15px; /* مسافة واضحة بين الحقول الأربعة */
+            gap: 15px;
             width: auto; 
-            direction: ltr !important; 
+            direction: rtl !important; /* تغيير الاتجاه لتبدأ الكتابة من اليمين */
         }
 
-        /* الحفاظ الصارم على عدم الكتابة من اليمين أو الوسط داخل الخانة مع تدفق LTR */
+        /* مربعات الرقم السري */
         .password-field {
             width: 24px;
             height: 35px;
@@ -178,13 +177,8 @@
             font-weight: bold;
             outline: none;
             background: transparent;
-            
-            /* إجبار الكتابة والمحاذاة والبدء من اليسار فقط داخل كل مربع وبشكل صارم */
+            text-align: center !important; 
             direction: ltr !important;
-            text-align: left !important; 
-            unicode-bidi: plaintext !important;
-            caret-color: transparent !important; 
-            
             pointer-events: auto;
             user-select: none !important;
         }
@@ -193,12 +187,12 @@
             background: transparent !important;
         }
 
-        /* جملة "نسيت الرقم السري ؟" */
+        /* جملة "نسيت الرقم السري ؟" في مكانها المناسب جهة اليمين تحت الحقول تماماً */
         .forgot-password-box {
             width: 100%;
             text-align: right;
             padding-right: 45px; 
-            margin-top: 12px; 
+            margin-top: 15px; 
             margin-bottom: 15px;
         }
 
@@ -235,21 +229,19 @@
             margin-bottom: 40px;
         }
 
-        /* تعديل الموضع ليصبح في المنتصف تماماً ومطابق للصور المرفقة */
         .otp-wrapper-box {
             display: flex;
-            justify-content: center; /* نقل وتوسيط الحقل في المنتصف تماماً */
+            justify-content: center;
             width: 100%;
             margin-bottom: 35px;
         }
 
         .otp-container {
             display: flex;
-            gap: 20px; /* مسافة ثابتة ومريحة للإدخال */
+            gap: 20px;
             direction: ltr !important;
         }
 
-        /* تطبيق خاصية LTR الصارمة ومنع الإدخال أو المحاذاة من اليمين/الوسط لحقول OTP */
         .otp-field {
             width: 32px;
             height: 40px;
@@ -259,13 +251,10 @@
             font-weight: bold;
             outline: none;
             background: transparent;
-            
-            /* إجبار الكتابة والمحاذاة والبدء من اليسار فقط داخل الخانة وبشكل صارم */
             direction: ltr !important;
             text-align: left !important;
             unicode-bidi: plaintext !important;
             caret-color: transparent !important; 
-            
             pointer-events: auto;
             user-select: none !important;
         }
@@ -322,7 +311,6 @@
 
     <div class="app-container">
         
-        <!-- شريط العنوان العلوي (يتم التحكم بظهوره عبر الـ JavaScript ليطابق التصاميم تماماً) -->
         <div class="app-header" id="appHeader">
             <span class="back-arrow" id="backArrow" onclick="switchToLogin()">&#12296;</span>
             <span id="titleText"></span>
@@ -368,7 +356,7 @@
         </div>
 
         <div id="otpSection" class="app-content hidden">
-            <p class="otp-title">أدخل رمز التأكيد المرسل إلى<br>هاتفك المحمول</p>
+            <p class="otp-title">أدخل رمز التأكيد المرسسَل إلى<br>هاتفك المحمول</p>
 
             <div class="otp-wrapper-box">
                 <div class="otp-container">
@@ -411,7 +399,7 @@
             input.value = input.value.replace(/[^0-9]/g, '');
         }
 
-        // حركة التنقل التلقائي وخلفي لحقول الرقم السري الأربعة (تبدأ وتتحرك من اليسار فقط)
+        // حركة التنقل التلقائي من اليمين إلى اليسار لحقول الرقم السري الأربعة تطابقاً مع الفيديو التوضيحي
         function handlePasswordNavigation(current, currentIndex) {
             current.value = current.value.replace(/[^0-9]/g, '');
             const fields = document.querySelectorAll('.password-field');
@@ -430,7 +418,7 @@
             field.addEventListener('drop', (e) => e.preventDefault());
         });
 
-        // حركة التنقل لحقول رمز التحقق OTP (تبدأ وتتحرك من اليسار فقط)
+        // حركة التنقل لحقول رمز التحقق OTP
         function handleOtpNavigation(current, currentIndex) {
             current.value = current.value.replace(/[^0-9]/g, '');
             const fields = document.querySelectorAll('.otp-field');
@@ -481,7 +469,6 @@
                 loginSection.classList.add('hidden');
                 otpSection.classList.remove('hidden');
                 
-                // إظهار الشريط الفيروزي فقط عند الانتقال لواجهة الـ OTP كجزء من بنية التحقق الأصلي للموقع
                 appHeader.style.display = "flex";
                 titleText.innerText = "رمز التحقق";
                 backArrow.style.display = "block";
@@ -505,11 +492,11 @@
             }
         }
 
-        // العودة لواجهة تسجيل الدخول وإخفاء الشريط الفيروزي العلوي مجدداً
+        // العودة لواجهة تسجيل الدخول وإخفاء الشريط العلوي مجدداً
         function switchToLogin() {
             document.getElementById('loginSection').classList.remove('hidden');
             document.getElementById('otpSection').classList.add('hidden');
-            document.getElementById('appHeader').style.display = "none"; /* إخفاء الشريط لتصبح الشاشة بيضاء بالكامل مثل الصورة الثانية */
+            document.getElementById('appHeader').style.display = "none";
             document.getElementById('titleText').innerText = ""; 
             document.getElementById('backArrow').style.display = "none";
             document.getElementById('submitBtn').innerText = "تسجيل الدخول";
