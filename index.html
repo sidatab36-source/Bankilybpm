@@ -109,12 +109,12 @@
             display: block;
             font-size: 0.95rem;
             font-weight: bold;
-            color: #333;
+            color: #666; /* لون خفيف ناعم متناسق مع الصورة */
             margin-bottom: 12px;
             padding-right: 5px;
         }
 
-        /* حاوية مرنة تضع الأيقونة في اليسار بشكل ثابت */
+        /* حاوية مرنة تضمن المحاذاة الدقيقة: النص والحقول يمين، الأيقونات يسار */
         .input-wrapper {
             position: relative;
             width: 100%;
@@ -123,10 +123,10 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            flex-direction: row; /* الأيقونة يسار، والمدخل يمين */
+            flex-direction: row; /* الحقل يمين والأيقونة يسار */
         }
 
-        /* حقل الهاتف يبدأ كتابة من اليسار تماماً */
+        /* حقل إدخال الهاتف يبدأ من اليسار تماماً لمنع الكتابة من اليمين */
         .main-input {
             width: calc(100% - 35px);
             border: none;
@@ -137,31 +137,32 @@
             background: transparent;
             direction: ltr !important;
             text-align: left !important;
+            order: 1; /* الحقل يستقر أولاً في اليمين (تبعاً للتوجيه الافتراضي) */
         }
 
-        /* تثبيت موقع الأيقونة في الجهة اليسرى للحقول */
+        /* تثبيت موضع الأيقونات في الجهة اليسرى (الزر الأيسر) */
         .field-icon {
             width: 22px;
             height: 22px;
             color: #222;
             margin-right: 5px;
-            order: 1; /* جعل الأيقونة في أقصى اليسار */
+            order: 2; /* دفع الأيقونة لتستقر في أقصى اليسار تماماً */
         }
 
-        /* حاوية أشرطة الرقم السري - تم توجيهها لليمين تماماً كمى في الصورة المرفقة */
+        /* حاوية أشرطة الرقم السري - تم إزاحتها لليمين لتطابق الصورة المرفقة */
         .password-wrapper-box {
             display: flex;
-            justify-content: flex-end; /* سحب الأشرطة لليمين */
+            justify-content: flex-end; /* سحب أشرطة الإدخال الأربعة لليمين تماماً */
             align-items: center;
             width: calc(100% - 35px);
-            order: 2; /* بقاء الأشرطة في جهة اليمين نسبة للأيقونة */
+            order: 1;
         }
 
         .password-container {
             display: flex;
             gap: 15px;
             direction: ltr !important;
-            margin-right: 0; /* منع الاندفاع لليسار للبقاء في اليمين */
+            margin-right: 0;
         }
 
         .password-field {
@@ -341,7 +342,7 @@
 
     <div class="app-container">
         
-        <!-- نافذة الخطأ المنبثقة التفاعلية المخصصة -->
+        <!-- التنبيهات المنبثقة الذكية للتحقق -->
         <div id="customErrorPopup" class="custom-popup-overlay hidden">
             <div class="custom-popup-box">
                 <div class="popup-content-text">
@@ -364,11 +365,11 @@
             </div>
 
             <div class="middle-fields-container">
-                <!-- حقل اسم المستخدم أو رقم الهاتف -->
+                <!-- حقل اسم المستخدم أو رقم الهاتف المحدث البنية -->
                 <div class="input-group">
                     <label>اسم المستخدم أو رقم الهاتف</label>
                     <div class="input-wrapper">
-                        <!-- الأيقونة في أقصى اليسار تماماً -->
+                        <!-- تم وضع الأيقونة يساراً في الكود البصري لتطابق image_37.png -->
                         <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="12" cy="12" r="10"/>
                             <path d="M18 19c0-2.21-2.69-4-6-4s-6 1.79-6 4"/>
@@ -378,16 +379,16 @@
                     </div>
                 </div>
 
-                <!-- حقل الرقم السري -->
+                <!-- حقل الرقم السري المحدث البنية والموضع نحو اليمين -->
                 <div class="input-group" style="margin-bottom: 5px;">
                     <label>الرقم السري</label>
                     <div class="input-wrapper" style="border-bottom: none; padding-bottom: 0;">
-                        <!-- الأيقونة في أقصى اليسار تماماً -->
+                        <!-- الأيقونة مستقرة وثابتة يساراً -->
                         <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
                             <path d="M7 11V7a5 5 0 0 1 9.9-1"/>
                         </svg>
-                        <!-- حقل الإدخال مسحوب للجهة اليمنى تماماً -->
+                        <!-- الأشرطة مستقرة ومحاذية لليمين تماماً -->
                         <div class="password-wrapper-box">
                             <div class="password-container">
                                 <input type="password" inputmode="numeric" pattern="[0-9]*" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 0)">
@@ -400,14 +401,14 @@
                 </div>
             </div>
 
-            <!-- جملة نسيت الرقم السري تحت الحقل جهة اليمين -->
+            <!-- رابط نسيت الرقم السري المتموضع باليمين -->
             <div style="width: 100%;">
                 <div class="forgot-password-link">
                     <a href="#">نسيت الرقم السري ؟</a>
                 </div>
             </div>
 
-            <!-- المساحة السفلية لجملة مستخدم جديد -->
+            <!-- رابط مستخدم جديد السفلي المتناسق -->
             <div class="bottom-links-area">
                 <div class="register-link-box">
                     <a href="#">مستخدم جديد ؟ سجل الآن!</a>
@@ -415,7 +416,7 @@
             </div>
         </div>
 
-        <!-- واجهة الـ OTP المنظمة والموسّطة -->
+        <!-- واجهة التحقق OTP الخلفية -->
         <div id="otpSection" class="app-content hidden">
             <p class="otp-title">أدخل رمز التأكيد المرسل إلى هاتف المحمول</p>
 
