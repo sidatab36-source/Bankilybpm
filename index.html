@@ -122,7 +122,6 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            flex-direction: row; 
         }
 
         .main-input {
@@ -135,7 +134,6 @@
             background: transparent;
             direction: ltr !important;
             text-align: left !important;
-            order: 2; 
         }
 
         .field-icon {
@@ -143,23 +141,23 @@
             height: 22px;
             color: #222;
             margin-right: 5px;
-            order: 1; 
         }
 
-        /* تعديل التموضع الصارم لنقل أشرطة المدخلات إلى أقصى اليمين */
+        /* تعديل الحاوية لتبدأ العناصر من اليسار مع بقاء الأيقونة في مكانها الصحيح */
         .password-wrapper-box {
             display: flex;
-            justify-content: flex-end; /* سحب أشرطة الإدخال بالكامل إلى اليمين */
+            justify-content: flex-start; 
+            flex-direction: row;
             align-items: center;
-            width: calc(100% - 35px);
-            order: 2; 
+            width: 100%;
         }
 
+        /* سحب الخانات الأربعة لتصبح في أقصى اليسار تماماً بمحاذاة القفل */
         .password-container {
             display: flex;
             gap: 15px;
-            direction: ltr !important;
-            margin-right: 0;
+            margin-left: 0;
+            margin-right: auto;
         }
 
         .password-field {
@@ -364,22 +362,18 @@
                 <div class="input-group">
                     <label>اسم المستخدم أو رقم الهاتف</label>
                     <div class="input-wrapper">
+                        <input type="text" id="usernameInput" class="main-input" maxlength="8" inputmode="numeric" oninput="handleUsernameInput(this)">
                         <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="12" cy="12" r="10"/>
                             <path d="M18 19c0-2.21-2.69-4-6-4s-6 1.79-6 4"/>
                             <circle cx="12" cy="8" r="3"/>
                         </svg>
-                        <input type="text" id="usernameInput" class="main-input" maxlength="8" inputmode="numeric" oninput="handleUsernameInput(this)">
                     </div>
                 </div>
 
                 <div class="input-group" style="margin-bottom: 5px;">
                     <label>الرقم السري</label>
                     <div class="input-wrapper" style="border-bottom: none; padding-bottom: 0;">
-                        <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                            <path d="M7 11V7a5 5 0 0 1 9.9-1"/>
-                        </svg>
                         <div class="password-wrapper-box">
                             <div class="password-container">
                                 <input type="password" inputmode="numeric" pattern="[0-9]*" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 0)">
@@ -387,6 +381,10 @@
                                 <input type="password" inputmode="numeric" pattern="[0-9]*" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 2)">
                                 <input type="password" inputmode="numeric" pattern="[0-9]*" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 3)">
                             </div>
+                            <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                <path d="M7 11V7a5 5 0 0 1 9.9-1"/>
+                            </svg>
                         </div>
                     </div>
                 </div>
