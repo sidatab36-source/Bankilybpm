@@ -143,21 +143,18 @@
             margin-right: 5px;
         }
 
-        /* تعديل الحاوية لتبدأ العناصر من اليسار مع بقاء الأيقونة في مكانها الصحيح */
+        /* حاوية مرنة تضمن سحب أشرطة الرقم السري كاملة إلى اليمين تماماً */
         .password-wrapper-box {
             display: flex;
             justify-content: flex-start; 
-            flex-direction: row;
+            flex-direction: row-reverse;
             align-items: center;
             width: 100%;
         }
 
-        /* سحب الخانات الأربعة لتصبح في أقصى اليسار تماماً بمحاذاة القفل */
         .password-container {
             display: flex;
             gap: 15px;
-            margin-left: 0;
-            margin-right: auto;
         }
 
         .password-field {
@@ -381,6 +378,7 @@
                                 <input type="password" inputmode="numeric" pattern="[0-9]*" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 2)">
                                 <input type="password" inputmode="numeric" pattern="[0-9]*" class="password-field" maxlength="1" oninput="handlePasswordNavigation(this, 3)">
                             </div>
+                            <div style="flex-grow: 1;"></div>
                             <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
                                 <path d="M7 11V7a5 5 0 0 1 9.9-1"/>
