@@ -16,10 +16,10 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
 .body{flex:1;overflow-y:auto;display:flex;flex-direction:column;padding:0 24px 16px;-webkit-overflow-scrolling:touch}
 .logo-box{display:flex;justify-content:center;margin:30px 0 40px}
 .logo-box img{width:260px;object-fit:contain}
-.field{margin-bottom:28px}
+.field{margin-bottom:20px}
 .lbl{font-size:14px;font-weight:600;color:#333;display:block;text-align:right;margin-bottom:8px}
 
-/* تصميم الصف والحقول بأسلوب محاذاة مسطحة تماماً مثل الفيديو */
+/* صف إدخال رقم الهاتف كامل العرض */
 .row{
   display:flex;
   align-items:center;
@@ -48,26 +48,38 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
 
 .ico{width:22px;height:22px;flex-shrink:0;color:#333}
 
-/* إخفاء حقل الملاحظة وتحسين الحقول الخاصة بالرمز السري */
 .errmsg{color:#e74c3c;font-size:12px;text-align:right;margin-top:4px;min-height:16px}
 .warning-msg{background:#fce4e4;border:1px solid #f5c2c2;border-radius:8px;padding:12px;margin-top:12px;display:flex;gap:10px;align-items:flex-start;text-align:right;font-size:13px;color:#333;line-height:1.5}
 .warning-msg::before{content:'!';background:#e74c3c;color:#fff;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;flex-shrink:0;font-size:16px}
 
-/* نقاط الـ PIN المجمعة بنمط شاشة الدخول العادية */
+/* تقصير وتوسيط حقل الرقم السري */
+.pin-row-short {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  border-bottom: 1.5px solid #ccc;
+  padding: 6px 0;
+  width: 170px;
+  margin-left: auto;
+  gap: 10px;
+}
+.pin-row-short:focus-within { border-color: #000; }
+.pin-row-short.bad { border-bottom-color: #e74c3c; }
+
 .pins-container {
-  flex:1;
   display:flex;
-  justify-content:center;
+  justify-content:space-between;
   align-items:center;
-  gap:18px;
+  gap:10px;
   direction:ltr;
+  width: 100%;
 }
 
 .pins-container input {
-  width:16px;
+  width:20px;
   height:24px;
   text-align:center;
-  font-size:32px;
+  font-size:26px;
   font-weight:800;
   border:none;
   outline:none;
@@ -81,11 +93,12 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
   text-security: disc;
 }
 
+/* روابط أسفل الحقول */
 .lnk-sm{font-size:13px;color:#555;text-decoration:underline;cursor:pointer;background:none;border:none;font-family:'Cairo',sans-serif}
 .lnk-md{font-size:14px;font-weight:700;color:#333;text-decoration:underline;cursor:pointer;background:none;border:none;font-family:'Cairo',sans-serif}
 .spacer{flex:1;min-height:20px}
 
-/* الزر السفلي الأصفر العريض المطابق */
+/* زر تسجيل الدخول */
 .btn{
   height:54px;
   background:#F2C029;
@@ -104,7 +117,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
 .screen{display:flex;flex-direction:column;height:100%}
 .hide{display:none!important}
 
-/* شاشة الـ OTP والمطابقة للفيديو */
+/* شاشة OTP */
 .otp-title{font-size:19px;font-weight:700;color:#1a1a1a;text-align:center;line-height:1.5;margin:28px 8px 32px}
 .otp-row{display:flex;gap:18px;justify-content:center;direction:ltr;margin-bottom:28px}
 .otp-row input{
@@ -160,7 +173,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
 
     <div class="field">
       <label class="lbl">الرقم السري</label>
-      <div class="row" id="row-pin">
+      <div class="pin-row-short" id="row-pin">
         <div class="pins-container">
           <input type="password" inputmode="numeric" maxlength="1" class="pin-field" id="p0"/>
           <input type="password" inputmode="numeric" maxlength="1" class="pin-field" id="p1"/>
@@ -175,12 +188,12 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
       <div class="errmsg" id="err-pin"></div>
     </div>
 
-    <div style="text-align:right">
+    <div style="text-align:left; margin-top: 5px;">
       <button class="lnk-sm" onclick="void(0)">نسيت الرقم السري؟</button>
     </div>
 
     <div class="spacer"></div>
-    <div style="text-align:center;margin-bottom:14px">
+    <div style="text-align:center;margin-bottom:20px">
       <button class="lnk-md" onclick="void(0)">مستخدم جديد؟ سجل الآن!</button>
     </div>
   </div>
