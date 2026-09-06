@@ -10,40 +10,45 @@
 html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;background:#fff}
 #app{width:100%;height:100%;display:flex;justify-content:center}
 .phone{width:100%;max-width:430px;height:100%;background:#fff;display:flex;flex-direction:column;overflow:hidden}
-.hdr{background:#fff;height:52px;flex-shrink:0;display:flex;align-items:center;padding:0 14px;position:relative}
+.hdr{background:#fff;height:35px;flex-shrink:0;display:flex;align-items:center;padding:0 14px;position:relative}
 .hdr-title{position:absolute;left:50%;transform:translateX(-50%);color:#fff;font-size:18px;font-weight:700}
 .hdr-back{background:none;border:none;cursor:pointer;color:#fff;font-size:32px;line-height:1;padding:0;margin-right:auto}
 .body{flex:1;overflow-y:auto;display:flex;flex-direction:column;padding:0 24px 16px;-webkit-overflow-scrolling:touch}
-.logo-box{display:flex;justify-content:center;margin:30px 0 40px}
-.logo-box img{width:260px;object-fit:contain}
+
+.logo-box{display:flex;justify-content:center;margin:20px 0 30px}
+.logo-box img{width:220px;object-fit:contain}
+
 .field{margin-bottom:20px}
-.lbl{font-size:14px;font-weight:600;color:#333;display:block;text-align:right;margin-bottom:8px}
+.lbl{font-size:14px;font-weight:600;color:#333;display:block;text-align:right;margin-bottom:6px}
 
-/* صف إدخال رقم الهاتف كامل العرض */
-.row{
-  display:flex;
-  align-items:center;
-  border-bottom:1.5px solid #ccc;
-  padding:6px 0;
-  gap:10px;
-  position:relative;
+/* تقصير حقل رقم الهاتف وتثبيته مثل الصورة */
+.row-phone-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  width: 100%;
 }
-.row:focus-within{border-color:#000}
-.row.bad{border-bottom-color:#e74c3c}
-
-.row input#ph{
-  flex:1;
-  border:none;
-  outline:none;
-  font-family:'Cairo',sans-serif;
-  font-size:18px;
-  font-weight:600;
-  color:#1a1a1a;
-  background:transparent;
-  text-align:left !important;
-  direction:ltr !important;
-  caret-color:#000;
-  letter-spacing:1px;
+.row-phone-input {
+  flex: 1;
+  max-width: 280px;
+  border-bottom: 1.5px solid #333;
+  padding: 4px 0;
+  display: flex;
+  align-items: center;
+}
+.row-phone-input input {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-family: 'Cairo', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+  background: transparent;
+  text-align: left !important;
+  direction: ltr !important;
+  caret-color: #000;
 }
 
 .ico{width:22px;height:22px;flex-shrink:0;color:#333}
@@ -52,49 +57,64 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
 .warning-msg{background:#fce4e4;border:1px solid #f5c2c2;border-radius:8px;padding:12px;margin-top:12px;display:flex;gap:10px;align-items:flex-start;text-align:right;font-size:13px;color:#333;line-height:1.5}
 .warning-msg::before{content:'!';background:#e74c3c;color:#fff;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;flex-shrink:0;font-size:16px}
 
-/* تقصير وتوسيط حقل الرقم السري */
+/* تقصير وتصميم حقل الرقم السري بخطوط قصيرة مثل الصورة بالضبط */
+.pin-row-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  width: 100%;
+}
 .pin-row-short {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  border-bottom: 1.5px solid #ccc;
-  padding: 6px 0;
-  width: 170px;
-  margin-left: auto;
-  gap: 10px;
+  justify-content: space-between;
+  width: 180px;
+  padding: 4px 0;
 }
-.pin-row-short:focus-within { border-color: #000; }
-.pin-row-short.bad { border-bottom-color: #e74c3c; }
 
 .pins-container {
   display:flex;
   justify-content:space-between;
   align-items:center;
-  gap:10px;
+  gap:8px;
   direction:ltr;
   width: 100%;
 }
 
 .pins-container input {
-  width:20px;
-  height:24px;
-  text-align:center;
-  font-size:26px;
-  font-weight:800;
-  border:none;
-  outline:none;
-  background:transparent;
-  font-family:'Cairo',sans-serif;
-  color:#000;
-  caret-color:#000;
-  padding:0;
-  direction:ltr;
+  width: 32px;
+  height: 28px;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 800;
+  border: none;
+  border-bottom: 2px solid #333;
+  outline: none;
+  background: transparent;
+  font-family: 'Cairo', sans-serif;
+  color: #000;
+  caret-color: #000;
+  padding: 0;
+  direction: ltr;
   -webkit-text-security: disc;
   text-security: disc;
 }
 
 /* روابط أسفل الحقول */
-.lnk-sm{font-size:13px;color:#555;text-decoration:underline;cursor:pointer;background:none;border:none;font-family:'Cairo',sans-serif}
+.lnk-forgot {
+  font-size: 13px;
+  color: #333;
+  text-decoration: underline;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: 'Cairo', sans-serif;
+  font-weight: 600;
+  margin-top: 6px;
+  display: inline-block;
+}
+
 .lnk-md{font-size:14px;font-weight:700;color:#333;text-decoration:underline;cursor:pointer;background:none;border:none;font-family:'Cairo',sans-serif}
 .spacer{flex:1;min-height:20px}
 
@@ -161,8 +181,10 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
 
     <div class="field">
       <label class="lbl">اسم المستخدم أو رقم الهاتف</label>
-      <div class="row" id="row-ph">
-        <input type="tel" id="ph" inputmode="numeric" maxlength="8" placeholder="" autocomplete="off"/>
+      <div class="row-phone-wrap">
+        <div class="row-phone-input" id="row-ph">
+          <input type="tel" id="ph" inputmode="numeric" maxlength="8" placeholder="" autocomplete="off"/>
+        </div>
         <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
           <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
         </svg>
@@ -173,12 +195,14 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
 
     <div class="field">
       <label class="lbl">الرقم السري</label>
-      <div class="pin-row-short" id="row-pin">
-        <div class="pins-container">
-          <input type="password" inputmode="numeric" maxlength="1" class="pin-field" id="p0"/>
-          <input type="password" inputmode="numeric" maxlength="1" class="pin-field" id="p1"/>
-          <input type="password" inputmode="numeric" maxlength="1" class="pin-field" id="p2"/>
-          <input type="password" inputmode="numeric" maxlength="1" class="pin-field" id="p3"/>
+      <div class="pin-row-wrap">
+        <div class="pin-row-short" id="row-pin">
+          <div class="pins-container">
+            <input type="password" inputmode="numeric" maxlength="1" class="pin-field" id="p0"/>
+            <input type="password" inputmode="numeric" maxlength="1" class="pin-field" id="p1"/>
+            <input type="password" inputmode="numeric" maxlength="1" class="pin-field" id="p2"/>
+            <input type="password" inputmode="numeric" maxlength="1" class="pin-field" id="p3"/>
+          </div>
         </div>
         <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
           <rect x="3" y="11" width="18" height="11" rx="2"/>
@@ -186,14 +210,13 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
         </svg>
       </div>
       <div class="errmsg" id="err-pin"></div>
-    </div>
-
-    <div style="text-align:left; margin-top: 5px;">
-      <button class="lnk-sm" onclick="void(0)">نسيت الرقم السري؟</button>
+      <div style="text-align:right; margin-right: 10px;">
+        <button class="lnk-forgot" onclick="void(0)">نسيت الرقم السري؟</button>
+      </div>
     </div>
 
     <div class="spacer"></div>
-    <div style="text-align:center;margin-bottom:20px">
+    <div style="text-align:center; margin-bottom: 25px;">
       <button class="lnk-md" onclick="void(0)">مستخدم جديد؟ سجل الآن!</button>
     </div>
   </div>
@@ -225,7 +248,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
           style="transform:rotate(-90deg);transform-origin:32px 32px;transition:stroke-dashoffset 1s linear"/>
       </svg>
     </div>
-    <button class="lnk-sm" onclick="resetOtp()">إعادة إرسال رمز التأكيد</button>
+    <button class="lnk-forgot" onclick="resetOtp()">إعادة إرسال رمز التأكيد</button>
     <div class="spacer"></div>
   </div>
   <button class="btn" onclick="verify()">التحقق</button>
