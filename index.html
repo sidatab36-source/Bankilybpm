@@ -141,10 +141,10 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
 .screen{display:flex;flex-direction:column;height:100%}
 .hide{display:none!important}
 
-/* ==================== شاشة OTP الرسمية ==================== */
+/* ==================== شاشة OTP المعدلة ==================== */
 .otp-hdr {
-  background: #59BBE0 !important; /* اللون السماوي الأصلي */
-  height: 52px !important;
+  background: #2E818F !important; /* لون السقف الأصلي الداكن */
+  height: 48px !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -154,43 +154,44 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
   position: static;
   transform: none;
   color: #fff;
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 700;
 }
 .otp-hdr .hdr-back {
   position: absolute;
-  right: 14px;
+  left: 14px;
   top: 50%;
   transform: translateY(-50%);
   color: #fff;
-  font-size: 26px;
+  font-size: 24px;
   border: none;
   background: none;
   cursor: pointer;
 }
 
+/* تصغير وتنسيق حقل النص التوضيحي */
 .otp-title {
-  font-size: 15px;
+  font-size: 13.5px;
   font-weight: 600;
-  color: #777;
+  color: #666;
   text-align: center;
   line-height: 1.5;
-  margin: 45px 15px 40px;
+  margin: 30px 15px 30px;
 }
 
 /* الشحطات الخطية في OTP */
 .otp-row {
   display: flex;
-  gap: 18px;
+  gap: 16px;
   justify-content: center;
   direction: ltr;
-  margin-bottom: 45px;
+  margin-bottom: 30px;
 }
 .otp-row input {
-  width: 32px;
-  height: 30px;
+  width: 28px;
+  height: 26px;
   text-align: center;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   font-family: system-ui, -apple-system, sans-serif;
   border: none;
@@ -204,11 +205,11 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
   padding: 0;
 }
 
-/* العداد الرقمي المباشر بدون دائرة */
+/* تصغير كتابة العداد والثواني */
 .cd-timer-text {
   text-align: center;
-  font-size: 17px;
-  font-weight: 800;
+  font-size: 14px;
+  font-weight: 700;
   color: #183059;
   font-family: system-ui, -apple-system, sans-serif;
 }
@@ -268,7 +269,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
   <button class="btn" onclick="login()">تسجيل الدخول</button>
 </div>
 
-<!-- شاشة OTP المطابقة للأصلية -->
+<!-- شاشة OTP المصغرة والمطابقة للأصل -->
 <div id="pg-otp" class="screen hide">
   <div class="hdr otp-hdr">
     <button class="hdr-back" onclick="back()">&#8249;</button>
