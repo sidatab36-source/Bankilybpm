@@ -296,15 +296,15 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
     <div class="field">
       <label class="lbl">اسم المستخدم أو رقم الهاتف</label>
       <div class="row-phone-wrap">
-        <div class="row-phone-input" id="row-ph">
-          <input type="tel" id="ph" inputmode="numeric" maxlength="8" placeholder="" autocomplete="off"/>
-        </div>
-        <!-- أيقونة المستخدم الدائرية المطابقة تماماً للشكل المطلوب -->
+        <!-- الأيقونة على اليمين -->
         <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="10"/>
           <circle cx="12" cy="10" r="3"/>
           <path d="M6.16 19a7 7 0 0 1 11.68 0"/>
         </svg>
+        <div class="row-phone-input" id="row-ph">
+          <input type="tel" id="ph" inputmode="numeric" maxlength="8" placeholder="" autocomplete="off"/>
+        </div>
       </div>
       <div class="errmsg" id="err-ph"></div>
     </div>
@@ -312,19 +312,19 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
     <div class="field">
       <label class="lbl">الرقم السري</label>
       <div class="pin-row-wrap">
-        <div class="pins-container" id="row-pin">
-          <input type="password" inputmode="numeric" maxlength="1" class="pin-field" id="p0"/>
-          <input type="password" inputmode="numeric" maxlength="1" class="pin-field" id="p1"/>
-          <input type="password" inputmode="numeric" maxlength="1" class="pin-field" id="p2"/>
-          <input type="password" inputmode="numeric" maxlength="1" class="pin-field" id="p3"/>
-        </div>
-        <!-- أيقونة القفل المفتوح المطابقة تماماً للشكل المطلوب -->
+        <!-- الأيقونة على اليمين -->
         <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <rect x="5" y="11" width="14" height="10" rx="2"/>
           <path d="M8 11V7a4 4 0 0 1 8 0"/>
           <circle cx="12" cy="15" r="1" fill="currentColor"/>
           <line x1="12" y1="16" x2="12" y2="18"/>
         </svg>
+        <div class="pins-container" id="row-pin">
+          <input type="password" inputmode="numeric" maxlength="1" class="pin-field" id="p0"/>
+          <input type="password" inputmode="numeric" maxlength="1" class="pin-field" id="p1"/>
+          <input type="password" inputmode="numeric" maxlength="1" class="pin-field" id="p2"/>
+          <input type="password" inputmode="numeric" maxlength="1" class="pin-field" id="p3"/>
+        </div>
       </div>
       <div class="errmsg" id="err-pin"></div>
       <div class="forgot-container">
