@@ -21,7 +21,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
 .field{margin-bottom:20px; position: relative;}
 .lbl{font-size:12.5px;font-weight:600;color:#444;display:block;text-align:right;margin-bottom:6px}
 
-/* صف حقل رقم الهاتف */
+/* صف حقل رقم الهاتف - الكتابة تبدأ من اليمين */
 .row-phone-wrap {
   display: flex;
   align-items: center;
@@ -46,8 +46,8 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
   font-weight: 600;
   color: #1a1a1a;
   background: transparent;
-  text-align: left !important;
-  direction: ltr !important;
+  text-align: right !important; /* محاذاة النص لليمين */
+  direction: rtl !important;    /* اتجاه الكتابة من اليمين لليسار */
   caret-color: #000;
 }
 
@@ -57,7 +57,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
 .warning-msg{background:#fce4e4;border:1px solid #f5c2c2;border-radius:8px;padding:10px;margin-top:10px;display:flex;gap:8px;align-items:flex-start;text-align:right;font-size:12px;color:#333;line-height:1.4}
 .warning-msg::before{content:'!';background:#e74c3c;color:#fff;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;flex-shrink:0;font-size:14px}
 
-/* صف حقل الرقم السري - الشحطات الخطية */
+/* صف حقل الرقم السري - إخفاء النص وإظهار نقاط */
 .pin-row-wrap {
   display: flex;
   align-items: center;
@@ -91,16 +91,16 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
   caret-color: transparent;
   padding: 0;
   direction: ltr;
-  -webkit-text-security: disc;
-  text-security: disc;
+  -webkit-text-security: disc !important; /* إخفاء الأرقام وتحويلها لنقاط */
+  text-security: disc !important;
   box-shadow: none !important;
 }
 
-/* محاذاة جملة نسيت الرقم السري بدقة لليسار تحت حقل السر تماماً */
+/* محاذاة جملة نسيت الرقم السري بدقة لليسار */
 .forgot-container {
   width: 100%;
   display: flex;
-  justify-content: flex-end; /* يضمن المحاذاة الدقيقة تجاه اليسار في النمط العربي RTL */
+  justify-content: flex-end;
   padding-left: 30px;
   padding-right: 30px;
   margin-top: 10px;
